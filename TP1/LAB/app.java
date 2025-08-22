@@ -8,6 +8,7 @@ public class app {
         base.addSuscriber(new ColoniaCientifica());
         base.addSuscriber(new ColoniaMilitar());
         base.addSuscriber(new ColoniaResidencial());
+        base.addSuscriber(new ColoniaResidencial());
         base.addSuscriber(new CruceroEspacial());
 
         // Método manual de generación de eventos aleatorios

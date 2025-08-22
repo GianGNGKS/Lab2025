@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BaseCentral {
-    private final List<Colonia> colonias = new ArrayList<>();
+    private final List<IntegranteBase> colonias = new ArrayList<>();
 
-    public void addSuscriber(Colonia nuevaColonia){
+    public void addSuscriber(IntegranteBase nuevaColonia){
         colonias.add(nuevaColonia);
     }
 
-    public void removeSuscriber(Colonia colonia){
+    public void removeSuscriber(IntegranteBase colonia){
         colonias.remove(colonia);
     }
 
     public void notifySuscribers(Evento evento) {
         System.out.println("¡Nuevo evento detectado! "+ evento);
-        for (Colonia colonia : colonias) {
+        for (IntegranteBase colonia : colonias) {
             colonia.update(evento);
         }
     }
