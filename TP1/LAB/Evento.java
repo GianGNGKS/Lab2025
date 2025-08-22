@@ -1,5 +1,21 @@
 package TP1.LAB;
 
 public enum Evento {
-    METEORITOS, DESCUBRIMIENTO, INVASION, ESCASEZ_SUMINISTROS, AGUJERO_NEGRO
+    METEORITOS("Meteoritos"),
+    DESCUBRIMIENTO("Descubrimiento"),
+    INVASION("Invasión"), 
+    ESCASEZ_SUMINISTROS("Escasez de suministros"), 
+    AGUJERO_NEGRO("Agujero negro");
+
+    private final String displayName;
+
+    Evento(String displayName){
+        this.displayName = displayName;
+    }
+
+    @Override
+    public String toString(){
+        return displayName;
+    }
+
 }
