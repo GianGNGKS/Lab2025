@@ -1,11 +1,11 @@
-package TP1.LAB;
+package TP1.LAB.Observer;
 
 public class CruceroEspacial extends Colonia {
 
     @Override
     public void update(Evento nuevoEvento) {
         if (nuevoEvento == Evento.AGUJERO_NEGRO || nuevoEvento == Evento.METEORITOS) {
-            System.out.println("¡El crucero espacial " + getId() + " está bajo amenaza! " + nuevoEvento);
+            System.out.println("¡El crucero espacial " + getId() + " está bajo amenaza! " + nuevoEvento + ".");
         }
     }
 }

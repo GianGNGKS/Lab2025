@@ -1,4 +1,4 @@
-package TP1.LAB;
+package TP1.LAB.Observer;
 
 public abstract class Colonia implements IntegranteBase {
     private static int contador = 0; // Contador estático para asignar ID únicos

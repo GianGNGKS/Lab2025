@@ -1,6 +1,6 @@
-package TP1.LAB;
+package TP1.LAB.Observer;
 
-public class app {
+public class appObserver {
     public static void main(String[] args) {
         BaseCentral base = new BaseCentral();
 
@@ -16,15 +16,14 @@ public class app {
         java.util.Random random = new java.util.Random();
         Evento[] eventos = Evento.values();
 
-        System.out.println("Generador manual de eventos aleatorios. Escriba 'salir' para terminar.");
+        System.out.println("Generador manual de eventos aleatorios. Escriba '.' para terminar.");
         while (true) {
-            System.out.print("\nPresione Enter para generar un evento aleatorio ('salir' para terminar): ");
+            System.out.print("\nPresione Enter para generar un evento aleatorio ('.' para terminar): ");
             String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("salir")) {
+            if (input.equals(".")) {
                 break;
             }
             Evento eventoAleatorio = eventos[random.nextInt(eventos.length)];
-            System.out.println("Evento generado: " + eventoAleatorio);
             base.notifySuscribers(eventoAleatorio);
         }
         scanner.close();

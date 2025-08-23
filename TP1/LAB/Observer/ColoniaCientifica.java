@@ -1,4 +1,4 @@
-package TP1.LAB;
+package TP1.LAB.Observer;
 
 public class ColoniaCientifica extends Colonia {
 

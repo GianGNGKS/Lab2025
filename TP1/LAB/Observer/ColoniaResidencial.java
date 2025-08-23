@@ -1,4 +1,4 @@
-package TP1.LAB;
+package TP1.LAB.Observer;
 
 public class ColoniaResidencial extends Colonia {
 
@@ -6,7 +6,8 @@ public class ColoniaResidencial extends Colonia {
     public void update(Evento nuevoEvento) {
         if (nuevoEvento == Evento.ESCASEZ_SUMINISTROS || nuevoEvento == Evento.INVASION
                 || nuevoEvento == Evento.METEORITOS) {
-            System.out.println("¡La colonia residencial " + getId() + " enfrenta una nueva crisis! " + nuevoEvento);
+            System.out
+                    .println("¡La colonia residencial " + getId() + " enfrenta una nueva crisis! " + nuevoEvento + ".");
         }
     }
 }
