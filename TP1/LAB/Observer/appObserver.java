@@ -24,7 +24,7 @@ public class appObserver {
                 break;
             }
             Evento eventoAleatorio = eventos[random.nextInt(eventos.length)];
-            base.notifySuscribers(eventoAleatorio);
+            base.recibirEvento(eventoAleatorio);
         }
         scanner.close();
         System.out.println("Fin de la simulación.");

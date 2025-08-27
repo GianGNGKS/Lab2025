@@ -5,6 +5,7 @@ import java.util.List;
 
 public class BaseCentral {
     private final List<IntegranteBase> colonias = new ArrayList<>();
+    private Evento eventoActual;
 
     public void addSuscriber(IntegranteBase nuevaColonia){
         colonias.add(nuevaColonia);
@@ -12,6 +13,11 @@ public class BaseCentral {
 
     public void removeSuscriber(IntegranteBase colonia){
         colonias.remove(colonia);
+    }
+
+    public void recibirEvento(Evento evento){
+        this.eventoActual = evento;
+        notifySuscribers(evento);
     }
 
     public void notifySuscribers(Evento evento) {
