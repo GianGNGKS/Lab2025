@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BaseCentral {
+    // BaseCentral (Publisher) -> IntegranteBase (Subscriber)
     private final List<IntegranteBase> colonias = new ArrayList<>();
     private Evento eventoActual;
 
