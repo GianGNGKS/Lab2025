@@ -7,23 +7,24 @@ public class BaseCentral {
     private final List<IntegranteBase> colonias = new ArrayList<>();
     private Evento eventoActual;
 
-    public void addSuscriber(IntegranteBase nuevaColonia){
+    public void addSuscriber(IntegranteBase nuevaColonia) {
         colonias.add(nuevaColonia);
     }
 
-    public void removeSuscriber(IntegranteBase colonia){
+    public void removeSuscriber(IntegranteBase colonia) {
         colonias.remove(colonia);
     }
 
-    public void recibirEvento(Evento evento){
-        this.eventoActual = evento;
-        notifySuscribers(evento);
+    public void recibirEvento(Evento evento) {
+        eventoActual = evento;
+        notifySuscribers();
     }
 
-    public void notifySuscribers(Evento evento) {
-        System.out.println("¡Nuevo evento detectado! "+ evento);
+    public void notifySuscribers() {
+        System.out.println("¡Nuevo evento detectado! " + eventoActual);
+        System.out.println("Notificando a " + colonias.size() + " colonias...");
         for (IntegranteBase colonia : colonias) {
-            colonia.update(evento);
+            colonia.update(eventoActual);
         }
     }
 }
