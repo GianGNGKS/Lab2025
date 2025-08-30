@@ -1,6 +1,5 @@
 package TP1.LAB.ForkJoin;
 
-import java.util.Scanner;
 import java.util.concurrent.ForkJoinPool;
 
 public class appFork {
