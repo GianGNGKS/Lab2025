@@ -1,7 +1,7 @@
 package TP1.LAB.Observer;
 
 public class ColoniaMilitar implements IntegranteBase {
-
+    // ColoniaMilitar (subscriber) - reacciona solo al evento INVASION
     @Override
     public void update(Evento nuevoEvento) {
         if (nuevoEvento == Evento.INVASION) {
