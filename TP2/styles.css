@@ -2,20 +2,62 @@ body {
     background-color: #0d0d0d;
     color: white;
     margin: 0;
-    font-family: Arial, sans-serif;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    /* Header, banner, main, footer */
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+    /* ocupa toda la pantalla */
+    margin: 0;
+    font-family: Inter, sans-serif;
+}
+
+header {
+    grid-row: 1;
+    background: #111;
+    color: white;
+    padding: 1rem;
+    border: red 1px solid;
+}
+
+#banner {
+    grid-row: 2;
+    background: #eee;
+    padding: 2rem;
+    border: blue 1px solid;
+}
+
+main {
+    grid-row: 3;
+    background: #fff;
+    padding: 2rem;
+    border: green 3px solid;
 }
 
 footer {
+    grid-row: 4;
+    padding: 1rem;
+    margin-top: 2vw;
+
     display: flex;
-    align-items: center;
+    justify-content: center;
     flex-direction: column;
     text-align: center;
     font-size: 1vw;
     padding: 1vw;
-    color: #fff;
-    background-color: #6d6d6d;
-    margin-top: 2vw;
+    background: #111;
+    color: white;
 }
+
+#fai-info{
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+    margin: 1em 0;
+}
+
+/* 
 
 #fai-info {
     display: flex;
@@ -50,4 +92,4 @@ footer ul {
 footer a {
     color: white;
     text-decoration: none;
-}
+} */
