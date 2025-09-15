@@ -17,7 +17,6 @@ header {
     background: #111;
     color: white;
     padding: 1rem;
-    border: red 1px solid;
 }
 
 #banner {
@@ -36,42 +35,101 @@ header {
     width: 50%;
 }
 
+/* Estilos para el main (intro y torneos) */
+
 main {
     grid-row: 3;
-    background: #fff;
-    padding: 2rem;
-    border: green 3px solid;
+    background: #444;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "intro"
+        "torneos";
 }
+
+#intro {
+    grid-area: intro;
+    background-color: #222222;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem
+}
+
+#intro p {
+    margin: 2vw 10vw;
+}
+
+#torneos {
+    grid-area: torneos;
+    margin-top: 1rem;
+}
+
+#torneos-box {
+    padding: 0.5rem;
+    max-width: 15rem;
+    /* 240px siendo 1rem = 16px */
+    background-color: brown;
+    margin: 1rem auto;
+    /* Arriba/abajo, izq/der */
+}
+
+#torneos-box h3,
+#torneos-box p {
+    margin: .5rem;
+    text-decoration: none;
+    color: white;
+}
+
+#torneos-box a {
+    margin: 0;
+    display: block;
+    width: auto;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem;
+    border-radius: 2px;
+    transition: background 0.3s ease;
+}
+
+#torneos-box a:hover {
+    background-color: #a00;
+}
+
+#torneos-list {
+    padding: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 90vw;
+    margin: 0 auto;
+    background-color: #090909;
+    min-height: 600px;
+}
+
+
+/* Estilos para el footer */
 
 footer {
     grid-row: 4;
     padding: 1rem;
-    margin-top: 2vw;
+    /* margin-top: 2vw; */
 
     display: flex;
     justify-content: center;
     flex-direction: column;
     text-align: center;
-    font-size: 1vw;
+    font-size: .75vw;
     padding: 1vw;
     background: #111;
-    color: white;
 }
-
-#fai-info{
-    display: flex;
-    gap: 1em;
-    align-items: center;
-    justify-content: center;
-    margin: 1em 0;
-}
-
-/* 
 
 #fai-info {
     display: flex;
-    align-items: center;
     gap: 1em;
+    align-items: center;
     justify-content: center;
     margin: 1em 0;
 }
@@ -80,25 +138,19 @@ footer {
     width: 80px;
     height: auto;
     object-fit: contain;
+    stroke: white;
 }
 
-#fai-info p {
-    font-size: 1em;
-    margin: 0;
-    flex: 1;
-    text-align: left;
-}
-
-footer ul {
+#contact-info ul {
     list-style: none;
-    padding: 0;
+    padding: .5vw;
     margin: 0;
     display: flex;
     justify-content: center;
     gap: 2vw;
 }
 
-footer a {
-    color: white;
+#contact-info a {
+    color: #d3d3d3;
     text-decoration: none;
-} */
+}
