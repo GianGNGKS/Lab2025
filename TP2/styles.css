@@ -22,9 +22,18 @@ header {
 
 #banner {
     grid-row: 2;
-    background: #eee;
+    background: linear-gradient(to left, rgb(0 0 0 / 0), rgb(0 0 0 / 1)), url(images/7770538.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 30rem;
     padding: 2rem;
     border: blue 1px solid;
+}
+
+.banner-texto {
+    color: #fff;
+    text-align: center;
+    width: 50%;
 }
 
 main {
