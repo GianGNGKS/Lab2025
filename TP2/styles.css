@@ -12,11 +12,55 @@ body {
     font-family: Inter, sans-serif;
 }
 
-header {
+/*Estilos para el header*/
+
+#main-header {
     grid-row: 1;
-    background: #111;
-    color: white;
-    padding: 1rem;
+    background: linear-gradient(90deg, #111, #444);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Contenedor nav */
+#nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0;
+}
+
+/* Título */
+#main-header h1 {
+    font-size: 1.8rem;
+    letter-spacing: .5rem;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+
+/* Links */
+#nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+#nav-links a {
+    text-decoration: none;
+    color: #ddd;
+    font-weight: 500;
+    font-size: 1.2rem;
+    letter-spacing: .2rem;
+    transition: color 0.3s ease;
+}
+
+#nav-links a:hover {
+    color: brown;
 }
 
 #banner {
@@ -26,14 +70,27 @@ header {
     background-position: center;
     height: 30rem;
     padding: 2rem;
-    border: blue 1px solid;
+    display: grid;
 }
 
-.banner-texto {
+#banner div {
     color: #fff;
     text-align: center;
-    width: 50%;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
+.banner-texto-izq {
+    grid-column: 1;
+}
+
+.banner-texto-der {
+    grid-column: 2;
+}
+
 
 /* Estilos para el main (intro y torneos) */
 
@@ -54,7 +111,8 @@ main {
     align-items: center;
     text-align: center;
     padding: 2rem;
-    font-size: 1.2rem
+    font-size: 1.2rem;
+    background: linear-gradient(90deg, #111, #444);
 }
 
 #intro p {
@@ -63,7 +121,8 @@ main {
 
 #torneos {
     grid-area: torneos;
-    margin-top: 1rem;
+    padding-top: 1rem;
+    background-color: #222;
 }
 
 #torneos-box {
