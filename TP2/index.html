@@ -4,36 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torneos</title>
+    <title>Thorneos</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-
     <!-- Header -->
     <header id="main-header">
         <nav id="nav-container">
-            <h1>Torneos</h1>
+            <h1>Thorneos |</h1>
             <ul id="nav-links">
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="#">Torneos</a></li>
+                <!-- ? 1. Evaluar si hacemos página extra para toda la lista de 
+                torneos <li><a href="#">Torneos</a></li> -->
                 <li><a href="#">Contacto</a></li>
             </ul>
         </nav>
     </header>
-    
+
     <!-- Banner -->
     <section id="banner">
-        <div class="banner-texto-izq">
-            <h2>Torneos</h2>
+        <div>
+            <h2>Thorneos</h2>
+        </div>
+        <div>
+            <h1>aaaaa</h1>
             <ul>
                 <li>Lorem Ipsum Dolor Sit Amet</li>
                 <li>Lorem Ipsum Dolor Sit Amet</li>
                 <li>Lorem Ipsum Dolor Sit Amet</li>
             </ul>
-        </div>
-        <div class="banner-texto-der">
-            <h1>aaaaa</h1>
         </div>
     </section>
 
@@ -53,26 +53,28 @@
 
         <!-- Cuerpo de torneos -->
         <section id="torneos">
-            <div id="torneos-box">
-                <h3>Nuestros torneos</h3>
-                <p>Elegí tu favorito y participá!</p>
+            <div class="torneos-box">
+                <h1 id="torneos-titulo">Nuestros torneos</h1>
+                <p id="torneos-subtitulo">Elegí tu favorito y participá!</p>
             </div>
             <section id="torneos-list">
                 <!-- Torneo 1, Torneo 2... -->
             </section>
-            <div id="torneos-box">
+            <!-- ? 1. <div class="torneos-box">
                 <a href="#">Ver todos los torneos</a>
-            </div>
+            </div> -->
         </section>
     </main>
 
     <!-- Footer -->
     <footer>
-        <div id="fai-info">
-            <img src="images/fai-logo.png" alt="Logo de la facultad">
+        <div class="footer-info">
+            <a href="https://www.fi.uncoma.edu.ar">
+                <img src="images/fai-logo.png" alt="Logo de la facultad">
+            </a>
             <p>Facultad de informática, Universidad Nacional del Comahue</p>
         </div>
-        <div id="contact-info">
+        <div class="footer-info">
             <ul>
                 <li><a href="mailto:donato.trobbiani@est.fi.uncoma.edu.ar">Donato Trobbiani Perales</a></li>
                 <li>-</li>
@@ -80,7 +82,6 @@
             </ul>
         </div>
     </footer>
-
 </body>
 
 </html>

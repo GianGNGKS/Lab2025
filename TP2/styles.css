@@ -1,215 +1,257 @@
+:root {
+    /* ! Variables CSS, utilizar con var(nombre)*/
+    --color-1: #444;
+    --color-2: #2b2b2b;
+    --color-3: #151515;
+    --acento-primario: #b40000;
+    --acento-secundario: #ff0000;
+    --acento-terciario: #ff4d65;
+    --texto-primario: #fff;
+    --texto-secundario: #ddd;
+    --fuente-primaria: 'Inter', sans-serif;
+}
+
+/** Documento global */
 body {
-    background-color: #0d0d0d;
-    color: white;
+    background-color: var(--color-1);
+    color: var(--texto-primario);
+    font-family: var(--fuente-primaria);
+
     margin: 0;
     display: grid;
     grid-template-rows: auto auto 1fr auto;
-    /* Header, banner, main, footer */
     grid-template-columns: 1fr;
     min-height: 100vh;
-    /* ocupa toda la pantalla */
-    margin: 0;
-    font-family: Inter, sans-serif;
 }
 
-/*Estilos para el header*/
-
+/** Header */
 #main-header {
     grid-row: 1;
-    background: linear-gradient(90deg, #111, #444);
+    background: linear-gradient(90deg, var(--color-2), var(--color-3));
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    padding: 1rem 2rem;
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
-/* Contenedor nav */
+/** Navegación */
 #nav-container {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
-    margin: 0 0;
+    gap: 4rem;
 }
 
-/* Título */
+/** Header */
 #main-header h1 {
-    font-size: 1.8rem;
-    letter-spacing: .5rem;
+    font-size: clamp(1rem, 1.2rem, 1.5rem);
+    letter-spacing: .1rem;
+    font-weight: bold;
+    font-style: italic;
     margin: 0;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
-
-/* Links */
+/** Lista de links */
 #nav-links {
-    list-style: none;
     display: flex;
-    gap: 1.5rem;
+    flex-wrap: wrap;
+    flex: 1;
+    justify-content: end;
+    gap: 1rem;
     margin: 0;
     padding: 0;
+    list-style: none;
 }
 
+/** Links de navegación */
 #nav-links a {
     text-decoration: none;
-    color: #ddd;
-    font-weight: 500;
-    font-size: 1.2rem;
-    letter-spacing: .2rem;
+    color: var(--texto-secundario);
+    font-weight: 400;
+    font-size: clamp(1rem, 1.2rem, 1.5rem);
+    letter-spacing: 0.15rem;
     transition: color 0.3s ease;
+    justify-content: end;
+    text-decoration: solid underline transparent;
+    text-underline-offset: 0.3rem;
 }
 
+/** Hover: links de navegación */
 #nav-links a:hover {
-    color: brown;
+    color: var(--acento-terciario);
+    text-decoration-color: var(--acento-primario);
 }
 
+/** Banner */
 #banner {
     grid-row: 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 4rem;
+    padding: 2rem;
+    min-height: 20rem;
     background: linear-gradient(to left, rgb(0 0 0 / 0), rgb(0 0 0 / 1)), url(images/7770538.jpg);
     background-size: cover;
     background-position: center;
-    height: 30rem;
-    padding: 2rem;
-    display: grid;
 }
 
+/** Columnas del banner */
 #banner div {
-    color: #fff;
     text-align: center;
-    width: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
 }
 
-.banner-texto-izq {
-    grid-column: 1;
-}
-
-.banner-texto-der {
-    grid-column: 2;
-}
-
-
-/* Estilos para el main (intro y torneos) */
-
+/** Main */
 main {
     grid-row: 3;
-    background: #444;
+    background: var(--color-1);
     display: grid;
-    align-items: center;
     grid-template-columns: 1fr;
-    grid-template-areas:
-        "intro"
-        "torneos";
 }
 
+/** Introducción de la página */
 #intro {
-    grid-area: intro;
-    background-color: #222222;
-    align-items: center;
+    background: linear-gradient(90deg, var(--color-2), var(--color-3));
     text-align: center;
-    padding: 2rem;
-    font-size: 1.2rem;
-    background: linear-gradient(90deg, #111, #444);
+    padding: clamp(1rem, 3vw, 2rem);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
 }
 
+/** Párrafo de introducción */
 #intro p {
-    margin: 2vw 10vw;
+    margin: 0 auto;
+    line-height: 2rem;
+    max-width: 80ch;
 }
 
+/** Torneos */
 #torneos {
-    grid-area: torneos;
-    padding-top: 1rem;
-    background-color: #222;
+    padding: 1rem 0 2rem 0;
+    background-color: var(--color-3);
 }
 
-#torneos-box {
+/** Caja "énfasis torneos" */
+.torneos-box {
     padding: 0.5rem;
-    max-width: 15rem;
-    /* 240px siendo 1rem = 16px */
-    background-color: brown;
-    margin: 1rem auto;
-    /* Arriba/abajo, izq/der */
+    max-width: 20rem;
+    background-color: var(--acento-primario);
+    margin: 1rem auto 2rem auto;
+    letter-spacing: 0.2rem;
+    text-align: center;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(29, 26, 26, 0.2);
 }
 
-#torneos-box h3,
-#torneos-box p {
-    margin: .5rem;
-    text-decoration: none;
+#torneo-titulos {
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
     color: white;
 }
 
-#torneos-box a {
-    margin: 0;
+#torneos-subtitulo {
+    margin: 1rem 0;
+    text-decoration: solid underline;
+    text-underline-offset: 0.5rem;
+    font-weight: bold;
+    color: var(--texto-secundario);
+}
+
+/* #torneos-box a {
     display: block;
-    width: auto;
-    text-decoration: none;
     color: white;
     font-weight: bold;
     padding: 0.5rem;
+    text-decoration: none;
     border-radius: 2px;
     transition: background 0.3s ease;
 }
 
 #torneos-box a:hover {
     background-color: #a00;
-}
+} */
 
+/* !TERMINAR Lista de torneos*/
 #torneos-list {
-    padding: 0.5rem;
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
     max-width: 90vw;
     margin: 0 auto;
-    background-color: #090909;
-    min-height: 600px;
+    background-color: var(--color-2);
+    min-height: 400px;
+    border-radius: 4px;
+    outline: 1px solid var(--acento-secundario);
+    transition: outline 0.5s ease 0s;
 }
 
+#torneos-list:hover {
+    outline: 10px double var(--acento-terciario);
+}
 
-/* Estilos para el footer */
-
+/** Footer */
 footer {
     grid-row: 4;
     padding: 1rem;
-    /* margin-top: 2vw; */
-
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    text-align: center;
-    font-size: .75vw;
-    padding: 1vw;
-    background: #111;
-}
-
-#fai-info {
-    display: flex;
-    gap: 1em;
     align-items: center;
-    justify-content: center;
-    margin: 1em 0;
+    background: var(--color-2);
+    text-align: center;
+    font-size: clamp(0.7rem, 1vw, 1rem);
+    gap: 1rem;
 }
 
-#fai-info img {
-    width: 80px;
+/** Bloques de información de footer */
+.footer-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    transition: ease 0.3s;
+}
+
+/** Logo FAI*/
+.footer-info img {
+    width: clamp(50px, 10vw, 80px);
     height: auto;
     object-fit: contain;
-    stroke: white;
 }
 
-#contact-info ul {
-    list-style: none;
-    padding: .5vw;
+.footer-info img:hover {
+    filter: drop-shadow(0 0 5px var(--acento-terciario));
+}
+
+/** Texto FAI */
+.footer-info p {
     margin: 0;
-    display: flex;
-    justify-content: center;
-    gap: 2vw;
+    color: var(--texto-secundario);
 }
 
-#contact-info a {
+/** Lista de autores */
+.footer-info ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/** Links de contacto */
+.footer-info a {
     color: #d3d3d3;
     text-decoration: none;
+    transition: ease 0.3s;
+}
+
+.footer-info a:hover {
+    color: var(--acento-terciario);
+    transform: scale(1.1);
 }
