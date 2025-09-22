@@ -213,3 +213,36 @@ footer {
     color: #d3d3d3;
     text-decoration: none;
 }
+
+/* Reset básico */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos bajen en pantallas pequeñas */
+}
+
+/* Contenido principal */
+main {
+  flex: 3;
+  padding: 20px;
+  background: #f4f4f4;
+}
+
+/* Aside */
+aside {
+  flex: 1;
+  padding: 20px;
+  background: #ddd;
+}
+
+/* Responsividad con media query */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column; /* Pone el aside debajo del main */
+  }
+
+  aside {
+    order: -1; /* Opcional: mueve el aside arriba del main */
+  }
+}
