@@ -4,36 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torneos</title>
+    <title>Thorneos</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-
     <!-- Header -->
     <header id="main-header">
         <nav id="nav-container">
-            <h1>Torneos</h1>
+            <h1>Thorneos |</h1>
             <ul id="nav-links">
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="#">Torneos</a></li>
+                <!-- ? 1. Evaluar si hacemos página extra para toda la lista de 
+                torneos <li><a href="#">Torneos</a></li> -->
                 <li><a href="#">Contacto</a></li>
             </ul>
         </nav>
     </header>
-    
+
     <!-- Banner -->
     <section id="banner">
+<<<<<<< HEAD
         <div class="banner-texto-izq">
             <h2>Crea tus propios torneos o encuentra el próximo en el que competir!</h2>
+=======
+        <div>
+            <h2>Thorneos</h2>
+        </div>
+        <div>
+            <h1>aaaaa</h1>
+>>>>>>> 8d3c3f05aef2b478d3d68a5752cff785915404ac
             <ul>
                 <li>Lorem Ipsum Dolor Sit Amet</li>
                 <li>Lorem Ipsum Dolor Sit Amet</li>
                 <li>Lorem Ipsum Dolor Sit Amet</li>
             </ul>
-        </div>
-        <div class="banner-texto-der">
-            <h1>aaaaa</h1>
         </div>
     </section>
 
@@ -50,26 +55,111 @@
 
         <!-- Cuerpo de torneos -->
         <section id="torneos">
-            <div id="torneos-box">
-                <h3>Nuestros torneos</h3>
-                <p>Elegí tu favorito y participá!</p>
+            <div class="torneos-box">
+                <h1 id="torneos-titulo">Nuestros torneos más recientes</h1>
+                <p id="torneos-subtitulo">Elegí tu favorito y participá!</p>
             </div>
             <section id="torneos-list">
-                <!-- Torneo 1, Torneo 2... -->
+                <table id="tabla-torneos">
+                    <thead id="tabla-torneos-head">
+                        <tr>
+                            <th>Portada</th>
+                            <th>Nombre</th>
+                            <th>Disciplina</th>
+                            <th>Nro. Participantes</th>
+                            <th>Tags</th>
+                            <th>Formato</th>
+                            <th>Estado</th><!-- 1. Sin comenzar, 2. En curso, 3. Finalizado -->
+                            <th>Explorar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-torneos-body">
+                        <!-- Primer ejemplo-->
+                        <tr>
+                            <td><img src="https://picsum.photos/80/80?random=1" alt="" class="tabla_portada"></td>
+                            <td><span class="tabla_nombre">Regional de Fútbol 2025</span></td>
+                            <td><span class="tabla_disciplina">Fútbol</span></td>
+                            <td><span class="tabla_participantes">16</span></td>
+                            <td class="tabla_tags_box">
+                                <ul class="tabla_tags_lista">
+                                    <li class="tabla_tag">Masculino</li>
+                                    <li class="tabla_tag">Amateur</li>
+                                    <li class="tabla_tag">Mixto</li>
+                            </td>
+                            <td><span class="tabla_formato">Liga</span></td>
+                            <td><span class="tabla_estado estado-en-curso">En curso</span></td>
+                            <td><button class="tabla_btn_explorar">Ver más</button></td>
+                        </tr>
+                        <!-- Segundo ejemplo-->
+                        <tr>
+                            <td><img src="https://picsum.photos/80/80?random=2" alt="" class="tabla_portada"></td>
+                            <td><span class="tabla_nombre">Torneo Nacional de Baloncesto</span></td>
+                            <td><span class="tabla_disciplina">Baloncesto</span></td>
+                            <td><span class="tabla_participantes">12</span></td>
+                            <td class="tabla_tags_box">
+                                <ul class="tabla_tags_lista">
+                                    <li class="tabla_tag">Profesional</li>
+                                    <li class="tabla_tag">Liga ACB</li>
+                                    <li class="tabla_tag">Playoffs</li>
+                                </ul>
+                            </td>
+                            <td><span class="tabla_formato">Bracket</span></td>
+                            <td><span class="tabla_estado estado-sin-comenzar">Sin comenzar</span></td>
+                            <td><button class="tabla_btn_explorar">Ver más</button></td>
+                        </tr>
+                        <!-- Tercer ejemplo-->
+                        <tr>
+                            <td><img src="https://picsum.photos/80/80?random=3" alt="" class="tabla_portada"></td>
+                            <td><span class="tabla_nombre">Abierto Internacional de Tenis</span></td>
+                            <td><span class="tabla_disciplina">Tenis</span></td>
+                            <td><span class="tabla_participantes">32</span></td>
+                            <td class="tabla_tags_box">
+                                <ul class="tabla_tags_lista">
+                                    <li class="tabla_tag">Grand Slam</li>
+                                    <li class="tabla_tag">Individual</li>
+                                    <li class="tabla_tag">Dobles</li>
+                                    <li class="tabla_tag">Césped</li>
+                                </ul>
+                            </td>
+                            <td><span class="tabla_formato">Bracket</span></td>
+                            <td><span class="tabla_estado estado-finalizado">Finalizado</span></td>
+                            <td><button class="tabla_btn_explorar">Ver más</button></td>
+                        </tr>
+                        <!-- Cuarto ejemplo-->
+                        <tr>
+                            <td><img src="https://picsum.photos/80/80?random=4" alt="" class="tabla_portada"></td>
+                            <td><span class="tabla_nombre">Torneo invitacional</span></td>
+                            <td><span class="tabla_disciplina">CS2</span></td>
+                            <td><span class="tabla_participantes">12</span></td>
+                            <td class="tabla_tags_box">
+                                <ul class="tabla_tags_lista">
+                                    <li class="tabla_tag">Counter strike 2</li>
+                                    <li class="tabla_tag">Competitivo</li>
+                                    <li class="tabla_tag">Premios</li>
+                                </ul>
+                            </td>
+                            <td><span class="tabla_formato">Liga</span></td>
+                            <td><span class="tabla_estado estado-en-curso">En curso</span></td>
+                            <td><button class="tabla_btn_explorar">Ver más</button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
-            <div id="torneos-box">
+            <!-- ? 1. <div class="torneos-box">
                 <a href="#">Ver todos los torneos</a>
-            </div>
+            </div> -->
         </section>
     </main>
 
     <!-- Footer -->
     <footer>
-        <div id="fai-info">
-            <img src="images/fai-logo.png" alt="Logo de la facultad">
+        <div class="footer-info">
+            <a href="https://www.fi.uncoma.edu.ar">
+                <img src="images/fai-logo.png" alt="Logo de la facultad">
+            </a>
             <p>Facultad de informática, Universidad Nacional del Comahue</p>
         </div>
-        <div id="contact-info">
+        <div class="footer-info">
             <ul>
                 <li><a href="mailto:donato.trobbiani@est.fi.uncoma.edu.ar">Donato Trobbiani Perales</a></li>
                 <li>-</li>
@@ -77,7 +167,6 @@
             </ul>
         </div>
     </footer>
-
 </body>
 
 </html>
