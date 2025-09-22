@@ -54,11 +54,94 @@
         <!-- Cuerpo de torneos -->
         <section id="torneos">
             <div class="torneos-box">
-                <h1 id="torneos-titulo">Nuestros torneos</h1>
+                <h1 id="torneos-titulo">Nuestros torneos más recientes</h1>
                 <p id="torneos-subtitulo">Elegí tu favorito y participá!</p>
             </div>
             <section id="torneos-list">
-                <!-- Torneo 1, Torneo 2... -->
+                <table id="tabla-torneos">
+                    <thead id="tabla-torneos-head">
+                        <tr>
+                            <th>Portada</th>
+                            <th>Nombre</th>
+                            <th>Disciplina</th>
+                            <th>Nro. Participantes</th>
+                            <th>Tags</th>
+                            <th>Formato</th>
+                            <th>Estado</th><!-- 1. Sin comenzar, 2. En curso, 3. Finalizado -->
+                            <th>Explorar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-torneos-body">
+                        <!-- Primer ejemplo-->
+                        <tr>
+                            <td><img src="https://picsum.photos/80/80?random=1" alt="" class="tabla_portada"></td>
+                            <td><span class="tabla_nombre">Regional de Fútbol 2025</span></td>
+                            <td><span class="tabla_disciplina">Fútbol</span></td>
+                            <td><span class="tabla_participantes">16</span></td>
+                            <td class="tabla_tags_box">
+                                <ul class="tabla_tags_lista">
+                                    <li class="tabla_tag">Masculino</li>
+                                    <li class="tabla_tag">Amateur</li>
+                                    <li class="tabla_tag">Mixto</li>
+                            </td>
+                            <td><span class="tabla_formato">Liga</span></td>
+                            <td><span class="tabla_estado estado-en-curso">En curso</span></td>
+                            <td><button class="tabla_btn_explorar">Ver más</button></td>
+                        </tr>
+                        <!-- Segundo ejemplo-->
+                        <tr>
+                            <td><img src="https://picsum.photos/80/80?random=2" alt="" class="tabla_portada"></td>
+                            <td><span class="tabla_nombre">Torneo Nacional de Baloncesto</span></td>
+                            <td><span class="tabla_disciplina">Baloncesto</span></td>
+                            <td><span class="tabla_participantes">12</span></td>
+                            <td class="tabla_tags_box">
+                                <ul class="tabla_tags_lista">
+                                    <li class="tabla_tag">Profesional</li>
+                                    <li class="tabla_tag">Liga ACB</li>
+                                    <li class="tabla_tag">Playoffs</li>
+                                </ul>
+                            </td>
+                            <td><span class="tabla_formato">Bracket</span></td>
+                            <td><span class="tabla_estado estado-sin-comenzar">Sin comenzar</span></td>
+                            <td><button class="tabla_btn_explorar">Ver más</button></td>
+                        </tr>
+                        <!-- Tercer ejemplo-->
+                        <tr>
+                            <td><img src="https://picsum.photos/80/80?random=3" alt="" class="tabla_portada"></td>
+                            <td><span class="tabla_nombre">Abierto Internacional de Tenis</span></td>
+                            <td><span class="tabla_disciplina">Tenis</span></td>
+                            <td><span class="tabla_participantes">32</span></td>
+                            <td class="tabla_tags_box">
+                                <ul class="tabla_tags_lista">
+                                    <li class="tabla_tag">Grand Slam</li>
+                                    <li class="tabla_tag">Individual</li>
+                                    <li class="tabla_tag">Dobles</li>
+                                    <li class="tabla_tag">Césped</li>
+                                </ul>
+                            </td>
+                            <td><span class="tabla_formato">Bracket</span></td>
+                            <td><span class="tabla_estado estado-finalizado">Finalizado</span></td>
+                            <td><button class="tabla_btn_explorar">Ver más</button></td>
+                        </tr>
+                        <!-- Cuarto ejemplo-->
+                        <tr>
+                            <td><img src="https://picsum.photos/80/80?random=4" alt="" class="tabla_portada"></td>
+                            <td><span class="tabla_nombre">Torneo invitacional</span></td>
+                            <td><span class="tabla_disciplina">CS2</span></td>
+                            <td><span class="tabla_participantes">12</span></td>
+                            <td class="tabla_tags_box">
+                                <ul class="tabla_tags_lista">
+                                    <li class="tabla_tag">Counter strike 2</li>
+                                    <li class="tabla_tag">Competitivo</li>
+                                    <li class="tabla_tag">Premios</li>
+                                </ul>
+                            </td>
+                            <td><span class="tabla_formato">Liga</span></td>
+                            <td><span class="tabla_estado estado-en-curso">En curso</span></td>
+                            <td><button class="tabla_btn_explorar">Ver más</button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
             <!-- ? 1. <div class="torneos-box">
                 <a href="#">Ver todos los torneos</a>

@@ -3,9 +3,10 @@
     --color-1: #444;
     --color-2: #2b2b2b;
     --color-3: #151515;
-    --acento-primario: #b40000;
-    --acento-secundario: #ff0000;
-    --acento-terciario: #ff4d65;
+    --acento-1: #b40000;
+    --acento-2: #ff0000;
+    --acento-3: #ff4d65;
+    --acento-4: rgba(255, 77, 101, 0.1);
     --texto-primario: #fff;
     --texto-secundario: #ddd;
     --fuente-primaria: 'Inter', sans-serif;
@@ -82,8 +83,8 @@ body {
 
 /** Hover: links de navegación */
 #nav-links a:hover {
-    color: var(--acento-terciario);
-    text-decoration-color: var(--acento-primario);
+    color: var(--acento-3);
+    text-decoration-color: var(--acento-1);
 }
 
 /** Banner */
@@ -133,19 +134,20 @@ main {
 /** Torneos */
 #torneos {
     padding: 1rem 0 2rem 0;
-    background-color: var(--color-3);
+    background-color: var(--color-2);
 }
 
 /** Caja "énfasis torneos" */
 .torneos-box {
     padding: 0.5rem;
     max-width: 20rem;
-    background-color: var(--acento-primario);
+    background-color: var(--acento-1);
     margin: 1rem auto 2rem auto;
     letter-spacing: 0.2rem;
     text-align: center;
     border-radius: 4px;
     box-shadow: 0 4px 8px rgba(29, 26, 26, 0.2);
+    font-size: 0.9rem;
 }
 
 #torneo-titulos {
@@ -163,34 +165,148 @@ main {
     color: var(--texto-secundario);
 }
 
-/* #torneos-box a {
-    display: block;
-    color: white;
-    font-weight: bold;
-    padding: 0.5rem;
-    text-decoration: none;
-    border-radius: 2px;
-    transition: background 0.3s ease;
-}
 
-#torneos-box a:hover {
-    background-color: #a00;
-} */
-
-/* !TERMINAR Lista de torneos*/
+/** Tabla de torneos */
 #torneos-list {
-    display: grid;
+    width: 90vw;
     max-width: 90vw;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     margin: 0 auto;
-    background-color: var(--color-2);
-    min-height: 400px;
-    border-radius: 4px;
-    outline: 1px solid var(--acento-secundario);
-    transition: outline 0.5s ease 0s;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.5s ease 0s;
+    font-weight: 600;
 }
 
 #torneos-list:hover {
-    outline: 10px double var(--acento-terciario);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+#tabla-torneos {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    color: var(--texto-primario);
+    min-width: 600px;
+}
+
+#tabla-torneos th,
+td {
+    padding: 0.65rem;
+    text-align: center;
+    border-bottom: 1px solid var(--color-1);
+    vertical-align: middle;
+    width: 5rem;
+}
+
+#tabla-torneos th {
+    background-color: var(--color-3);
+    position: sticky;
+    top: 0;
+    border-bottom: 2px solid var(--acento-3);
+}
+
+#tabla-torneos tr {
+    transition: background-color 0.3s ease;
+}
+
+#tabla-torneos tr:hover {
+    background-color: var(--acento-4);
+}
+
+.tabla_portada {
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    object-fit: cover;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.tabla_nombre {
+    color: var(--texto-primario);
+    font-size: 1.05rem;
+}
+
+.tabla_disciplina {
+    display: inline-block;
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: white;
+    background: var(--acento-1);
+}
+
+.tabla_participantes {
+    color: var(--acento-terciario);
+    font-size: 1.1rem;
+}
+
+/* Estilos para los tags */
+.tabla_tags_lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style-type: none;
+    max-width: 250px;
+}
+
+.tabla_tag {
+    background: var(--acento-4);
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: var(--texto-secundario);
+    white-space: nowrap;
+}
+
+.tabla_participantes,
+.tabla_formato {
+    padding: 0.4rem 0.8rem;
+    border-radius: 12px;
+    display: inline-block;
+    background: var(--color-1);
+    font-size: 0.9rem;
+}
+
+.tabla_estado {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+.estado-sin-comenzar {
+    background: rgba(212, 172, 13, 0.2);
+    color: #d4ac0d;
+}
+
+.estado-en-curso {
+    background: rgba(29, 131, 72, 0.2);
+    color: #1d8348;
+}
+
+.estado-finalizado {
+    background: rgba(192, 57, 43, 0.2);
+    color: #c0392b;
+}
+
+.tabla_btn_explorar {
+    background-color: var(--acento-3);
+    border: none;
+    color: var(--texto-primario);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.tabla_btn_explorar:hover {
+    border: 2px solid var(--acento-1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 
 /** Footer */
@@ -200,7 +316,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: var(--color-2);
+    background: var(--color-3);
     text-align: center;
     font-size: clamp(0.7rem, 1vw, 1rem);
     gap: 1rem;
@@ -224,7 +340,7 @@ footer {
 }
 
 .footer-info img:hover {
-    filter: drop-shadow(0 0 5px var(--acento-terciario));
+    filter: drop-shadow(0 0 5px var(--acento-3));
 }
 
 /** Texto FAI */
@@ -252,6 +368,6 @@ footer {
 }
 
 .footer-info a:hover {
-    color: var(--acento-terciario);
+    color: var(--acento-3);
     transform: scale(1.1);
 }
