@@ -1,22 +1,35 @@
 :root {
     /* ! Variables CSS, utilizar con var(nombre)*/
-    --color-1: #444;
-    --color-2: #2b2b2b;
-    --color-3: #151515;
-    --acento-1: #b40000;
-    --acento-2: #ff0000;
-    --acento-3: #ff4d65;
-    --acento-4: rgba(255, 77, 101, 0.1);
-    --texto-primario: #fff;
-    --texto-secundario: #ddd;
-    --fuente-primaria: 'Inter', sans-serif;
+    --color-primario-1: rgb(212, 203, 114);
+    --color-primario-2: rgb(175, 165, 73);
+    --color-primario-3: rgb(59, 55, 19);
+    --color-primario-4: rgb(53, 46, 15);
+    --color-secundario-1: rgb(85 30 35);
+    --color-secundario-2: rgb(114 51 57);
+    --color-secundario-3: rgb(255 178 183);
+    --color-secundario-4: rgb(255 218 219);
+    --color-error-1: rgb(255 218 214);
+    --color-error-2: rgb(255 180 171);
+    --color-error-3: rgb(147 0 10);
+    --color-error-4: rgb(105 0 5);
+    --color-fondo-1: rgb(18 19 24);
+    --color-fondo-2: rgb(26, 31, 36);
+    --color-fondo-3: rgb(30, 33, 36);
+    --color-fondo-4: rgb(44, 44, 51);
+    --color-borde-1: rgb(141 145 153);
+    --color-borde-2: rgb(67 71 78);
+
+    --fuente-primaria: "Archivo Black", sans-serif;
+    /* Títulos y encabezados, weight 400 */
+    --fuente-secundaria: "Montserrat", sans-serif;
+    /* Cuerpo de texto, weight 100-900 */
 }
 
 /** Documento global */
 body {
-    background-color: var(--color-1);
-    color: var(--texto-primario);
-    font-family: var(--fuente-primaria);
+    background-color: var(--color-fondo-1);
+    color: white;
+    font-family: var(--fuente-secundaria);
 
     margin: 0;
     display: grid;
@@ -28,14 +41,17 @@ body {
 /** Header */
 #main-header {
     grid-row: 1;
-    background: linear-gradient(90deg, var(--color-2), var(--color-3));
+    /* background: linear-gradient(90deg, var(--color-2), var(--color-3)); */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    color: var(--color-primario-1);
     padding: 1rem 3rem;
     display: flex;
     justify-content: space-between;
     position: sticky;
     top: 0;
     z-index: 1000;
+    border-radius: 0 0 12px 12px;
+    background-color: var(--color-fondo-1);
 }
 
 /** Navegación */
@@ -43,7 +59,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 4rem;
+    gap: clamp(0rem, 2vw, 4rem);
 }
 
 /** Header */
@@ -51,9 +67,8 @@ body {
     font-size: clamp(1rem, 1.2rem, 1.5rem);
     letter-spacing: .1rem;
     font-weight: bold;
-    font-style: italic;
     margin: 0;
-    text-transform: capitalize;
+    text-transform: uppercase;
 }
 
 /** Lista de links */
@@ -71,20 +86,22 @@ body {
 /** Links de navegación */
 #nav-links a {
     text-decoration: none;
-    color: var(--texto-secundario);
+    color: var(--color-secundario-3);
+    background-color: var(--color-secundario-1);
     font-weight: 400;
-    font-size: clamp(1rem, 1.2rem, 1.5rem);
-    letter-spacing: 0.15rem;
-    transition: color 0.3s ease;
+    font-size: clamp(0.8rem, 1.2vw, 1rem);
+    transition: all 0.3s ease;
     justify-content: end;
     text-decoration: solid underline transparent;
     text-underline-offset: 0.3rem;
+    padding: 0.2rem 1rem;
+    border-radius: 8px;
 }
 
 /** Hover: links de navegación */
 #nav-links a:hover {
-    color: var(--acento-3);
-    text-decoration-color: var(--acento-1);
+    color: var(--color-secundario-4);
+    background-color: var(--color-secundario-2);
 }
 
 /** Banner */
@@ -111,14 +128,14 @@ body {
 /** Main */
 main {
     grid-row: 3;
-    background: var(--color-1);
+    background-color: var(--color-fondo-1);
     display: grid;
     grid-template-columns: 1fr;
 }
 
 /** Introducción de la página */
 #intro {
-    background: linear-gradient(90deg, var(--color-2), var(--color-3));
+    background-color: var(--color-fondo-1);
     text-align: center;
     padding: clamp(1rem, 3vw, 2rem);
     font-size: clamp(1rem, 1.5vw, 1.2rem);
@@ -134,15 +151,16 @@ main {
 /** Torneos */
 #torneos {
     padding: 1rem 0 2rem 0;
-    background-color: var(--color-2);
+    background: #262603;
+    background: linear-gradient(90deg, rgba(38, 38, 3, 1) 0%, rgba(18, 19, 24, 1) 50%, rgba(38, 4, 7, 1) 100%);
 }
 
 /** Caja "énfasis torneos" */
 .torneos-box {
-    padding: 0.5rem;
+    padding: 1rem;
     max-width: 20rem;
-    background-color: var(--acento-1);
-    margin: 1rem auto 2rem auto;
+    background-color: var(--color-secundario-2);
+    margin: 2rem auto;
     letter-spacing: 0.2rem;
     text-align: center;
     border-radius: 4px;
@@ -150,19 +168,19 @@ main {
     font-size: 0.9rem;
 }
 
-#torneo-titulos {
+.torneos-box h1 {
     font-weight: bold;
     margin: 0;
     padding: 0;
-    color: white;
+    color: var(--color-secundario-4);
 }
 
-#torneos-subtitulo {
+.torneos-box p {
     margin: 1rem 0;
     text-decoration: solid underline;
     text-underline-offset: 0.5rem;
     font-weight: bold;
-    color: var(--texto-secundario);
+    color: var(--color-secundario-3);
 }
 
 
@@ -187,7 +205,8 @@ main {
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
-    color: var(--texto-primario);
+    color: white;
+    background-color: var(--color-fondo-2);
     min-width: 600px;
 }
 
@@ -201,18 +220,21 @@ td {
 }
 
 #tabla-torneos th {
-    background-color: var(--color-3);
+    padding: 2rem;
+    background-color: var(--color-fondo-3);
     position: sticky;
     top: 0;
-    border-bottom: 2px solid var(--acento-3);
+    border-bottom: 2px solid var(--color-primario-1);
+    color: var(--color-primario-2);
 }
 
 #tabla-torneos tr {
-    transition: background-color 0.3s ease;
+    transition: all 0.5s ease;
 }
 
 #tabla-torneos tr:hover {
-    background-color: var(--acento-4);
+    background-color: var(--color-primario-3)
+        /* 0.5 = 50% opacity */
 }
 
 .tabla_portada {
@@ -224,7 +246,6 @@ td {
 }
 
 .tabla_nombre {
-    color: var(--texto-primario);
     font-size: 1.05rem;
 }
 
@@ -234,12 +255,7 @@ td {
     border-radius: 12px;
     font-size: 0.9rem;
     color: white;
-    background: var(--acento-1);
-}
-
-.tabla_participantes {
-    color: var(--acento-terciario);
-    font-size: 1.1rem;
+    background: var(--color-secundario-2);
 }
 
 /* Estilos para los tags */
@@ -252,11 +268,10 @@ td {
 }
 
 .tabla_tag {
-    background: var(--acento-4);
+    background: var(--color-secundario-2);
     padding: 0.3rem 0.6rem;
     border-radius: 12px;
     font-size: 0.8rem;
-    color: var(--texto-secundario);
     white-space: nowrap;
 }
 
@@ -265,7 +280,7 @@ td {
     padding: 0.4rem 0.8rem;
     border-radius: 12px;
     display: inline-block;
-    background: var(--color-1);
+    background: var(--color-secundario-2);
     font-size: 0.9rem;
 }
 
@@ -292,20 +307,19 @@ td {
 }
 
 .tabla_btn_explorar {
-    background-color: var(--acento-3);
+    background-color: var(--color-secundario-2);
     border: none;
-    color: var(--texto-primario);
+    color: var(--color-secundario-3);
     padding: 0.5rem 1rem;
     border-radius: 8px;
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: 600;
-    border: 2px solid transparent;
     transition: all 0.3s ease;
 }
 
 .tabla_btn_explorar:hover {
-    border: 2px solid var(--acento-1);
+    color: var(--color-secundario-4);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -316,10 +330,12 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: var(--color-3);
+    background: var(--color-fondo-2);
     text-align: center;
     font-size: clamp(0.7rem, 1vw, 1rem);
     gap: 1rem;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+    border-top: 2px solid var(--color-primario-1);
 }
 
 /** Bloques de información de footer */
@@ -337,16 +353,17 @@ footer {
     width: clamp(50px, 10vw, 80px);
     height: auto;
     object-fit: contain;
+    transition: all ease 0.3s;
 }
 
 .footer-info img:hover {
-    filter: drop-shadow(0 0 5px var(--acento-3));
+    filter: drop-shadow(0 0 5px var(--color-primario-3));
 }
 
 /** Texto FAI */
 .footer-info p {
     margin: 0;
-    color: var(--texto-secundario);
+    color: var(--color-secundario-3);
 }
 
 /** Lista de autores */
@@ -362,49 +379,6 @@ footer {
 
 /** Links de contacto */
 .footer-info a {
-    color: #d3d3d3;
+    color: var(--color-secundario-3);
     text-decoration: none;
-<<<<<<< HEAD
 }
-
-/* Reset básico */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-wrap: wrap; /* Permite que los elementos bajen en pantallas pequeñas */
-}
-
-/* Contenido principal */
-main {
-  flex: 3;
-  padding: 20px;
-  background: #f4f4f4;
-}
-
-/* Aside */
-aside {
-  flex: 1;
-  padding: 20px;
-  background: #ddd;
-}
-
-/* Responsividad con media query */
-@media (max-width: 768px) {
-  body {
-    flex-direction: column; /* Pone el aside debajo del main */
-  }
-
-  aside {
-    order: -1; /* Opcional: mueve el aside arriba del main */
-  }
-}
-=======
-    transition: ease 0.3s;
-}
-
-.footer-info a:hover {
-    color: var(--acento-3);
-    transform: scale(1.1);
-}
->>>>>>> 8d3c3f05aef2b478d3d68a5752cff785915404ac
