@@ -381,17 +381,4 @@ footer {
 .footer-info a {
     color: var(--color-secundario-3);
     text-decoration: none;
-    transition: ease 0.3s;
-}
-
-.footer-info a:hover {
-    color: var(--color-secundario-4);
-    transform: scale(1.1);
-}
-
-/*media query to remove stickyness of header on small screens*/
-@media screen and (max-width: 600px) {
-    #main-header {
-        position: static;
-    }
 }
