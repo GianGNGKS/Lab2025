@@ -85,7 +85,6 @@ body {
 
 /** Links de navegación */
 #nav-links a {
-    text-decoration: none;
     color: var(--color-secundario-3);
     background-color: var(--color-secundario-1);
     font-weight: 400;
@@ -108,13 +107,14 @@ body {
 #banner {
     grid-row: 2;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 4rem;
     padding: 2rem;
-    min-height: 20rem;
-    background: linear-gradient(to left, rgb(0 0 0 / 0), rgb(0 0 0 / 1)), url(images/7770538.jpg);
+    min-height: 40rem;
+    background: linear-gradient(to left, rgb(0 0 0 / 0), rgb(0 0 0 / 1)), url(images/Banner-fondo.png);
     background-size: cover;
     background-position: center;
+    border-bottom: 3px solid var(--color-primario-1);
+    /** pendiente sombra*/
 }
 
 /** Columnas del banner */
@@ -125,27 +125,32 @@ body {
     justify-content: center;
 }
 
+#banner h1 {
+    font-family: var(--fuente-primaria);
+    font-size: clamp(2rem, 5vw, 3rem);
+    text-transform: uppercase;
+    color: var(--color-primario-1);
+    text-shadow: 2px 2px 4px var(--color-borde-2);
+    letter-spacing: 0.2rem;
+    letter-spacing: .1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding-bottom: 5rem;
+}
+
+#banner p {
+    max-width: 600px;
+    font-family: var(--fuente-secundaria);
+    font-size:larger;
+    font-weight: 900;
+    color: white;
+    margin:0 auto;
+}
+
 /** Main */
 main {
     grid-row: 3;
     background-color: var(--color-fondo-1);
-    display: grid;
-    grid-template-columns: 1fr;
-}
-
-/** Introducción de la página */
-#intro {
-    background-color: var(--color-fondo-1);
-    text-align: center;
-    padding: clamp(1rem, 3vw, 2rem);
-    font-size: clamp(1rem, 1.5vw, 1.2rem);
-}
-
-/** Párrafo de introducción */
-#intro p {
-    margin: 0 auto;
-    line-height: 2rem;
-    max-width: 80ch;
 }
 
 /** Torneos */
