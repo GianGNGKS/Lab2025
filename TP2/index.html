@@ -6,35 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thorneos</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-    </style>
+    <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
     <!-- Header -->
-    <header id="main-header">
-        <nav id="nav-container">
-            <h1>Thorneos</h1>
-            <ul id="nav-links">
-                <li><a href="index.html">Inicio</a></li>
-                <!-- ? 1. Evaluar si hacemos página extra para toda la lista de 
-                torneos <li><a href="#">Torneos</a></li> -->
-                <li><a href="#">Contacto</a></li>
+    <header class="main-header">
+        <nav class="navbar">
+            <h1 class="navbar_titulo">Thorneos</h1>
+            <ul class="navbar_links">
+                <li><a href="index.html" class="navbar_link">Inicio</a></li>
+                <li><a href="#" class="navbar_link">Contacto</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Banner -->
-    <section id="banner">
-        <div>
-            <h1>Thorneos</h1
-        </div>
-        <div>
-            <p>Bienvenido a la mejor comunidad de torneos! Crea, unete, mira y diviertete con los cientos de torneos 
-            disponibles, además de todos los nuevos que se agregan día a día. Desde los formatos más clásicos de liga y copa 
-            hasta otros mas novedosos como ... . Descubre un sin fin de deportes y actividades en las que pasar un buen rato
-            entre amigos o con otros con tus mismas pasiones. Todo esto y mucho mas dentro de ...
+    <section class="banner">
+        <div class="banner__contenido">
+            <h1 class="banner_titulo">Thorneos</h1>
+            <p class="banner_desc">Bienvenido a la mejor comunidad de torneos! Crea, unete, mira y diviertete con los
+                cientos de torneos
+                disponibles, además de todos los nuevos que se agregan día a día. Desde los formatos más clásicos de
+                liga y copa
+                hasta otros mas novedosos como ... . Descubre un sin fin de deportes y actividades en las que pasar un
+                buen rato
+                entre amigos o con otros con tus mismas pasiones. Todo esto y mucho mas dentro de ...
             </p>
         </div>
     </section>
@@ -44,10 +41,10 @@
         <!-- Cuerpo de torneos -->
         <section id="torneos">
             <div class="torneos-box">
-                <h1>Nuestros torneos más recientes</h1>
-                <p >Elegí tu favorito y participá!</p>
+                <h1 class="torneos-box-titulo">Nuestros torneos más recientes</h1>
+                <p class="torneos-box-subtitulo">Elegí tu favorito y participá!</p>
             </div>
-            <section id="torneos-list">
+            <div id="torneos-list">
                 <table id="tabla-torneos">
                     <thead id="tabla-torneos-head">
                         <tr>
@@ -76,7 +73,7 @@
                             </td>
                             <td><span class="tabla_formato">Liga</span></td>
                             <td><span class="tabla_estado estado-en-curso">En curso</span></td>
-                            <td><button class="tabla_btn_explorar">Ver más</button></td>
+                            <td><a class="tabla_btn_explorar" href="torneo.html">Ver más</a></td>
                         </tr>
                         <!-- Segundo ejemplo-->
                         <tr>
@@ -132,27 +129,31 @@
                         </tr>
                     </tbody>
                 </table>
-            </section>
-            <!-- ? 1. <div class="torneos-box">
-                <a href="#">Ver todos los torneos</a>
-            </div> -->
+            </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer class="footer">
         <div class="footer-info">
-            <a href="https://www.fi.uncoma.edu.ar">
-                <img src="images/fai-logo.png" alt="Logo de la facultad">
+            <a href="https://www.fi.uncoma.edu.ar" class="footer-logo-link">
+                <img src="images/fai-logo.png" alt="Logo de la facultad" class="footer-logo">
             </a>
-            <p>Facultad de informática, Universidad Nacional del Comahue</p>
+            <div class="footer-uni">
+                <p>Facultad de informática</p>
+                <p>Universidad Nacional del Comahue</p>
+            </div>
+            <p>-</p>
+            <ul class="footer-contacto">
+                <li><a href="mailto:donato.trobbiani@est.fi.uncoma.edu.ar" class="footer-contacto-link">Donato Trobbiani
+                        Perales</a></li>
+                <li>-</li>
+                <li><a href="mailto:gianfranco.gallucci@est.fi.uncoma.edu.ar" class="footer-contacto-link">Gianfranco
+                        Nicolás Gallucci</a></li>
+            </ul>
         </div>
         <div class="footer-info">
-            <ul>
-                <li><a href="mailto:donato.trobbiani@est.fi.uncoma.edu.ar">Donato Trobbiani Perales</a></li>
-                <li>-</li>
-                <li><a href="mailto:gianfranco.gallucci@est.fi.uncoma.edu.ar">Gianfranco Nicolás Gallucci</a></li>
-            </ul>
+            <p>&copy; 2025 Thorneos. Proyecto para Laboratorio de programación 2025</p>
         </div>
     </footer>
 </body>

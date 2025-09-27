@@ -1,0 +1,201 @@
+:root {
+    /* ! Variables CSS, utilizar con var(nombre)*/
+    --color-primario-1: rgb(212, 203, 114);
+    --color-primario-2: rgb(175, 165, 73);
+    --color-primario-3: rgb(59, 55, 19);
+    --color-primario-4: rgb(53, 46, 15);
+    --color-secundario-1: rgb(85 30 35);
+    --color-secundario-2: rgb(114 51 57);
+    --color-secundario-3: rgb(255 178 183);
+    --color-secundario-4: rgb(255 218 219);
+    --color-error-1: rgb(255 218 214);
+    --color-error-2: rgb(255 180 171);
+    --color-error-3: rgb(147 0 10);
+    --color-error-4: rgb(105 0 5);
+    --color-fondo-1: rgb(18 19 24);
+    --color-fondo-2: rgb(26, 31, 36);
+    --color-fondo-3: rgb(30, 33, 36);
+    --color-fondo-4: rgb(44, 44, 51);
+    --color-borde-1: rgb(141 145 153);
+    --color-borde-2: rgb(67 71 78);
+
+    --fuente-primaria: "Archivo Black", sans-serif;
+    /* Títulos y encabezados, weight 400 */
+    --fuente-secundaria: "Montserrat", sans-serif;
+    /* Cuerpo de texto, weight 100-900 */
+}
+
+/** Torneos */
+#torneos {
+    padding: 8rem 0;
+    gap: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/** Caja "énfasis torneos" */
+.torneos-box {
+    padding: 1rem;
+    margin-top: 2rem;
+    max-width: 25rem;
+    background-color: var(--color-secundario-2);
+    letter-spacing: 0.2rem;
+    text-align: center;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(29, 26, 26, 0.2);
+    font-size: smaller;
+}
+
+.torneos-box-titulo{
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    color: var(--color-secundario-4);
+}
+
+.torneos-box-subtitulo {
+    font-weight: bold;
+    font-size: larger;
+    color: var(--color-secundario-3);
+}
+
+
+/** Tabla de torneos */
+#torneos-list {
+    width: 90vw;
+    max-width: 90vw;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.5s ease 0s;
+    font-weight: 600;
+}
+
+#torneos-list:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+#tabla-torneos {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    color: white;
+    background-color: var(--color-fondo-2);
+    min-width: 600px;
+}
+
+#tabla-torneos th,
+td {
+    padding: 0.65rem;
+    text-align: center;
+    border-bottom: 1px solid var(--color-1);
+    vertical-align: middle;
+    width: 5rem;
+}
+
+#tabla-torneos th {
+    padding: 2rem;
+    background-color: var(--color-fondo-3);
+    position: sticky;
+    top: 0;
+    border-bottom: 2px solid var(--color-primario-1);
+    color: var(--color-primario-2);
+}
+
+#tabla-torneos tr {
+    transition: all 0.5s ease;
+}
+
+#tabla-torneos tr:hover {
+    background-color: var(--color-primario-3)
+}
+
+.tabla_portada {
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    object-fit: cover;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.tabla_nombre {
+    font-size: 1.05rem;
+}
+
+.tabla_disciplina {
+    display: inline-block;
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: white;
+    background: var(--color-secundario-2);
+}
+
+/* Estilos para los tags */
+.tabla_tags_lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style-type: none;
+    max-width: 250px;
+}
+
+.tabla_tag {
+    background: var(--color-secundario-2);
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.tabla_participantes,
+.tabla_formato {
+    padding: 0.4rem 0.8rem;
+    border-radius: 12px;
+    display: inline-block;
+    background: var(--color-secundario-2);
+    font-size: 0.9rem;
+}
+
+.tabla_estado {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+.estado-sin-comenzar {
+    background: rgba(212, 172, 13, 0.2);
+    color: #d4ac0d;
+}
+
+.estado-en-curso {
+    background: rgba(29, 131, 72, 0.2);
+    color: #1d8348;
+}
+
+.estado-finalizado {
+    background: rgba(192, 57, 43, 0.2);
+    color: #c0392b;
+}
+
+.tabla_btn_explorar {
+    background-color: var(--color-secundario-2);
+    border: none;
+    color: var(--color-secundario-3);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.tabla_btn_explorar:hover {
+    color: var(--color-secundario-4);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
