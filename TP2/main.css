@@ -18,6 +18,8 @@
     --color-fondo-4: rgb(44, 44, 51);
     --color-borde-1: rgb(141 145 153);
     --color-borde-2: rgb(67 71 78);
+    --color-sombra-1: rgba(0, 0, 0, 0.2);
+
 
     --fuente-primaria: "Archivo Black", sans-serif;
     /* Títulos y encabezados, weight 400 */
@@ -26,37 +28,39 @@
 }
 
 /** Torneos */
-#torneos {
-    padding: 8rem 0;
-    gap: 10rem;
+.main_torneos {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: var(--color-fondo-1);
+    gap: 6rem;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 90vw;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px var(--color-sombra-1);
 }
 
 /** Caja "énfasis torneos" */
-.torneos-box {
-    padding: 1rem;
-    margin-top: 2rem;
-    max-width: 25rem;
+.torneos_box {
     background-color: var(--color-secundario-2);
+    box-shadow: 0 5px 15px var(--color-sombra-1);
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    max-width: 30rem;
+    font-size: small;
     letter-spacing: 0.2rem;
     text-align: center;
-    border-radius: 4px;
-    box-shadow: 0 4px 8px rgba(29, 26, 26, 0.2);
-    font-size: smaller;
 }
 
-.torneos-box-titulo{
+.torneos_box_titulo {
     text-transform: uppercase;
     font-weight: 700;
-    margin: 0;
-    padding: 0;
     color: var(--color-secundario-4);
 }
 
-.torneos-box-subtitulo {
+.torneos_box_subtitulo {
     font-weight: bold;
     font-size: larger;
     color: var(--color-secundario-3);
@@ -64,75 +68,61 @@
 
 
 /** Tabla de torneos */
-#torneos-list {
-    width: 90vw;
-    max-width: 90vw;
+.torneos_lista {
+    width: 85vw;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.5s ease 0s;
     font-weight: 600;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px var(--color-sombra-1);
 }
 
-#torneos-list:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-}
-
-#tabla-torneos {
+.tabla_torneos {
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
     color: white;
-    background-color: var(--color-fondo-2);
     min-width: 600px;
+    text-align: center;
 }
 
-#tabla-torneos th,
+.tabla_torneos th,
 td {
-    padding: 0.65rem;
+    padding: 1rem;
     text-align: center;
-    border-bottom: 1px solid var(--color-1);
     vertical-align: middle;
     width: 5rem;
 }
 
-#tabla-torneos th {
+
+.tabla_torneos th {
     padding: 2rem;
-    background-color: var(--color-fondo-3);
     position: sticky;
     top: 0;
     border-bottom: 2px solid var(--color-primario-1);
     color: var(--color-primario-2);
+    background-color: var(--color-fondo-3);
 }
 
-#tabla-torneos tr {
+.tabla_torneos tr {
     transition: all 0.5s ease;
 }
 
-#tabla-torneos tr:hover {
-    background-color: var(--color-primario-3)
+.tabla_torneos tr:hover {
+    background-color: var(--color-primario-3);
 }
 
 .tabla_portada {
     width: 80px;
     height: 80px;
-    border-radius: 4px;
+    border-radius: 10px;
     object-fit: cover;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 5px var(--color-sombra-1);
 }
 
-.tabla_nombre {
-    font-size: 1.05rem;
-}
-
-.tabla_disciplina {
+.tabla_texto {
     display: inline-block;
-    padding: 0.3rem 0.6rem;
-    border-radius: 12px;
-    font-size: 0.9rem;
-    color: white;
-    background: var(--color-secundario-2);
+    font-size: 1.05rem;
 }
 
 /* Estilos para los tags */
@@ -147,23 +137,14 @@ td {
 .tabla_tag {
     background: var(--color-secundario-2);
     padding: 0.3rem 0.6rem;
-    border-radius: 12px;
+    border-radius: 10px;
     font-size: 0.8rem;
     white-space: nowrap;
 }
 
-.tabla_participantes,
-.tabla_formato {
-    padding: 0.4rem 0.8rem;
-    border-radius: 12px;
-    display: inline-block;
-    background: var(--color-secundario-2);
-    font-size: 0.9rem;
-}
-
 .tabla_estado {
     padding: 6px 12px;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 0.9rem;
     display: inline-block;
 }
@@ -184,11 +165,11 @@ td {
 }
 
 .tabla_btn_explorar {
-    background-color: var(--color-secundario-2);
+    background-color: var(--color-secundario-1);
     border: none;
     color: var(--color-secundario-3);
     padding: 0.5rem 1rem;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: 600;
@@ -197,5 +178,6 @@ td {
 
 .tabla_btn_explorar:hover {
     color: var(--color-secundario-4);
+    background-color: var(--color-secundario-2);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }

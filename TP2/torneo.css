@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    /* ! Variables CSS, utilizar con var(nombre)*/
+    --color-primario-1: rgb(212, 203, 114);
+    --color-primario-2: rgb(175, 165, 73);
+    --color-primario-3: rgb(59, 55, 19);
+    --color-primario-4: rgb(53, 46, 15);
+    --color-secundario-1: rgb(85 30 35);
+    --color-secundario-2: rgb(114 51 57);
+    --color-secundario-3: rgb(255 178 183);
+    --color-secundario-4: rgb(255 218 219);
+    --color-error-1: rgb(255 218 214);
+    --color-error-2: rgb(255 180 171);
+    --color-error-3: rgb(147 0 10);
+    --color-error-4: rgb(105 0 5);
+    --color-fondo-1: rgb(18 19 24);
+    --color-fondo-2: rgb(26, 31, 36);
+    --color-fondo-3: rgb(30, 33, 36);
+    --color-fondo-4: rgb(44, 44, 51);
+    --color-borde-1: rgb(141 145 153);
+    --color-borde-2: rgb(67 71 78);
+    --color-sombra-1: rgba(0, 0, 0, 0.2);
+
+    --fuente-primaria: "Archivo Black", sans-serif;
+    /* Títulos y encabezados, weight 400 */
+    --fuente-secundaria: "Montserrat", sans-serif;
+    /* Cuerpo de texto, weight 100-900 */
+}
+
+/** Torneos */
+.info_torneo {
+    display: grid;
+    background-color: var(--color-fondo-1);
+    gap: 1rem;
+    padding: 4rem 2rem;
+    margin: 2rem auto;
+    max-width: 90vw;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px var(--color-sombra-1);
+}
+
+.info_grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.info_torneo_container {
+    background-color: var(--color-secundario-2);
+    box-shadow: 0 5px 15px var(--color-sombra-1);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    min-height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.info_torneo_container:hover {
+    background-color: var(--color-secundario-1);
+}
+
+.info_torneo_titulo {
+    margin: 0 0 5px 0;
+    font-size: medium;
+    color: var(--color-secundario-3)
+}
+
+.info_torneo_detalles {
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--color-secundario-4);
+}
+
+.info_torneo_extra {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info_torneo_imagen {
+    max-width: clamp(140px, 60vw, 800px);
+    border-radius: 10px;
+    border: 4px solid var(--color-primario-1);
+    box-shadow: 0 5px 15px var(--color-sombra-1);
+    margin: 2rem 0;
+}
+
+.torneos_relacionados {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6rem;
+}
+
+
+/** Media query para 4 columnas en pantallas grandes */
+@media (min-width: 768px) {
+    .info_grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
