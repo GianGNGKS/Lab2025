@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thorneos</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/main.css">
 </head>
 
 <body>
@@ -16,7 +16,8 @@
             <h1 class="navbar_titulo">Thorneos</h1>
             <ul class="navbar_links">
                 <li><a href="index.html" class="navbar_link">Inicio</a></li>
-                <li><a href="#" class="navbar_link">Contacto</a></li>
+                <li><a href="torneosCatalogo.html" class="navbar_link">Torneos</a></li>
+                <li><a href="contacto.html" class="navbar_link">Contacto</a></li>
             </ul>
         </nav>
     </header>
@@ -25,8 +26,8 @@
     <section class="banner">
         <div class="banner__contenido">
             <h1 class="banner_titulo">Thorneos</h1>
-            <p class="banner_desc">¡Bienvenido a Thorneos! Crea, únete y disfruta de cientos de torneos en distintos formatos, 
-                desde liga y copa hasta los más novedosos. Descubre actividades donde divertirte entre amigos o con personas que comparten tus pasiones.
+            <p class="banner_desc">¡Bienvenido a Thorneos! Crea, únete y disfruta de un gran número de torneos en distintos formatos, 
+                desde liga y copa hasta los más novedosos. Descubre actividades para divertirse entre amigos o con personas que comparten tus pasiones.
             </p>
         </div>
     </section>
@@ -34,7 +35,7 @@
     <!-- Sección Torneos -->
     <main>
         <!-- Cuerpo de torneos -->
-        <section class="main_torneos">
+        <section class="main_container">
             <div class="torneos_box">
                 <h1 class="torneos_box_titulo">Nuestros torneos más recientes</h1>
                 <p class="torneos_box_subtitulo">Elegí tu favorito y participá!</p>
@@ -60,10 +61,11 @@
                             <td><span class="tabla_texto">Federal A 2025</span></td>
                             <td><span class="tabla_texto">Fútbol</span></td>
                             <td><span class="tabla_texto">10</span></td>
-                            <td class="tabla_tags_box">
+                            <td>
                                 <ul class="tabla_tags_lista">
                                     <li class="tabla_tag">Masculino</li>
                                     <li class="tabla_tag">Profesional</li>
+                                </ul>
                             </td>
                             <td><span class="tabla_texto">Liga</span></td>
                             <td><span class="tabla_estado estado-finalizado">Finalizado</span></td>
@@ -75,7 +77,7 @@
                             <td><span class="tabla_texto">Nacional de Voley</span></td>
                             <td><span class="tabla_texto">Volleyball</span></td>
                             <td><span class="tabla_texto">6</span></td>
-                            <td class="tabla_tags_box">
+                            <td>
                                 <ul class="tabla_tags_lista">
                                     <li class="tabla_tag">Mayores</li>
                                     <li class="tabla_tag">Regiones</li>
@@ -91,7 +93,7 @@
                             <td><span class="tabla_texto">Torneo FAI de CS2</span></td>
                             <td><span class="tabla_texto">CS2</span></td>
                             <td><span class="tabla_texto">7</span></td>
-                            <td class="tabla_tags_box">
+                            <td>
                                 <ul class="tabla_tags_lista">
                                     <li class="tabla_tag">Counter strike 2</li>
                                     <li class="tabla_tag">Competitivo</li>
@@ -105,6 +107,9 @@
                     </tbody>
                 </table>
             </div>
+            <div class="torneos_explorar_box">
+                <a href="#" class="torneos_btn_explorar tabla_btn_explorar">Ver más torneos</a>
+            </div>
         </section>
     </main>
 
@@ -112,7 +117,7 @@
     <footer class="footer">
         <div class="footer-info">
             <a href="https://www.fi.uncoma.edu.ar" class="footer-logo-link">
-                <img src="images/fai-logo.png" alt="Logo de la facultad" class="footer-logo">
+                <img src="../images/fai-logo.png" alt="Logo de la facultad" class="footer-logo">
             </a>
             <div class="footer-uni">
                 <p>Facultad de informática</p>
@@ -132,5 +137,4 @@
         </div>
     </footer>
 </body>
-
 </html>

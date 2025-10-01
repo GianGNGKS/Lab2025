@@ -2,10 +2,10 @@
 
 :root {
     /* ! Variables CSS, utilizar con var(nombre)*/
-    --color-primario-1: rgb(212, 203, 114);
-    --color-primario-2: rgb(175, 165, 73);
-    --color-primario-3: rgb(59, 55, 19);
-    --color-primario-4: rgb(53, 46, 15);
+    --color-primario-1: rgb(114, 212, 114);
+    --color-primario-2: rgb(73, 175, 73);
+    --color-primario-3: rgb(19, 59, 19);
+    --color-primario-4: rgb(15, 53, 15);
     --color-secundario-1: rgb(85 30 35);
     --color-secundario-2: rgb(114 51 57);
     --color-secundario-3: rgb(255 178 183);
@@ -35,7 +35,7 @@
 
 body {
     background: #262603;
-    background: linear-gradient(90deg, rgba(38, 38, 3, 1) 0%, rgba(18, 19, 24, 1) 50%, rgba(38, 4, 7, 1) 100%);
+    background: linear-gradient(90deg, rgb(3, 38, 3) 0%, rgba(18, 19, 24, 1) 50%, rgba(38, 4, 7, 1) 100%);
     color: white;
     font-family: var(--fuente-secundaria);
     line-height: 1.5;
@@ -52,16 +52,14 @@ body {
 
 /** Header */
 .main-header {
-    /* Posición del Header en el grid */
     grid-row: 1;
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
-/** Nsavegación */
+/** Navegación */
 .navbar {
-    /* Elementos visuales del header */
     background: var(--color-fondo-1);
     box-shadow: 0 4px 12px var(--color-sombra-1);
     padding: 1rem 2rem;
@@ -87,8 +85,9 @@ body {
     gap: 1rem;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 /** Links de la lista */
@@ -112,7 +111,7 @@ body {
 /** Banner */
 .banner {
     grid-row: 2;
-    background: linear-gradient(to left, rgb(0 0 0/0.6), rgb(0 0 0 / 0.95)), url(images/Banner-fondo.png);
+    background: linear-gradient(to left, rgb(0 0 0/0.6), rgb(0 0 0 / 0.95)), url(../images/Banner-fondo.png);
     background-size: cover;
     background-position: center;
     border-bottom: 2px solid var(--color-primario-1);
@@ -166,6 +165,47 @@ main {
     margin: 8rem auto;
 }
 
+/** Contacto */
+#contact_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: 85vw;
+    min-height: 40vh;
+}
+
+.contact_box {
+    padding: 1rem;
+    background-color: var(--color-secundario-2);
+    box-shadow: 0 5px 15px var(--color-sombra-1);
+    border-radius: 8px;
+    text-align: center;
+    min-height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    transition: all 0.5s ease;
+}
+
+.contact_box:hover {
+    background-color: var(--color-primario-4);
+    color:var(--color-primario-2)
+}
+
+.contact_box_mail {
+    text-decoration: none;
+    color: var(--color-secundario-4);
+    transition: all 0.3s ease;
+    max-width: 100%;
+}
+
+.contact_box:hover .contact_box_mail {
+    color: var(--color-primario-1);
+}
+
 /** Footer */
 .footer {
     grid-row: 4;
@@ -201,7 +241,7 @@ main {
 }
 
 .footer-logo:hover {
-    filter: drop-shadow(0 0 5px Cyan) invert(100%);
+    filter: drop-shadow(0 0 5px rgb(255, 108, 248)) invert(20%);
 }
 
 /** Texto del footer */

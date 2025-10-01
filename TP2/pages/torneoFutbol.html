@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thorneos</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="torneo.css">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/torneo.css">
 </head>
 
 <body>
@@ -17,16 +17,17 @@
             <h1 class="navbar_titulo">Thorneos</h1>
             <ul class="navbar_links">
                 <li><a href="index.html" class="navbar_link">Inicio</a></li>
-                <li><a href="#" class="navbar_link">Contacto</a></li>
+                <li><a href="torneosCatalogo.html" class="navbar_link">Torneos</a></li>
+                <li><a href="contacto.html" class="navbar_link">Contacto</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Banner -->
-    <section class="banner">
+    <section class="banner" id="torneo_futbol">
         <div class="banner__contenido">
             <h1 class="banner_titulo">Thorneos</h1>
-            <h3 class="banner_desc">Federal A 2025</h3>
+            <h3 class="banner_desc banner_torneo_titulo">Federal A 2025</h3>
         </div>
     </section>
 
@@ -34,9 +35,6 @@
     <main>
         <section>
             <div class="info_torneo">
-                <div class="info_torneo_extra">
-                    <img src="images/7770538.jpg" alt="Imagen del torneo" class="info_torneo_imagen">
-                </div>
                 <div class="info_grid">
                     <div class="info_torneo_container">
                         <h2 class="info_torneo_titulo">Disciplina</h2>
@@ -68,7 +66,10 @@
                     </div>
                     <div class="info_torneo_container">
                         <h2 class="info_torneo_titulo">Tags</h2>
-                        <p class="info_torneo_detalles">Masculino, Profesional</p>
+                        <ul class="tabla_tags_lista">
+                            <li class="tabla_tag">Masculino</li>
+                            <li class="tabla_tag">Profesional</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="info_torneo_container info_torneo_extra">
@@ -165,43 +166,25 @@
                     </thead>
                     <tbody id="tabla-torneos-body">
                         <tr>
-                            <td><img src="https://picsum.photos/80/80?random=2" alt="" class="tabla_portada"></td>
-                            <td><span class="tabla_texto">Torneo Nacional de Baloncesto</span></td>
-                            <td><span class="tabla_texto">Baloncesto</span></td>
-                            <td><span class="tabla_texto">12</span></td>
-                            <td class="tabla_tags_box">
-                                <ul class="tabla_tags_lista">
-                                    <li class="tabla_tag">Profesional</li>
-                                    <li class="tabla_tag">Liga ACB</li>
-                                    <li class="tabla_tag">Playoffs</li>
-                                </ul>
-                            </td>
-                            <td><span class="tabla_texto">Bracket</span></td>
-                            <td><span class="tabla_estado estado-sin-comenzar">Sin comenzar</span></td>
-                            <td><button class="tabla_btn_explorar">Ver más</button></td>
-                        </tr>
-                        <tr>
                             <td><img src="https://picsum.photos/80/80?random=3" alt="" class="tabla_portada"></td>
-                            <td><span class="tabla_texto">Abierto Internacional de Tenis</span></td>
-                            <td><span class="tabla_texto">Tenis</span></td>
-                            <td><span class="tabla_texto">32</span></td>
+                            <td><span class="tabla_texto">Nacional de Voley</span></td>
+                            <td><span class="tabla_texto">Volleyball</span></td>
+                            <td><span class="tabla_texto">6</span></td>
                             <td class="tabla_tags_box">
                                 <ul class="tabla_tags_lista">
-                                    <li class="tabla_tag">Grand Slam</li>
-                                    <li class="tabla_tag">Individual</li>
-                                    <li class="tabla_tag">Dobles</li>
-                                    <li class="tabla_tag">Césped</li>
+                                    <li class="tabla_tag">Mayores</li>
+                                    <li class="tabla_tag">Regiones</li>
                                 </ul>
                             </td>
-                            <td><span class="tabla_texto">Bracket</span></td>
-                            <td><span class="tabla_estado estado-finalizado">Finalizado</span></td>
-                            <td><button class="tabla_btn_explorar">Ver más</button></td>
+                            <td><span class="tabla_texto">Liga</span></td>
+                            <td><span class="tabla_estado estado-en-curso">En curso</span></td>
+                            <td><a class="tabla_btn_explorar" href="torneoVolley.html">Ver más</a></td>
                         </tr>
                         <tr>
                             <td><img src="https://picsum.photos/80/80?random=4" alt="" class="tabla_portada"></td>
-                            <td><span class="tabla_texto">Torneo invitacional</span></td>
+                            <td><span class="tabla_texto">Torneo FAI de CS2</span></td>
                             <td><span class="tabla_texto">CS2</span></td>
-                            <td><span class="tabla_texto">12</span></td>
+                            <td><span class="tabla_texto">7</span></td>
                             <td class="tabla_tags_box">
                                 <ul class="tabla_tags_lista">
                                     <li class="tabla_tag">Counter strike 2</li>
@@ -210,11 +193,14 @@
                                 </ul>
                             </td>
                             <td><span class="tabla_texto">Liga</span></td>
-                            <td><span class="tabla_estado estado-en-curso">En curso</span></td>
-                            <td><button class="tabla_btn_explorar">Ver más</button></td>
+                            <td><span class="tabla_estado estado-sin-comenzar">Sin comenzar</span></td>
+                            <td><a class="tabla_btn_explorar" href="torneoCS2.html">Ver más</a></td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div class="torneos_explorar_box">
+                <a href="#" class="torneos_btn_explorar tabla_btn_explorar">Ver más torneos</a>
             </div>
         </section>
     </main>
@@ -223,7 +209,7 @@
     <footer class="footer">
         <div class="footer-info">
             <a href="https://www.fi.uncoma.edu.ar" class="footer-logo-link">
-                <img src="images/fai-logo.png" alt="Logo de la facultad" class="footer-logo">
+                <img src="../images/fai-logo.png" alt="Logo de la facultad" class="footer-logo">
             </a>
             <div class="footer-uni">
                 <p>Facultad de informática</p>

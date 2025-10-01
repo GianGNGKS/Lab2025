@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Thorneos</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <nav class="navbar">
+            <h1 class="navbar_titulo">Thorneos</h1>
+            <ul class="navbar_links">
+                <li><a href="index.html" class="navbar_link">Inicio</a></li>
+                <li><a href="torneosCatalogo.html" class="navbar_link">Torneos</a></li>
+                <li><a href="contacto.html" class="navbar_link">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Banner -->
+    <section class="banner">
+        <div class="banner__contenido">
+            <h1 class="banner_titulo">Thorneos</h1>
+            <p class="banner_desc">¡La acción te espera! Explora nuestro catálogo y descubre cientos de torneos activos
+                y próximos. Filtra por tu disciplina favorita, busca por formato o echa un
+                vistazo a los eventos más populares. Ya sea que busques competencia seria o diversión casual, ¡Elige tu batalla y únete!
+            </p>
+        </div>
+    </section>
+
+    <main>
+        <section class="main_container" id="catalogo_container">
+            <form id="torneo_filtro" class="form_filtro_search">
+                <div class="filtro_grupo">
+                    <label for="filtro_texto" class="filtro_etiqueta">Buscar Torneo:</label>
+                    <input type="search" id="filtro_texto" class="filtro_input"
+                        placeholder="Buscar por Nombre, Organizador o Tags...">
+                </div>
+                <div class="filtro_grupo">
+                    <label for="filtro_disciplina" class="filtro_etiqueta">Filtrar por Disciplina:</label>
+                    <select id="filtro_disciplina" class="filtro_select">
+                        <option value="">Todas las Disciplinas</option>
+                        <option value="counter_strike_2">Counter Strike 2</option>
+                        <option value="league_of_legends">League Of Legends</option>
+                        <option value="futbol">Fútbol</option>
+                        <option value="volley">Volley</option>
+                        <option value="basket">Basket</option>
+                    </select>
+                </div>
+                <div class="filtro_acciones">
+                    <button type="submit" class="filtro_btn form_btn_primario">Aplicar Filtros</button>
+                    <button type="reset" class="filtro_btn form_btn_secundario">Limpiar</button>
+                </div>
+            </form>
+            <div class="torneos_lista">
+                <table class="tabla_torneos">
+                    <thead>
+                        <tr>
+                            <th>Portada</th>
+                            <th>Nombre</th>
+                            <th>Disciplina</th>
+                            <th>Nro. Participantes</th>
+                            <th>Tags</th>
+                            <th>Formato</th>
+                            <th>Estado</th><!-- 1. Sin comenzar, 2. En curso, 3. Finalizado -->
+                            <th>Explorar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Primer ejemplo-->
+                        <tr>
+                            <td><img src="https://picsum.photos/80/80?random=1" alt="" class="tabla_portada"></td>
+                            <td><span class="tabla_texto">Federal A 2025</span></td>
+                            <td><span class="tabla_texto">Fútbol</span></td>
+                            <td><span class="tabla_texto">10</span></td>
+                            <td class="tabla_tags_box">
+                                <ul class="tabla_tags_lista">
+                                    <li class="tabla_tag">Masculino</li>
+                                    <li class="tabla_tag">Profesional</li>
+                                </ul>
+                            </td>
+                            <td><span class="tabla_texto">Liga</span></td>
+                            <td><span class="tabla_estado estado-finalizado">Finalizado</span></td>
+                            <td><a class="tabla_btn_explorar" href="torneoFutbol.html">Ver más</a></td>
+                        </tr>
+                        <!-- Segundo ejemplo-->
+                        <tr>
+                            <td><img src="https://picsum.photos/80/80?random=3" alt="" class="tabla_portada"></td>
+                            <td><span class="tabla_texto">Nacional de Voley</span></td>
+                            <td><span class="tabla_texto">Volleyball</span></td>
+                            <td><span class="tabla_texto">6</span></td>
+                            <td class="tabla_tags_box">
+                                <ul class="tabla_tags_lista">
+                                    <li class="tabla_tag">Mayores</li>
+                                    <li class="tabla_tag">Regiones</li>
+                                </ul>
+                            </td>
+                            <td><span class="tabla_texto">Liga</span></td>
+                            <td><span class="tabla_estado estado-en-curso">En curso</span></td>
+                            <td><a class="tabla_btn_explorar" href="torneoVolley.html">Ver más</a></td>
+                        </tr>
+                        <!-- Tercer ejemplo-->
+                        <tr>
+                            <td><img src="https://picsum.photos/80/80?random=4" alt="" class="tabla_portada"></td>
+                            <td><span class="tabla_texto">Torneo FAI de CS2</span></td>
+                            <td><span class="tabla_texto">CS2</span></td>
+                            <td><span class="tabla_texto">7</span></td>
+                            <td class="tabla_tags_box">
+                                <ul class="tabla_tags_lista">
+                                    <li class="tabla_tag">Counter strike 2</li>
+                                    <li class="tabla_tag">Competitivo</li>
+                                    <li class="tabla_tag">Premios</li>
+                                </ul>
+                            </td>
+                            <td><span class="tabla_texto">Liga</span></td>
+                            <td><span class="tabla_estado estado-sin-comenzar">Sin comenzar</span></td>
+                            <td><a class="tabla_btn_explorar" href="torneoCS2.html">Ver más</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-info">
+            <a href="https://www.fi.uncoma.edu.ar" class="footer-logo-link">
+                <img src="../images/fai-logo.png" alt="Logo de la facultad" class="footer-logo">
+            </a>
+            <div class="footer-uni">
+                <p>Facultad de informática</p>
+                <p>Universidad Nacional del Comahue</p>
+            </div>
+            <p>-</p>
+            <ul class="footer-contacto">
+                <li><a href="mailto:donato.trobbiani@est.fi.uncoma.edu.ar" class="footer-contacto-link">Donato Trobbiani
+                        Perales</a></li>
+                <li>-</li>
+                <li><a href="mailto:gianfranco.gallucci@est.fi.uncoma.edu.ar" class="footer-contacto-link">Gianfranco
+                        Nicolás Gallucci</a></li>
+            </ul>
+        </div>
+        <div class="footer-info">
+            <p>&copy; 2025 Thorneos. Proyecto para Laboratorio de programación 2025</p>
+        </div>
+    </footer>
+</body>
+
+</html>

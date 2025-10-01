@@ -1,40 +1,11 @@
-:root {
-    /* ! Variables CSS, utilizar con var(nombre)*/
-    --color-primario-1: rgb(212, 203, 114);
-    --color-primario-2: rgb(175, 165, 73);
-    --color-primario-3: rgb(59, 55, 19);
-    --color-primario-4: rgb(53, 46, 15);
-    --color-secundario-1: rgb(85 30 35);
-    --color-secundario-2: rgb(114 51 57);
-    --color-secundario-3: rgb(255 178 183);
-    --color-secundario-4: rgb(255 218 219);
-    --color-error-1: rgb(255 218 214);
-    --color-error-2: rgb(255 180 171);
-    --color-error-3: rgb(147 0 10);
-    --color-error-4: rgb(105 0 5);
-    --color-fondo-1: rgb(18 19 24);
-    --color-fondo-2: rgb(26, 31, 36);
-    --color-fondo-3: rgb(30, 33, 36);
-    --color-fondo-4: rgb(44, 44, 51);
-    --color-borde-1: rgb(141 145 153);
-    --color-borde-2: rgb(67 71 78);
-    --color-sombra-1: rgba(0, 0, 0, 0.2);
-
-
-    --fuente-primaria: "Archivo Black", sans-serif;
-    /* Títulos y encabezados, weight 400 */
-    --fuente-secundaria: "Montserrat", sans-serif;
-    /* Cuerpo de texto, weight 100-900 */
-}
-
 /** Torneos */
-.main_torneos {
+.main_container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: var(--color-fondo-1);
-    gap: 6rem;
+    gap: 4rem;
     padding: 2rem;
     margin: 2rem auto;
     max-width: 90vw;
@@ -127,7 +98,9 @@ td {
 
 /* Estilos para los tags */
 .tabla_tags_lista {
+    padding: 0;
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 6px;
     list-style-type: none;
@@ -135,7 +108,7 @@ td {
 }
 
 .tabla_tag {
-    background: var(--color-secundario-2);
+    background: var(--color-fondo-4);
     padding: 0.3rem 0.6rem;
     border-radius: 10px;
     font-size: 0.8rem;
@@ -174,10 +147,118 @@ td {
     font-size: 0.9rem;
     font-weight: 600;
     transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 .tabla_btn_explorar:hover {
     color: var(--color-secundario-4);
     background-color: var(--color-secundario-2);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.torneos_explorar_box {
+    text-align: center;
+    margin: 1rem 0 auto 0;
+}
+
+.torneos_btn_explorar {
+    font-size: large;
+}
+
+/** Catálogo de torneos*/
+
+#catalogo_container{
+    gap: 1rem;
+}
+
+.form_filtro_search {
+    display: grid;
+    grid-template-columns: minmax(150px, 1fr) 1fr minmax(100px, auto);
+    gap: 1.5rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    background-color: var(--color-fondo-4);
+    box-shadow: 0 4px 12px var(--color-sombra-1);
+    align-items: end;
+    width: 85vw;
+}
+
+@media (max-width: 700px) {
+    .form_filtro_search {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+.filtro_grupo {
+    display: flex;
+    flex-direction: column;
+}
+
+.filtro_etiqueta {
+    color: var(--color-borde-1);
+    font-size: 0.9rem;
+    font-family: var(--fuente-secundaria);
+    font-weight: 500;
+}
+
+.filtro_input,
+.filtro_select {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--color-borde-2);
+    border-radius: 8px;
+    background-color: var(--color-fondo-3);
+    color: white;
+    font-family: var(--fuente-secundaria);
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.filtro_input:focus,
+.filtro_select:focus {
+    outline: none;
+    border-color: var(--color-primario-2);
+}
+
+.filtro_input::placeholder {
+    color: var(--color-borde-2);
+}
+
+.filtro_acciones {
+    display: flex;
+    align-self: flex-end;
+    gap: 0.75rem;
+    height: 100%;
+}
+
+.filtro_btn {
+    border: none;
+    border-radius: 6px;
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    font-family: var(--fuente-secundaria);
+    font-weight: 600;
+    transition: background-color 0.2s, opacity 0.2s;
+    white-space: nowrap;
+}
+
+.form_btn_primario {
+    background-color: var(--color-primario-2);
+    color: var(--color-fondo-1);
+}
+
+.form_btn_primario:hover {
+    background-color: var(--color-primario-1);
+}
+
+.form_btn_secundario {
+    background-color: var(--color-secundario-1);
+    color: var(--color-secundario-4);
+}
+
+.form_btn_secundario:hover {
+    background-color: var(--color-secundario-2);
+    color: var(--color-secundario-3)
 }
