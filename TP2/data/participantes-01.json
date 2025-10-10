@@ -1,0 +1,68 @@
+{
+  "torneo_id": "01",
+  "participantes": [
+    {
+      "id": "p01-01",
+      "nombre": "Los Recursivos",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "p01-02",
+      "nombre": "Alt F4",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "p01-03",
+      "nombre": "1001",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "p01-04",
+      "nombre": "No Compila FC",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "p01-05",
+      "nombre": "Los Debuggers",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "p01-06",
+      "nombre": "404 Team Not Found",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "p01-07",
+      "nombre": "StackOverBoys",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    }
+  ]
+}

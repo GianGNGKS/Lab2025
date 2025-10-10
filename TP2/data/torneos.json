@@ -1,0 +1,77 @@
+[
+  {
+    "torneo_id": "00",
+    "nombre": "Federal A 2025",
+    "portadaURL": null,
+    "disciplina": "futbol",
+    "formato": "Liga",
+    "estado": 2,
+    "nro_participantes": 10,
+    "organizador": "Consejo Federal",
+    "premio": "$$$",
+    "fecha_inicio": "2024-10-10",
+    "fecha_fin": "2025-02-09",
+    "tags": [
+      "Masculino",
+      "Profesional"
+    ],
+    "descripcion": "El Torneo Federal A es un campeonato de la tercera categoría del fútbol argentino, organizado por el Consejo Federal, órgano interno de la AFA, que busca coronar al mejor equipo de la última división profesional del fútbol argentino."
+  },
+  {
+    "torneo_id": "01",
+    "nombre": "Torneo FAI de CS2",
+    "portadaURL": null,
+    "disciplina": "counter_strike_2",
+    "formato": "Liga",
+    "estado": 0,
+    "nro_participantes": 7,
+    "organizador": "Centro de estudiantes FAI",
+    "premio": "Indumentaria deportiva",
+    "fecha_inicio": "2025-10-11",
+    "fecha_fin": "2025-10-12",
+    "tags": [
+      "Counter Strike 2",
+      "Competitivo",
+      "Premios"
+    ],
+    "descripcion": "Ven a divertirte juntos a tus compañeros en este torneo recreativo de Counter Strike 2 para estudiantes de la facultad de informática! Tenemos comida, agua, premios y muchas ganas de pasarla bien! A que estas esperando?"
+  },
+  {
+    "torneo_id": "02",
+    "nombre": "Clasificatorio Regional de Magic",
+    "portadaURL": null,
+    "disciplina": "magic_the_gathering",
+    "formato": "Liga",
+    "estado": 0,
+    "nro_participantes": 32,
+    "organizador": "Comunidad de Magic del Alto Valle",
+    "premio": "Cajas de sobres y clasificación al Nacional",
+    "fecha_inicio": "2025-11-22",
+    "fecha_fin": "2025-11-23",
+    "tags": [
+      "Modern",
+      "Competitivo",
+      "Clasificatorio",
+      "Regional"
+    ],
+    "descripcion": "¡Demuestra tu habilidad en el formato Modern y compite por un lugar en el Torneo Nacional! Un fin de semana de estrategia intensa, grandes premios y la oportunidad de ser el campeón regional. Se requiere mazo propio."
+  },
+  {
+    "torneo_id": "03",
+    "nombre": "Nacional de volley",
+    "portadaURL": null,
+    "disciplina": "volley",
+    "formato": "Liga",
+    "estado": 1,
+    "nro_participantes": 6,
+    "organizador": "FMV",
+    "premio": "Copa Milinkovic",
+    "fecha_inicio": "2025-09-27",
+    "fecha_fin": null,
+    "tags": [
+      "Mayores",
+      "Regiones"
+    ],
+    "descripcion": "El Nacional de Voley reúne a los mejores jugadores de la Argentina, uniendolos por regiones, para disputar un torneo único donde se definirá cuál es el mejor semillero del país."
+  }
+]
