@@ -1,28 +1,20 @@
-function cargarComponent(url, elementId) {
-    fetch(url)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(
-                    `Error al cargar el componente: ${response.statusText}`
-                );
-            }
+
+function cargarComponente(url, elementId) {
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) throw new Error(`Error al cargar ${url}`);
             return response.text();
         })
-        .then((data) => {
+        .then(data => {
             const element = document.getElementById(elementId);
-            if (element) {
-                element.innerHTML = data;
-            } else {
-                console.error(`El elemento con id '${elementId}' no fue encontrado.`);
-            }
-        })
-        .catch((error) => {
-            console.error("Hubo un problema con la operación fetch:", error);
+            if (element) element.innerHTML = data;
         });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    cargarComponent("../components/header.html", "header-placeholder");
-    cargarComponent("../components/banner.html", "banner-placeholder");
-    cargarComponent("../components/footer.html", "footer-placeholder");
-});
+export function cargarComponentesComunes() {
+    return Promise.all([
+        cargarComponente("../components/header.html", "header-placeholder"),
+        cargarComponente("../components/banner.html", "banner-placeholder"),
+        cargarComponente("../components/footer.html", "footer-placeholder")
+    ]);
+}

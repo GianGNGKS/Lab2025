@@ -2,7 +2,7 @@
   {
     "torneo_id": "00",
     "nombre": "Federal A 2025",
-    "portadaURL": null,
+    "portadaURL": "../images/football.jpg",
     "disciplina": "futbol",
     "formato": "Liga",
     "estado": 2,
@@ -20,7 +20,7 @@
   {
     "torneo_id": "01",
     "nombre": "Torneo FAI de CS2",
-    "portadaURL": null,
+    "portadaURL": "../images/Counter_Strike_2_Logo.png",
     "disciplina": "counter_strike_2",
     "formato": "Liga",
     "estado": 0,
@@ -38,28 +38,8 @@
   },
   {
     "torneo_id": "02",
-    "nombre": "Clasificatorio Regional de Magic",
-    "portadaURL": null,
-    "disciplina": "magic_the_gathering",
-    "formato": "Liga",
-    "estado": 0,
-    "nro_participantes": 32,
-    "organizador": "Comunidad de Magic del Alto Valle",
-    "premio": "Cajas de sobres y clasificación al Nacional",
-    "fecha_inicio": "2025-11-22",
-    "fecha_fin": "2025-11-23",
-    "tags": [
-      "Modern",
-      "Competitivo",
-      "Clasificatorio",
-      "Regional"
-    ],
-    "descripcion": "¡Demuestra tu habilidad en el formato Modern y compite por un lugar en el Torneo Nacional! Un fin de semana de estrategia intensa, grandes premios y la oportunidad de ser el campeón regional. Se requiere mazo propio."
-  },
-  {
-    "torneo_id": "03",
     "nombre": "Nacional de volley",
-    "portadaURL": null,
+    "portadaURL": "../images/volley.jpg",
     "disciplina": "volley",
     "formato": "Liga",
     "estado": 1,

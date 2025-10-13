@@ -1,4 +1,56 @@
-import { encontrarDisciplinaJSON, ESTADO_TORNEO, encontrarEstadoJSON } from "./constantes.js";
+import { encontrarDisciplinaJSON, encontrarEstadoJSON } from "./constantes.js";
+
+export async function getTorneos() {
+    const cacheKey = 'torneos';
+
+    try {
+        const cachedData = localStorage.getItem(cacheKey);
+        if (cachedData) {
+            return JSON.parse(cachedData);
+        }
+        const response = await fetch('../data/torneos.json');
+
+        if (!response.ok) {
+            throw new Error(`Error al cargar el archivo: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        localStorage.setItem(cacheKey, JSON.stringify(data));
+
+        return data;
+
+    } catch (error) {
+        console.error("No se pudieron obtener los torneos:", error);
+        return null;
+    }
+}
+
+export async function getParticipantes(torneo_id) {
+    const cacheKey = `participantes_${torneo_id}`;
+
+    try {
+        const cachedData = localStorage.getItem(cacheKey);
+
+        if (cachedData) {
+            return JSON.parse(cachedData);
+        }
+        const participantesURL = `../data/participantes-${torneo_id}.json`;
+        const response = await fetch(participantesURL);
+
+        if (!response.ok) {
+            throw new Error(`Error al cargar el archivo: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        localStorage.setItem(cacheKey, JSON.stringify(data));
+
+        return data;
+    } catch (error) {
+        console.error(`No se pudieron obtener los participantes de ${torneo_id}`);
+        return null;
+    }
+
+}
 
 export async function renderizarTablaTorneos(idContainer, dataTorneos) {
     const container = document.getElementById(idContainer);
@@ -23,18 +75,11 @@ export async function renderizarTablaTorneos(idContainer, dataTorneos) {
     }
 
     dataTorneos.forEach(torneo => {
-        const infoDisciplina = encontrarDisciplinaJSON(torneo.disciplina);
-        const nombreDisciplina = infoDisciplina ? infoDisciplina.nombreDisplay : torneo.disciplina;
-
-        const infoEstado = encontrarEstadoJSON(torneo.estado);
-        const datosEstado = infoEstado ?
-            { text: infoEstado.nombreDisplay, className: infoEstado.className } :
-            { text: 'Desconocido', className: '' }
-
+        const { nombreDisciplina, datosEstado } = procesarInfoTorneo(torneo);
 
         const row = document.createElement('tr');
         row.innerHTML =
-            `<tr>
+            `
             <td><img src="https://picsum.photos/80/80?random=1" alt="'Portada miniatura del torneo.'" class="tabla_portada"></td>
             <td><span class="tabla_texto">${torneo.nombre}</span></td>
             <td><span class="tabla_texto">${nombreDisciplina}</span></td>
@@ -46,8 +91,7 @@ export async function renderizarTablaTorneos(idContainer, dataTorneos) {
             </td>
             <td><span class="tabla_texto">${torneo.formato}</span></td>
             <td><span class="tabla_estado ${datosEstado.className}">${datosEstado.text}</span></td>
-            <td><a class="tabla_btn_explorar" href="torneoView.html?id=${torneo.torneo_id}">Ver más</a></td>
-        </tr>`
+            <td><a class="tabla_btn_explorar" href="torneoView.html?id=${torneo.torneo_id}">Ver más</a></td>`
         tbody.appendChild(row);
     });
 }
@@ -58,13 +102,7 @@ export async function renderizarTorneo(idContainer, dataTorneo) {
         console.error(`Contenedor con id '${idContainer}' no encontrado.`);
         return;
     } else {
-        const infoDisciplina = encontrarDisciplinaJSON(dataTorneo.disciplina);
-        const nombreDisciplina = infoDisciplina ? infoDisciplina.nombreDisplay : dataTorneo.disciplina;
-
-        const infoEstado = encontrarEstadoJSON(dataTorneo.estado);
-        const datosEstado = infoEstado ?
-            { text: infoEstado.nombreDisplay, className: infoEstado.className } :
-            { text: 'Desconocido', className: '' }
+        const { nombreDisciplina, datosEstado } = procesarInfoTorneo(dataTorneo);
 
         const displayTorneo = document.createElement('div');
         displayTorneo.classList.add('info_grid');
@@ -96,7 +134,11 @@ export async function renderizarTorneo(idContainer, dataTorneo) {
             </div>
             <div class="info_torneo_container">
                 <h2 class="info_torneo_titulo">Fechas</h2>
-                <p class="info_torneo_detalles">${dataTorneo.fecha_inicio}<br>${dataTorneo.fecha_fin}</p>
+                <p class="info_torneo_detalles">
+                ${dataTorneo.fecha_inicio}
+                <br>
+                ${dataTorneo.fecha_fin ? dataTorneo.fecha_fin : ''}
+                </p>
             </div>
             <div class="info_torneo_container">
                 <h2 class="info_torneo_titulo">Tags</h2>
@@ -107,5 +149,17 @@ export async function renderizarTorneo(idContainer, dataTorneo) {
         `;
         container.replaceWith(displayTorneo);
     }
+}
+
+function procesarInfoTorneo(torneo) {
+    const infoDisciplina = encontrarDisciplinaJSON(torneo.disciplina);
+    const nombreDisciplina = infoDisciplina ? infoDisciplina.nombreDisplay : torneo.disciplina;
+    const infoEstado = encontrarEstadoJSON(torneo.estado);
+
+    const datosEstado = infoEstado
+        ? { text: infoEstado.nombreDisplay, className: infoEstado.className }
+        : { text: 'Desconocido', className: '' };
+
+    return { nombreDisciplina, datosEstado };
 }
 

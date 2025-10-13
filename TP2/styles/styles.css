@@ -109,7 +109,7 @@ body {
 
 
 /** Banner */
-.banner {
+#banner {
     grid-row: 2;
     background: linear-gradient(to left, rgb(0 0 0/0.6), rgb(0 0 0 / 0.95)), url(../images/Banner-fondo.png);
     background-size: cover;
@@ -148,7 +148,7 @@ body {
 }
 
 /** Descripción del banner */
-.banner_desc {
+#banner_desc {
     max-width: 600px;
     font-family: var(--fuente-secundaria);
     font-size: larger;
