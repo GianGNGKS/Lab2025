@@ -173,7 +173,7 @@ td {
 
 .form_filtro_search {
     display: grid;
-    grid-template-columns: minmax(150px, 1fr) 1fr minmax(100px, auto);
+    grid-template-columns: minmax(150px, 1fr) 1fr 1fr minmax(100px, auto);
     gap: 1.5rem;
     padding: 1.5rem;
     margin-bottom: 2rem;
@@ -193,7 +193,9 @@ td {
 
 .filtro_grupo {
     display: flex;
+    height: 100%;
     flex-direction: column;
+    justify-content: flex-end;
 }
 
 .filtro_etiqueta {
@@ -226,31 +228,16 @@ td {
     color: var(--color-borde-2);
 }
 
-.filtro_acciones {
-    display: flex;
-    align-self: flex-end;
-    gap: 0.75rem;
-    height: 100%;
-}
-
 .filtro_btn {
     border: none;
     border-radius: 6px;
-    padding: 0.75rem 1.25rem;
+    height: 80%;
+    padding: 0.5rem;
     cursor: pointer;
     font-family: var(--fuente-secundaria);
     font-weight: 600;
     transition: background-color 0.2s, opacity 0.2s;
     white-space: nowrap;
-}
-
-.form_btn_primario {
-    background-color: var(--color-primario-2);
-    color: var(--color-fondo-1);
-}
-
-.form_btn_primario:hover {
-    background-color: var(--color-primario-1);
 }
 
 .form_btn_secundario {

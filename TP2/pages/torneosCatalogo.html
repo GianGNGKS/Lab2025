@@ -7,7 +7,7 @@
     <title>Thorneos</title>
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <script type="module" src="../scripts/index.js" defer></script>
+    <script type="module" src="../scripts/catalogo.js" defer></script>
 </head>
 
 <body>
@@ -36,9 +36,17 @@
                         <option value="basket">Basket</option>
                     </select>
                 </div>
-                <div class="filtro_acciones">
-                    <button type="submit" class="filtro_btn form_btn_primario">Aplicar Filtros</button>
-                    <button type="reset" class="filtro_btn form_btn_secundario">Limpiar</button>
+                <div class="filtro_grupo">
+                    <label for="filtro_estado" class="filtro_etiqueta">Filtrar por Estado:</label>
+                    <select id="filtro_estado" class="filtro_select">
+                        <option value="">Seleccione un estado</option>
+                        <option value="0">Sin comenzar</option>
+                        <option value="1">En curso</option>
+                        <option value="2">Finalizado</option>
+                    </select>
+                </div>
+                <div class="filtro_grupo">
+                    <button type="reset" class="filtro_btn form_btn_secundario">X</button>
                 </div>
             </form>
             <div id="tabla-torneos-placeholder"></div>
