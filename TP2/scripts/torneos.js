@@ -110,27 +110,27 @@ export async function renderizarTorneo(idContainer, dataTorneo) {
             `
             <div class="info_torneo_container">
                 <h2 class="info_torneo_titulo">Disciplina</h2>
-                <p class="info_torneo_detalles">${nombreDisciplina}</p>
+                <h3 class="info_torneo_detalles">${nombreDisciplina}</h3>
             </div>
             <div class="info_torneo_container">
                 <h2 class="info_torneo_titulo">Formato</h2>
-                <p class="info_torneo_detalles">${dataTorneo.formato}</p>
+                <h3 class="info_torneo_detalles">${dataTorneo.formato}</h3>
                     </div>
             <div class="info_torneo_container">
                 <h2 class="info_torneo_titulo">Estado</h2>
-                <p class="info_torneo_detalles"><span class="tabla_estado ${datosEstado.className}">${datosEstado.text}</span></p>
+                <h3 class="info_torneo_detalles"><span class="tabla_estado ${datosEstado.className}">${datosEstado.text}</span></h3>
             </div>
             <div class="info_torneo_container">
                 <h2 class="info_torneo_titulo">Nro. Participantes</h2>
-                <p class="info_torneo_detalles">${dataTorneo.nro_participantes}</p>
+                <h3 class="info_torneo_detalles">${dataTorneo.nro_participantes}</h3>
             </div>
             <div class="info_torneo_container">
                 <h2 class="info_torneo_titulo">Organizador</h2>
-                <p class="info_torneo_detalles">${dataTorneo.organizador}</p>
+                <h3 class="info_torneo_detalles">${dataTorneo.organizador}</h3>
             </div>
             <div class="info_torneo_container">
                 <h2 class="info_torneo_titulo">Premio</h2>
-                <p class="info_torneo_detalles">${dataTorneo.premio}</p>
+                <h3 class="info_torneo_detalles">${dataTorneo.premio}</h3>
             </div>
             <div class="info_torneo_container">
                 <h2 class="info_torneo_titulo">Fechas</h2>

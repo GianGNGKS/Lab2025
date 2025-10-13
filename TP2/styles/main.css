@@ -199,10 +199,11 @@ td {
 }
 
 .filtro_etiqueta {
-    color: var(--color-borde-1);
+    color: white;
     font-size: 0.9rem;
     font-family: var(--fuente-secundaria);
     font-weight: 500;
+    margin: 0 1em;
 }
 
 .filtro_input,
