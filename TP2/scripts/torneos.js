@@ -1,5 +1,11 @@
 import { encontrarDisciplinaJSON, encontrarEstadoJSON } from "./constantes.js";
 
+/**
+ * Obtiene la lista completa de torneos.
+ * Primero intenta recuperar los datos desde localStorage para mejorar el rendimiento.
+ * Si no están en caché, los obtiene desde el archivo JSON y los guarda en localStorage.
+ * @returns {Promise} Una promesa que se resuelve con un array de objetos de torneos, o null si ocurre un error.
+ */
 export async function getTorneos() {
     const cacheKey = 'torneos';
 
@@ -25,6 +31,12 @@ export async function getTorneos() {
     }
 }
 
+/**
+ * Obtiene la lista de participantes para un torneo específico por su ID.
+ * Utiliza un sistema de caché similar a getTorneos para evitar peticiones repetidas.
+ * @param {string} torneo_id - El ID del torneo para el cual se obtendrán los participantes.
+ * @returns {Promise} Una promesa que se resuelve con el objeto de participantes, o null si ocurre un error.
+ */
 export async function getParticipantes(torneo_id) {
     const cacheKey = `participantes_${torneo_id}`;
 
@@ -52,6 +64,12 @@ export async function getParticipantes(torneo_id) {
 
 }
 
+/**
+ * Renderiza una tabla de torneos en un contenedor específico.
+ * Carga el componente de la tabla y lo puebla con los datos de los torneos proporcionados.
+ * @param {string} idContainer - El ID del elemento contenedor donde se renderizará la tabla.
+ * @param {Array<Object>} dataTorneos - Un array de objetos de torneos para mostrar en la tabla.
+ */
 export async function renderizarTablaTorneos(idContainer, dataTorneos) {
     const container = document.getElementById(idContainer);
     if (!container) {
@@ -96,6 +114,11 @@ export async function renderizarTablaTorneos(idContainer, dataTorneos) {
     });
 }
 
+/**
+ * Renderiza la vista detallada de un único torneo en un contenedor.
+ * @param {string} idContainer - El ID del elemento que será reemplazado por la vista de detalles.
+ * @param {Object} dataTorneo - El objeto del torneo a renderizar.
+ */
 export async function renderizarTorneo(idContainer, dataTorneo) {
     const container = document.getElementById(idContainer);
     if (!container) {
@@ -151,6 +174,11 @@ export async function renderizarTorneo(idContainer, dataTorneo) {
     }
 }
 
+/**
+ * Procesa los datos brutos de un torneo para obtener valores listos para mostrar.
+ * @param {Object} torneo - El objeto del torneo a procesar.
+ * @returns {{nombreDisciplina: string, datosEstado: {text: string, className: string}}} Un objeto con el nombre de la disciplina y los datos del estado listos para ser renderizados.
+ */
 function procesarInfoTorneo(torneo) {
     const infoDisciplina = encontrarDisciplinaJSON(torneo.disciplina);
     const nombreDisciplina = infoDisciplina ? infoDisciplina.nombreDisplay : torneo.disciplina;

@@ -1,6 +1,15 @@
 import { renderizarTorneo, getTorneos, getParticipantes } from './torneos.js';
 import { cargarComponentesComunes } from './main.js';
 
+/**
+ * @file Archivo dedicado a la carga y renderización de aspectos de un torneo en particular.
+ */
+
+/**
+ * Función principal que se ejecuta al cargar la página de la vista de un torneo.
+ * Carga componentes comunes, obtiene el ID del torneo desde la URL, busca el torneo
+ * y renderiza su información junto con la lista de participantes y edita el banner.
+ */
 async function main() {
     await Promise.all([cargarComponentesComunes()]);
 
@@ -25,6 +34,11 @@ async function main() {
     }
 }
 
+/**
+ * Renderiza la tabla de participantes de un torneo en un contenedor específico.
+ * @param {string} idContainer - El ID del elemento contenedor donde se renderizará la tabla.
+ * @param {Array<Object>} dataParticipantes - Un array de objetos, donde cada objeto representa un participante.
+ */
 async function renderizarParticipantes(idContainer, dataParticipantes) {
     const container = document.getElementById(`info-participantes-placeholder`);
 
@@ -71,6 +85,11 @@ async function renderizarParticipantes(idContainer, dataParticipantes) {
     }
 }
 
+/**
+ * Actualiza el banner de la página con la información específica del torneo.
+ * Modifica el título y la imagen de fondo del banner.
+ * @param {Object} torneo - El objeto del torneo que contiene el nombre y la URL de la portada.
+ */
 async function editarBanner(torneo) {
     const nombreTorneo = torneo.nombre;
     const tituloBanner = document.getElementById(`banner_desc`);

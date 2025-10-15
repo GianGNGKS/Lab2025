@@ -1,8 +1,23 @@
 import { cargarComponentesComunes } from "./main.js";
 import { getTorneos, renderizarTablaTorneos } from "./torneos.js";
 
+/**
+ * @file Archivo dedicado a la sección catálogo de torneos. 
+ * Gestiona la carga, filtrado y renderizado de la lista de torneos.
+ */
+
+/**
+ * Almacena la lista completa de torneos obtenida de la fuente de datos.
+ * Se utiliza como caché para evitar peticiones repetidas al aplicar filtros.
+ * @type {Array<Object>}
+ */
 let listaTorneos = []
 
+/**
+ * Función principal que se ejecuta al cargar la página del catálogo.
+ * Carga los componentes comunes, obtiene la lista de torneos,
+ * renderiza la tabla inicial y configura los filtros.
+ */
 async function main() {
     await Promise.all([cargarComponentesComunes()]);
 
@@ -15,6 +30,10 @@ async function main() {
     inicializarFiltros();
 }
 
+/**
+ * Configura los listeners de eventos para los controles del formulario de filtros.
+ * Llama a `aplicarFiltros` cada vez que un valor de filtro cambia o el formulario se resetea.
+ */
 function inicializarFiltros() {
     const form = document.getElementById(`torneo_filtro`);
     const inputTexto = document.getElementById(`filtro_texto`);
@@ -30,6 +49,10 @@ function inicializarFiltros() {
     })
 }
 
+/**
+ * Obtiene los valores actuales de los filtros, filtra la lista de torneos
+ * según esos criterios y vuelve a renderizar la tabla con los resultados.
+ */
 function aplicarFiltros() {
     const filtroTexto = document.getElementById('filtro_texto').value.toLowerCase();
     const filtroDisciplina = document.getElementById('filtro_disciplina').value;
