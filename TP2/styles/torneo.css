@@ -2,7 +2,7 @@
 .info_torneo {
     display: grid;
     background-color: var(--color-fondo-1);
-    gap: 1rem;
+    gap: 3rem;
     padding: 4rem 2rem;
     margin: 2rem auto;
     max-width: 90vw;
@@ -33,6 +33,37 @@
     background-color: var(--color-secundario-1);
 }
 
+.info_torneo_seccion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    color: white;
+    margin: 2rem 0;
+    padding: 1rem 2rem;
+    position: relative;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.info_torneo_seccion::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--color-primario-1), 
+        var(--color-secundario-3), 
+        var(--color-primario-1), 
+        transparent);
+    box-shadow: 0 0 10px var(--color-primario-1);
+}
+
 .info_torneo_titulo {
     margin: 0 0 5px 0;
     font-size: larger;
@@ -47,7 +78,7 @@
     font-weight: bold;
     color: var(--color-secundario-4);
 }
-
+/* 
 .info_torneo_extra {
     margin: 0 auto;
     display: flex;
@@ -61,7 +92,7 @@
     border: 4px solid var(--color-primario-1);
     box-shadow: 0 5px 15px var(--color-sombra-1);
     margin: 2rem 0;
-}
+} */
 
 .torneos_relacionados {
     display: flex;
@@ -69,22 +100,6 @@
     justify-content: center;
     align-items: center;
     gap: 6rem;
-}
-
-#torneo_cs2 {
-    background: linear-gradient(to left, rgb(0 0 0/0.6), rgb(0 0 0 / 0.95)), url(../images/Counter_Strike_2_Logo.png);
-}
-
-#torneo_futbol {
-    background: linear-gradient(to left, rgb(0 0 0/0.6), rgb(0 0 0 / 0.95)), url(../images/football.jpg);
-    background-size: cover;
-    background-position: center;
-}
-
-#torneo_volley {
-    background: linear-gradient(to left, rgb(0 0 0/0.6), rgb(0 0 0 / 0.95)), url(../images/volley.jpg);
-    background-size: cover;
-    background-position: center;
 }
 
 .banner_torneo_titulo {

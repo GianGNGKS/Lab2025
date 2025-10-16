@@ -1,9 +1,12 @@
-import { renderizarTorneo, getTorneos, getParticipantes } from './torneos.js';
+import { renderizarTorneo, getTorneos, getParticipantes, getPartidos } from './torneos.js';
 import { cargarComponentesComunes } from './main.js';
 
 /**
  * @file Archivo dedicado a la carga y renderización de aspectos de un torneo en particular.
  */
+
+let listaParticipantes = [];
+let listaPartidos = [];
 
 /**
  * Función principal que se ejecuta al cargar la página de la vista de un torneo.
@@ -17,21 +20,35 @@ async function main() {
     const idURL = params.get('id');
     const listaTorneos = await getTorneos();
 
-    if (listaTorneos) {
-        const torneoEncontrado = listaTorneos.find(torneo => torneo.torneo_id == idURL);
-
-        if (torneoEncontrado) {
-            renderizarTorneo('info-torneo-placeholder', torneoEncontrado);
-            await editarBanner(torneoEncontrado);
-
-            const participantesTorneo = await getParticipantes(torneoEncontrado.torneo_id);
-            if (participantesTorneo) {
-                renderizarParticipantes('id-participantes-placeholder', participantesTorneo.participantes);
-            }
-        } else {
-            console.error('Err: No se encontró ningún torneo.')
-        }
+    if (!listaTorneos) {
+        return;
     }
+
+    const torneoEncontrado = listaTorneos.find(torneo => torneo.torneo_id == idURL);
+
+    if (!torneoEncontrado) {
+        console.error('Err: No se encontró ningún torneo.');
+        return;
+    }
+
+    renderizarTorneo('info-torneo-placeholder', torneoEncontrado);
+    await editarBanner(torneoEncontrado);
+
+    listaParticipantes = await getParticipantes(torneoEncontrado.torneo_id);
+    console.log(listaParticipantes);
+    if (!listaParticipantes) {
+        return;
+    }
+
+    renderizarParticipantes('id-participantes-placeholder', listaParticipantes.participantes);
+
+    
+    listaPartidos = await getPartidos(torneoEncontrado.torneo_id);
+    if (!listaPartidos) {
+        return;
+    }
+    renderizarPartidos('info-partidos-placeholder', listaPartidos.partidos);
+    
 }
 
 /**
@@ -44,11 +61,12 @@ async function renderizarParticipantes(idContainer, dataParticipantes) {
 
     if (!container) {
         console.error(`Contenedor con id '${idContainer}' no encontrado.`);
-    } else {
-        const displayParticipantes = document.createElement('div');
+        return;
+    }
+    const displayParticipantes = document.createElement('div');
 
-        displayParticipantes.innerHTML =
-            `
+    displayParticipantes.innerHTML =
+        `
             <div class="torneos_lista">
                 <table class="tabla_torneos">
                     <thead class="tabla-liga-head">
@@ -62,17 +80,17 @@ async function renderizarParticipantes(idContainer, dataParticipantes) {
                 </div>
             </div>
             `;
-        const tbody = displayParticipantes.querySelector('tbody');
-        container.replaceWith(displayParticipantes);
+    const tbody = displayParticipantes.querySelector('tbody');
+    container.replaceWith(displayParticipantes);
 
-        if (dataParticipantes.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="8">No hay participantes inscriptos todavía.</td></tr>';
-            return;
-        }
+    if (dataParticipantes.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8">No hay participantes inscriptos todavía.</td></tr>';
+        return;
+    }
 
-        dataParticipantes.forEach(participante => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
+    dataParticipantes.forEach(participante => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
                 <td><span class="tabla_texto">${participante.nombre}</span></td>
                 <td><span class="tabla_texto">${participante.partidos_jugados}</span></td>
                 <td><span class="tabla_texto">
@@ -80,9 +98,61 @@ async function renderizarParticipantes(idContainer, dataParticipantes) {
                 ${participante.empatados}-
                 ${participante.perdidos}</span></td>
             `
-            tbody.appendChild(row);
-        });
+        tbody.appendChild(row);
+    });
+}
+
+async function renderizarPartidos(idContainer, dataPartidos) {
+    const container = document.getElementById(`info-partidos-placeholder`);
+
+    if (!container) {
+        console.error(`Contenedor con id '${idContainer}' no encontrado.`);
+        return;
     }
+
+    const displayPartidos = document.createElement('div');
+
+    displayPartidos.innerHTML =
+        `
+            <div class="torneos_lista">
+                <table class="tabla_torneos">
+                    <thead class="tabla-liga-head">
+                        <th>Fecha</th>
+                        <th>Jornada</th>
+                        <th>Equipo 1</th>
+                        <th>Resultado</th>
+                        <th>Equipo 2</th>
+                    </thead>
+                    <tbody class="tabla-liga-body">
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+            `;
+    const tbody = displayPartidos.querySelector('tbody');
+    container.replaceWith(displayPartidos);
+
+    if (dataPartidos.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8">No hay partidos jugados .</td></tr>';
+        return;
+    }
+
+    dataPartidos.forEach(partido => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+                <td><span class="tabla_texto">${partido.fecha}</span></td>
+                <td><span class="tabla_texto">${partido.jornada}</span></td>
+                <td><span class="tabla_texto">${procesarNombreEquipo(partido.p1_id)}</span></td>
+                <td><span class="tabla_texto">${partido.res1} - ${partido.res2}</span></td>
+                <td><span class="tabla_texto">${procesarNombreEquipo(partido.p2_id)}</span></td>
+            `
+        tbody.appendChild(row);
+    });
+}
+
+function procesarNombreEquipo(equipo_id) {
+    const equipo = listaParticipantes.participantes.find(participante => participante.id === equipo_id);
+    return equipo ? equipo.nombre : "Desconocido";
 }
 
 /**

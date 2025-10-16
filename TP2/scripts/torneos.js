@@ -32,13 +32,14 @@ export async function getTorneos() {
 }
 
 /**
- * Obtiene la lista de participantes para un torneo específico por su ID.
- * Utiliza un sistema de caché similar a getTorneos para evitar peticiones repetidas.
- * @param {string} torneo_id - El ID del torneo para el cual se obtendrán los participantes.
- * @returns {Promise} Una promesa que se resuelve con el objeto de participantes, o null si ocurre un error.
+ * Obtiene datos relacionados a un torneo específico (participantes, partidos, etc.).
+ * Utiliza un sistema de caché en localStorage para evitar peticiones repetidas.
+ * @param {string} recurso - El tipo de recurso a obtener ('participantes', 'partidos', etc.).
+ * @param {string} torneo_id - El ID del torneo para el cual se obtendrán los datos.
+ * @returns {Promise} Una promesa que se resuelve con el objeto de datos, o null si ocurre un error.
  */
-export async function getParticipantes(torneo_id) {
-    const cacheKey = `participantes_${torneo_id}`;
+async function getDatosTorneo(recurso, torneo_id) {
+    const cacheKey = `${recurso}-${torneo_id}`;
 
     try {
         const cachedData = localStorage.getItem(cacheKey);
@@ -46,8 +47,8 @@ export async function getParticipantes(torneo_id) {
         if (cachedData) {
             return JSON.parse(cachedData);
         }
-        const participantesURL = `../data/participantes-${torneo_id}.json`;
-        const response = await fetch(participantesURL);
+        const dataURL = `../data/${recurso}-${torneo_id}.json`;
+        const response = await fetch(dataURL);
 
         if (!response.ok) {
             throw new Error(`Error al cargar el archivo: ${response.statusText}`);
@@ -58,10 +59,27 @@ export async function getParticipantes(torneo_id) {
 
         return data;
     } catch (error) {
-        console.error(`No se pudieron obtener los participantes de ${torneo_id}`);
+        console.error(`No se pudieron obtener los ${recurso} de ${torneo_id}`);
         return null;
     }
+}
 
+/**
+ * Obtiene la lista de participantes para un torneo específico.
+ * @param {string} torneo_id - El ID del torneo.
+ * @returns {Promise} Una promesa que se resuelve con el objeto de participantes, o null si ocurre un error.
+ */
+export async function getParticipantes(torneo_id) {
+    return getDatosTorneo('participantes', torneo_id);
+}
+
+/**
+ * Obtiene la lista de partidos para un torneo específico.
+ * @param {string} torneo_id - El ID del torneo.
+ * @returns {Promise} Una promesa que se resuelve con el objeto de partidos, o null si ocurre un error.
+ */
+export async function getPartidos(torneo_id) {
+    return getDatosTorneo('partidos', torneo_id);
 }
 
 /**
