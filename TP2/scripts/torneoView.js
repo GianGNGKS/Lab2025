@@ -34,21 +34,19 @@ async function main() {
     renderizarTorneo('info-torneo-placeholder', torneoEncontrado);
     await editarBanner(torneoEncontrado);
 
-    listaParticipantes = await getParticipantes(torneoEncontrado.torneo_id);
-    console.log(listaParticipantes);
-    if (!listaParticipantes) {
-        return;
+    const dataParticipantes = await getParticipantes(torneoEncontrado.torneo_id);
+    const participantesParaRenderizar = dataParticipantes && dataParticipantes.participantes ? dataParticipantes.participantes : [];
+    if(participantesParaRenderizar){
+        listaParticipantes = participantesParaRenderizar.map(p => ({
+            ...p, color: generarColorAleatorio()
+        }));
     }
+    renderizarParticipantes('id-participantes-placeholder', listaParticipantes);
 
-    renderizarParticipantes('id-participantes-placeholder', listaParticipantes.participantes);
+    const dataPartidos = await getPartidos(torneoEncontrado.torneo_id);
+    const partidosParaRenderizar = dataPartidos && dataPartidos.partidos ? dataPartidos.partidos : [];
+    renderizarPartidos('info-partidos-placeholder', partidosParaRenderizar);
 
-    
-    listaPartidos = await getPartidos(torneoEncontrado.torneo_id);
-    if (!listaPartidos) {
-        return;
-    }
-    renderizarPartidos('info-partidos-placeholder', listaPartidos.partidos);
-    
 }
 
 /**
@@ -73,6 +71,7 @@ async function renderizarParticipantes(idContainer, dataParticipantes) {
                         <th>Equipo</th>
                         <th>Partidos jugados</th>
                         <th>Record(G-E-P)</th>
+                        <th>Puntos</th>
                     </thead>
                     <tbody class="tabla-liga-body">
                         </tbody>
@@ -84,19 +83,21 @@ async function renderizarParticipantes(idContainer, dataParticipantes) {
     container.replaceWith(displayParticipantes);
 
     if (dataParticipantes.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8">No hay participantes inscriptos todavía.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="4">No hay participantes registrados en este torneo.</td></tr>';
         return;
     }
 
     dataParticipantes.forEach(participante => {
         const row = document.createElement('tr');
         row.innerHTML = `
-                <td><span class="tabla_texto">${participante.nombre}</span></td>
+                <td><span class="color-participante" style="background-color: ${participante.color};"></span>
+                <span class="tabla_texto">${participante.nombre}</span></td>
                 <td><span class="tabla_texto">${participante.partidos_jugados}</span></td>
                 <td><span class="tabla_texto">
                 ${participante.ganados}-
                 ${participante.empatados}-
                 ${participante.perdidos}</span></td>
+                <td><span class="tabla_texto">${participante.puntos}</span></td>
             `
         tbody.appendChild(row);
     });
@@ -133,26 +134,37 @@ async function renderizarPartidos(idContainer, dataPartidos) {
     container.replaceWith(displayPartidos);
 
     if (dataPartidos.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8">No hay partidos jugados .</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5">No hay partidos registrados para este torneo.</td></tr>';
         return;
     }
 
     dataPartidos.forEach(partido => {
+        const participante1 = procesarParticipante(partido.p1_id);
+        const participante2 = procesarParticipante(partido.p2_id);
+        const resultado = (partido.res1 !== null && partido.res2 !== null) ? `${partido.res1} - ${partido.res2}` : 'vs';
+
         const row = document.createElement('tr');
         row.innerHTML = `
                 <td><span class="tabla_texto">${partido.fecha}</span></td>
                 <td><span class="tabla_texto">${partido.jornada}</span></td>
-                <td><span class="tabla_texto">${procesarNombreEquipo(partido.p1_id)}</span></td>
-                <td><span class="tabla_texto">${partido.res1} - ${partido.res2}</span></td>
-                <td><span class="tabla_texto">${procesarNombreEquipo(partido.p2_id)}</span></td>
+                <td><span class="color-participante" style="background-color: ${participante1.color};"></span>
+                <span class="tabla_texto">${participante1.nombre}</span></td>
+                <td><span class="tabla_texto">${resultado}</span></td>
+                <td><span class="color-participante" style="background-color: ${participante2.color};"></span>
+                <span class="tabla_texto">${participante2.nombre}</span></td>
             `
         tbody.appendChild(row);
     });
 }
 
-function procesarNombreEquipo(equipo_id) {
-    const equipo = listaParticipantes.participantes.find(participante => participante.id === equipo_id);
-    return equipo ? equipo.nombre : "Desconocido";
+/**
+ * Busca un participante por su ID en la lista global y devuelve su información.
+ * @param {string} equipo_id - El ID del participante a buscar.
+ * @returns {object} El objeto del participante (incluyendo nombre y color).
+ */
+function procesarParticipante(equipo_id) {
+    const equipo = listaParticipantes.find(participante => participante.id === equipo_id);
+    return equipo ? { nombre: equipo.nombre, color: equipo.color } : { nombre: "Desconocido", color: "#999" };
 }
 
 /**
@@ -169,6 +181,14 @@ async function editarBanner(torneo) {
     const bannerFondo = document.getElementById(`banner`);
     const imageUrl = torneo.portadaURL || `https://picsum.photos/1200/400?random=${torneo.id}`;
     bannerFondo.style.backgroundImage = `linear-gradient(to left, rgba(0,0,0,0.6), rgba(0,0,0,0.95)), url('${imageUrl}')`;
+}
+
+/**
+ * Genera un color hexadecimal aleatorio y vibrante.
+ * @returns {string} Un color en formato RGB hexadecimal (e.g., #A1B2C3).
+ */
+function generarColorAleatorio() {
+    return `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`;
 }
 
 document.addEventListener('DOMContentLoaded', main)

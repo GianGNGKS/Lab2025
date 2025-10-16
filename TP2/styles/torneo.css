@@ -115,6 +115,17 @@
     text-shadow: 0 10px 40px rgba(255, 0, 0, 0.7);
 }
 
+
+/* Estilo para el círculo de color en la lista de participantes */
+.color-participante {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
 /** Media query para 4 columnas en pantallas grandes */
 @media (min-width: 768px) {
     .info_grid {
