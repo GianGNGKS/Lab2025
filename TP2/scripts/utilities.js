@@ -75,3 +75,24 @@ export const ESTADO_TORNEO = Object.freeze({
 export function encontrarEstadoJSON(valorJSON) {
     return Object.values(ESTADO_TORNEO).find(s => s.valorJSON === valorJSON);
 }
+
+/**
+ * Función para procesar y formatear la fecha en un formato legible.
+ * @param {string} fechaStr - La fecha en formato YYYY-MM-DD.
+ * @returns {string} La fecha formateada en DD/MM/YYYY.
+ */
+export function formatearFecha(fechaStr) {
+    const fecha = new Date(fechaStr);
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+    const anio = fecha.getFullYear();
+    return `${dia}/${mes}/${anio}`;
+}
+
+/**
+ * Genera un color hexadecimal aleatorio y vibrante.
+ * @returns {string} Un color en formato RGB hexadecimal (e.g., #A1B2C3).
+ */
+export function generarColorAleatorio() {
+    return `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`;
+}

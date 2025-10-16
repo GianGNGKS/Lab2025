@@ -84,10 +84,10 @@ td {
 }
 
 .tabla_portada {
-    width: 80px;
+    width: 120px;
     height: 80px;
-    border-radius: 10px;
-    object-fit: cover;
+    border-radius: 8px;
+    object-fit: fill;
     box-shadow: 0 3px 5px var(--color-sombra-1);
 }
 

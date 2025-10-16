@@ -1,4 +1,4 @@
-import { encontrarDisciplinaJSON, encontrarEstadoJSON } from "./constantes.js";
+import { encontrarDisciplinaJSON, encontrarEstadoJSON, formatearFecha } from "./utilities.js";
 
 /**
  * Obtiene la lista completa de torneos.
@@ -116,7 +116,7 @@ export async function renderizarTablaTorneos(idContainer, dataTorneos) {
         const row = document.createElement('tr');
         row.innerHTML =
             `
-            <td><img src="https://picsum.photos/80/80?random=1" alt="'Portada miniatura del torneo.'" class="tabla_portada"></td>
+            <td><img src="${torneo.portadaURL}" alt="'Portada miniatura del torneo.'" class="tabla_portada"></td>
             <td><span class="tabla_texto">${torneo.nombre}</span></td>
             <td><span class="tabla_texto">${nombreDisciplina}</span></td>
             <td><span class="tabla_texto">${torneo.nro_participantes}</span></td>
@@ -176,9 +176,9 @@ export async function renderizarTorneo(idContainer, dataTorneo) {
             <div class="info_torneo_container">
                 <h2 class="info_torneo_titulo">Fechas</h2>
                 <p class="info_torneo_detalles">
-                ${dataTorneo.fecha_inicio}
-                <br>
-                ${dataTorneo.fecha_fin ? dataTorneo.fecha_fin : ''}
+                ${dataTorneo.fecha_inicio ? formatearFecha(dataTorneo.fecha_inicio) : 'Fecha inicial sin determinar'}
+                <br>-<br>
+                ${dataTorneo.fecha_fin ? formatearFecha(dataTorneo.fecha_fin) : 'Fecha final sin determinar'}
                 </p>
             </div>
             <div class="info_torneo_container">

@@ -1,12 +1,12 @@
 import { renderizarTorneo, getTorneos, getParticipantes, getPartidos } from './torneos.js';
 import { cargarComponentesComunes } from './main.js';
+import { formatearFecha, generarColorAleatorio } from './utilities.js';
 
 /**
  * @file Archivo dedicado a la carga y renderización de aspectos de un torneo en particular.
  */
 
 let listaParticipantes = [];
-let listaPartidos = [];
 
 /**
  * Función principal que se ejecuta al cargar la página de la vista de un torneo.
@@ -145,7 +145,7 @@ async function renderizarPartidos(idContainer, dataPartidos) {
 
         const row = document.createElement('tr');
         row.innerHTML = `
-                <td><span class="tabla_texto">${partido.fecha}</span></td>
+                <td><span class="tabla_texto">${formatearFecha(partido.fecha)}</span></td>
                 <td><span class="tabla_texto">${partido.jornada}</span></td>
                 <td><span class="color-participante" style="background-color: ${participante1.color};"></span>
                 <span class="tabla_texto">${participante1.nombre}</span></td>
@@ -183,12 +183,5 @@ async function editarBanner(torneo) {
     bannerFondo.style.backgroundImage = `linear-gradient(to left, rgba(0,0,0,0.6), rgba(0,0,0,0.95)), url('${imageUrl}')`;
 }
 
-/**
- * Genera un color hexadecimal aleatorio y vibrante.
- * @returns {string} Un color en formato RGB hexadecimal (e.g., #A1B2C3).
- */
-function generarColorAleatorio() {
-    return `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`;
-}
 
 document.addEventListener('DOMContentLoaded', main)
