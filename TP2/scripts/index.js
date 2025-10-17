@@ -16,7 +16,7 @@ async function main() {
     const listaTorneos = await getTorneos();
 
     if(listaTorneos){
-        renderizarTablaTorneos('tabla-torneos-placeholder', listaTorneos);
+        renderizarTablaTorneos('tabla-torneos-placeholder', listaTorneos.slice(0, 3));
     }
 }
 

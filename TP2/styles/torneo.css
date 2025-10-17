@@ -104,8 +104,9 @@
 
 .banner_torneo_titulo {
     font-size: 2rem;
+    font-family: var(--fuente-secundaria);
     text-transform: uppercase;
-    font-weight: 800;
+    font-weight: 400;
     letter-spacing: 0.5rem;
     color: white;
     background: linear-gradient(90deg, var(--color-primario-1), var(--color-secundario-3));
@@ -124,6 +125,22 @@
     border-radius: 50%;
     margin-right: 8px;
     vertical-align: middle;
+}
+
+
+.fila-participante {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.fila-partido.highlight {
+    background-color: var(--color-secundario-1);
+    box-shadow: 0 0 8px var(--color-fondo-4);
+    border-radius: 5px;
+}
+
+.fila-partido {
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /** Media query para 4 columnas en pantallas grandes */

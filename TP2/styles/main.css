@@ -151,8 +151,8 @@ td {
 }
 
 .tabla_btn_explorar:hover {
-    color: var(--color-secundario-4);
-    background-color: var(--color-secundario-2);
+    background-color: var(--color-secundario-3);
+    color: var(--color-secundario-1);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 

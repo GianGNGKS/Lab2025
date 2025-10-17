@@ -103,8 +103,8 @@ body {
 }
 
 .navbar_link:hover {
-    color: var(--color-secundario-4);
-    background-color: var(--color-secundario-2);
+    background-color: var(--color-secundario-4);
+    color: var(--color-secundario-2);
 }
 
 
@@ -128,6 +128,7 @@ body {
 /** Contenido del banner */
 .banner__contenido {
     max-width: 800px;
+    gap: 1.5rem;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -269,11 +270,4 @@ main {
 
 .footer-contacto-link:hover {
     color: var(--color-secundario-3);
-}
-
-/** Media query para remover el sticky del header en pantallas pequeñas */
-@media (max-width: 600px) {
-    .main-header {
-        position: static;
-    }
 }

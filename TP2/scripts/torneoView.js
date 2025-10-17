@@ -36,7 +36,7 @@ async function main() {
 
     const dataParticipantes = await getParticipantes(torneoEncontrado.torneo_id);
     const participantesParaRenderizar = dataParticipantes && dataParticipantes.participantes ? dataParticipantes.participantes : [];
-    if(participantesParaRenderizar){
+    if (participantesParaRenderizar) {
         listaParticipantes = participantesParaRenderizar.map(p => ({
             ...p, color: generarColorAleatorio()
         }));
@@ -47,6 +47,7 @@ async function main() {
     const partidosParaRenderizar = dataPartidos && dataPartidos.partidos ? dataPartidos.partidos : [];
     renderizarPartidos('info-partidos-placeholder', partidosParaRenderizar);
 
+    activarInteraccionTablas();
 }
 
 /**
@@ -89,6 +90,8 @@ async function renderizarParticipantes(idContainer, dataParticipantes) {
 
     dataParticipantes.forEach(participante => {
         const row = document.createElement('tr');
+        row.classList.add('fila-participante');
+        row.dataset.participanteId = participante.id;
         row.innerHTML = `
                 <td><span class="color-participante" style="background-color: ${participante.color};"></span>
                 <span class="tabla_texto">${participante.nombre}</span></td>
@@ -112,6 +115,7 @@ async function renderizarPartidos(idContainer, dataPartidos) {
     }
 
     const displayPartidos = document.createElement('div');
+    displayPartidos.id = "info-partidos";
 
     displayPartidos.innerHTML =
         `
@@ -144,6 +148,11 @@ async function renderizarPartidos(idContainer, dataPartidos) {
         const resultado = (partido.res1 !== null && partido.res2 !== null) ? `${partido.res1} - ${partido.res2}` : 'vs';
 
         const row = document.createElement('tr');
+        row.classList.add('fila-partido');
+        row.dataset.p1Id = partido.p1_id;
+        row.dataset.p2Id = partido.p2_id;
+
+
         row.innerHTML = `
                 <td><span class="tabla_texto">${formatearFecha(partido.fecha)}</span></td>
                 <td><span class="tabla_texto">${partido.jornada}</span></td>
@@ -178,10 +187,69 @@ async function editarBanner(torneo) {
     tituloBanner.classList.add(`banner_torneo_titulo`);
     tituloBanner.textContent = nombreTorneo;
 
+    const descTorneo = torneo.descripcion || "";
+    const descBanner = document.getElementById(`torneo_desc`);
+    descBanner.textContent = descTorneo;
+
     const bannerFondo = document.getElementById(`banner`);
     const imageUrl = torneo.portadaURL || `https://picsum.photos/1200/400?random=${torneo.id}`;
     bannerFondo.style.backgroundImage = `linear-gradient(to left, rgba(0,0,0,0.6), rgba(0,0,0,0.95)), url('${imageUrl}')`;
 }
+/**
+ * Activa la interactividad entre las tablas de participantes y partidos.
+ * Al hacer clic en un participante en la tabla de participantes, resalta los partidos en los que ha participado.
+ * También permite desactivar el resaltado al hacer click fuera de las filas de participantes.
+ * */
+function activarInteraccionTablas() {
+    const filasParticipantes = document.querySelectorAll('.fila-participante');
+    const seccionPartidos = document.getElementById('info-partidos');
 
+    if (filasParticipantes.length === 0) {
+        console.error("No se encontraron filas de participantes ('.fila-participante').");
+        return;
+    }
 
-document.addEventListener('DOMContentLoaded', main)
+    if (!seccionPartidos) {
+        console.error("No se encontró la sección de partidos (id='info-partidos').");
+        return;
+    }
+
+    filasParticipantes.forEach(fila => {
+        fila.addEventListener('click', (event) => {
+            event.stopPropagation();
+            const participanteId = fila.dataset.participanteId;
+
+            document.querySelectorAll('.fila-partido.highlight').forEach(el => el.classList.remove('highlight'));
+
+            if (seccionPartidos) {
+                seccionPartidos.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            const filasAResaltar = obtenerFilasPartidoPorParticipante(participanteId);
+            filasAResaltar.forEach(f => f.classList.add('highlight'));
+        });
+    });
+}
+
+// Busca todas las filas que actualmente están resaltadas.
+// Si encuentra alguna, les quita la clase 'highlight'.
+document.addEventListener('click', () => {
+    const filasResaltadas = document.querySelectorAll('.fila-partido.highlight');
+
+    if (filasResaltadas.length > 0) {
+        filasResaltadas.forEach(f => f.classList.remove('highlight'));
+    }
+});
+
+/**
+ * Devuelve una lista de filas de partidos donde el participante está presente como p1 o p2.
+ * @param {string} participanteId - El ID del participante.
+ * @returns {NodeListOf<Element>} Lista de filas de partidos.
+ */
+function obtenerFilasPartidoPorParticipante(participanteId) {
+    return document.querySelectorAll(
+        `.fila-partido[data-p1-id="${participanteId}"], .fila-partido[data-p2-id="${participanteId}"]`
+    );
+}
+
+document.addEventListener('DOMContentLoaded', main);
