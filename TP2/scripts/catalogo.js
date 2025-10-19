@@ -27,6 +27,7 @@ async function main() {
         renderizarTablaTorneos('tabla-torneos-placeholder', listaTorneos);
     }
 
+    document.querySelector('main').classList.add('fade-in');
     inicializarFiltros();
 }
 

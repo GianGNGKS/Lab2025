@@ -1,6 +1,10 @@
 import { encontrarDisciplinaJSON, encontrarEstadoJSON, formatearFecha } from "./utilities.js";
 
 /**
+ * @file Archivo encargado de manejar la obtención y renderización de datos relacionados a torneos.
+ */
+
+/**
  * Obtiene la lista completa de torneos.
  * Primero intenta recuperar los datos desde localStorage para mejorar el rendimiento.
  * Si no están en caché, los obtiene desde el archivo JSON y los guarda en localStorage.

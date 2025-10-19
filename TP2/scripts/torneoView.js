@@ -33,7 +33,7 @@ async function main() {
 
     renderizarTorneo('info-torneo-placeholder', torneoEncontrado);
     await editarBanner(torneoEncontrado);
-
+    
     const dataParticipantes = await getParticipantes(torneoEncontrado.torneo_id);
     const participantesParaRenderizar = dataParticipantes && dataParticipantes.participantes ? dataParticipantes.participantes : [];
     if (participantesParaRenderizar) {
@@ -42,11 +42,12 @@ async function main() {
         }));
     }
     renderizarParticipantes('id-participantes-placeholder', listaParticipantes);
-
+    
     const dataPartidos = await getPartidos(torneoEncontrado.torneo_id);
     const partidosParaRenderizar = dataPartidos && dataPartidos.partidos ? dataPartidos.partidos : [];
     renderizarPartidos('info-partidos-placeholder', partidosParaRenderizar);
-
+    
+    document.querySelector('main').classList.add('fade-in');
     activarInteraccionTablas();
 }
 
@@ -106,6 +107,12 @@ async function renderizarParticipantes(idContainer, dataParticipantes) {
     });
 }
 
+/**
+ * Renderiza la tabla de partidos de un torneo en un contenedor específico.
+ * @param {String} idContainer - El ID del elemento contenedor donde se renderizará la tabla. 
+ * @param {Array<Object>} dataPartidos - Un array de objetos, donde cada objeto representa un partido.
+ * @returns 
+ */
 async function renderizarPartidos(idContainer, dataPartidos) {
     const container = document.getElementById(`info-partidos-placeholder`);
 
@@ -178,7 +185,7 @@ function procesarParticipante(equipo_id) {
 
 /**
  * Actualiza el banner de la página con la información específica del torneo.
- * Modifica el título y la imagen de fondo del banner.
+ * Modifica el título, la descripción y la imagen de fondo del banner.
  * @param {Object} torneo - El objeto del torneo que contiene el nombre y la URL de la portada.
  */
 async function editarBanner(torneo) {
@@ -231,16 +238,6 @@ function activarInteraccionTablas() {
     });
 }
 
-// Busca todas las filas que actualmente están resaltadas.
-// Si encuentra alguna, les quita la clase 'highlight'.
-document.addEventListener('click', () => {
-    const filasResaltadas = document.querySelectorAll('.fila-partido.highlight');
-
-    if (filasResaltadas.length > 0) {
-        filasResaltadas.forEach(f => f.classList.remove('highlight'));
-    }
-});
-
 /**
  * Devuelve una lista de filas de partidos donde el participante está presente como p1 o p2.
  * @param {string} participanteId - El ID del participante.
@@ -251,5 +248,16 @@ function obtenerFilasPartidoPorParticipante(participanteId) {
         `.fila-partido[data-p1-id="${participanteId}"], .fila-partido[data-p2-id="${participanteId}"]`
     );
 }
+
+// Busca todas las filas que actualmente están resaltadas.
+// Si encuentra alguna, les quita la clase 'highlight'.
+document.addEventListener('click', () => {
+    const filasResaltadas = document.querySelectorAll('.fila-partido.highlight');
+
+    if (filasResaltadas.length > 0) {
+        filasResaltadas.forEach(f => f.classList.remove('highlight'));
+    }
+});
+
 
 document.addEventListener('DOMContentLoaded', main);

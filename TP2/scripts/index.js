@@ -2,7 +2,7 @@ import { renderizarTablaTorneos, getTorneos } from "./torneos.js";
 import { cargarComponentesComunes } from "./main.js";
 
 /**
- * @file Archivo principal para la página de inicio (index.html).
+ * @file Archivo principal para las páginas estándar, como index.html.
  * Se encarga de cargar componentes comunes y mostrar una lista inicial de torneos.
  */
 
@@ -13,6 +13,7 @@ import { cargarComponentesComunes } from "./main.js";
  */
 async function main() {
     await cargarComponentesComunes();
+    document.querySelector('main').classList.add('fade-in');
     const listaTorneos = await getTorneos();
 
     if(listaTorneos){

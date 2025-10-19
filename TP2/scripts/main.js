@@ -8,17 +8,14 @@
  * @param {*} url - Path del componente a cargar.
  * @param {*} elementId - ID del elemento HTML objetivo.
  */
-function cargarComponente(url, elementId) {
-    return fetch(url)
-        .then(response => {
-            if (!response.ok) throw new Error(`Error al cargar ${url}`);
-            return response.text();
-        })
-        .then(data => {
-            const element = document.getElementById(elementId);
-            if (element) element.innerHTML = data;
-        });
+async function cargarComponente(url, elementId) {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`Error al cargar ${url}`);
+    const data = await response.text();
+    const element = document.getElementById(elementId);
+    if (element) element.innerHTML = data;
 }
+
 /**
  * Carga los componentes comunes de la página (header, banner y footer) en sus respectivos placeholders.
  * Utiliza Promise.all para realizar las cargas en paralelo.

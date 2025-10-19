@@ -72,7 +72,7 @@ body {
 .navbar_titulo {
     font-family: var(--fuente-primaria);
     color: var(--color-primario-1);
-    font-size: 1.5rem;
+    font-size: 2rem;
     letter-spacing: 0.2rem;
     text-transform: uppercase;
     margin: 0;
@@ -98,7 +98,7 @@ body {
     border-radius: 8px;
     text-decoration: none;
     font-weight: 400;
-    font-size: clamp(0.8rem, 1.2vw, 1rem);
+    font-size: 1.1rem;
     transition: all 0.3s ease;
 }
 
@@ -160,10 +160,28 @@ body {
     text-align: center;
 }
 
+/* Animación fade-in para el main.*/
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+main.fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
 /** Main */
 main {
     grid-row: 3;
     margin: 8rem auto;
+    opacity: 0;
 }
 
 /** Contacto */
@@ -193,7 +211,7 @@ main {
 
 .contact_box:hover {
     background-color: var(--color-primario-4);
-    color:var(--color-primario-2)
+    color: var(--color-primario-2)
 }
 
 .contact_box_mail {
@@ -234,7 +252,8 @@ main {
 
 /** Logo del footer */
 .footer-logo {
-    width: clamp(40px, 10vw, 60px);
+    width: 10vw;
+    max-width: 80px;
     height: auto;
     object-fit: contain;
     filter: drop-shadow(0 0 2px rgba(0, 0, 255, 0.5));
