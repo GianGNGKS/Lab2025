@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    /* ! Variables CSS, utilizar con var(nombre)*/
+    --color-primario-1: rgb(114, 212, 114);
+    --color-primario-2: rgb(73, 175, 73);
+    --color-primario-3: rgb(19, 59, 19);
+    --color-primario-4: rgb(15, 53, 15);
+    --color-secundario-1: rgb(85 30 35);
+    --color-secundario-2: rgb(114 51 57);
+    --color-secundario-3: rgb(255 178 183);
+    --color-secundario-4: rgb(255 218 219);
+    --color-error-1: rgb(255 218 214);
+    --color-error-2: rgb(255 180 171);
+    --color-error-3: rgb(147 0 10);
+    --color-error-4: rgb(105 0 5);
+    --color-fondo-1: rgb(18 19 24);
+    --color-fondo-2: rgb(26, 31, 36);
+    --color-fondo-3: rgb(30, 33, 36);
+    --color-fondo-4: rgb(44, 44, 51);
+    --color-borde-1: rgb(141 145 153);
+    --color-borde-2: rgb(67 71 78);
+    --color-sombra-1: rgba(0, 0, 0, 0.5);
+
+    --fuente-primaria: "Archivo Black", sans-serif;
+    /* Títulos y encabezados, weight 400 */
+    --fuente-secundaria: "Montserrat", sans-serif;
+    /* Cuerpo de texto, weight 100-900 */
+}
+
+/** Documento global */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #262603;
+    background: linear-gradient(90deg, rgb(3, 38, 3) 0%, rgba(18, 19, 24, 1) 50%, rgba(38, 4, 7, 1) 100%);
+    color: white;
+    font-family: var(--fuente-secundaria);
+    line-height: 1.5;
+
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: 1fr;
+    overflow-x: hidden;
+}
+
+/** Header */
+#header-placeholder {
+    grid-row: 1;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/** Navegación */
+.navbar {
+    background: var(--color-fondo-1);
+    box-shadow: 0 4px 12px var(--color-sombra-1);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/** Título de la navbar */
+.navbar_titulo {
+    font-family: var(--fuente-primaria);
+    color: var(--color-primario-1);
+    font-size: 2rem;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/** Lista de links */
+.navbar_links {
+    text-align: end;
+    list-style: none;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/** Links de la lista */
+.navbar_link {
+    color: var(--color-secundario-3);
+    background-color: var(--color-secundario-1);
+    padding: 0.2rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.navbar_link:hover {
+    background-color: var(--color-secundario-4);
+    color: var(--color-secundario-2);
+}
+
+
+/** Banner */
+#banner {
+    grid-row: 2;
+    background: linear-gradient(to left, rgb(0 0 0/0.6), rgb(0 0 0 / 0.95)), url('/data/images/Banner-fondo.png');
+    background-size: cover;
+    background-position: center;
+    border-bottom: 2px solid var(--color-primario-1);
+    box-shadow: 0px 4px 12px 8px var(--color-primario-3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    min-height: 30rem;
+}
+
+/** Contenido del banner */
+.banner__contenido {
+    max-width: 800px;
+    gap: 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/** Título del banner */
+.banner_titulo {
+    font-family: var(--fuente-primaria);
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: var(--color-primario-1);
+    text-shadow: 2px 2px 4px var(--color-borde-2);
+    letter-spacing: 0.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 8rem;
+}
+
+/** Descripción del banner */
+#banner_desc {
+    max-width: 600px;
+    font-family: var(--fuente-secundaria);
+    font-size: larger;
+    font-weight: 700;
+    color: var(--color-secundario-4);
+    text-shadow: 1px 1px 4px var(--color-primario-1);
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Animación fade-in para el main.*/
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+main.fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+/** Main */
+main {
+    grid-row: 3;
+    margin: 8rem auto;
+    opacity: 0;
+}
+
+/** Contacto */
+#contact_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: 85vw;
+    min-height: 40vh;
+}
+
+.contact_box {
+    padding: 1rem;
+    background-color: var(--color-secundario-2);
+    box-shadow: 0 5px 15px var(--color-sombra-1);
+    border-radius: 8px;
+    text-align: center;
+    min-height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    transition: all 0.5s ease;
+}
+
+.contact_box:hover {
+    background-color: var(--color-primario-4);
+    color: var(--color-primario-2)
+}
+
+.contact_box_mail {
+    text-decoration: none;
+    color: var(--color-secundario-4);
+    transition: all 0.3s ease;
+    max-width: 100%;
+}
+
+.contact_box:hover .contact_box_mail {
+    color: var(--color-primario-1);
+}
+
+/** Footer */
+#footer-placeholder {
+    grid-row: 4;
+    padding: 2rem 1rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-fondo-1);
+    text-align: center;
+    font-size: smaller;
+    gap: 0.5rem;
+    border-top: 2px solid var(--color-primario-1);
+    box-shadow: 0px -4px 12px 8px var(--color-primario-3);
+}
+
+/** Contenido del footer */
+.footer-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+/** Logo del footer */
+.footer-logo {
+    width: 10vw;
+    max-width: 80px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 255, 0.5));
+    transition: all ease 0.5s;
+}
+
+.footer-logo:hover {
+    filter: drop-shadow(0 0 5px rgb(255, 108, 248)) invert(20%);
+}
+
+/** Texto del footer */
+.footer-uni p {
+    margin: 0.2rem 0;
+    text-align: start;
+}
+
+.footer-contacto {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/** Links de contacto del footer */
+.footer-contacto-link {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-contacto-link:hover {
+    color: var(--color-secundario-3);
+}

@@ -1,0 +1,95 @@
+{
+    "torneo_id": "02",
+    "partidos": [
+        {
+            "partido_id": "m02-01",
+            "jornada": 1,
+            "p1_id": "p02-03",
+            "p2_id": "p02-06",
+            "res1": 3,
+            "res2": 0,
+            "fecha": "2025-09-27",
+            "jugado_en": "Cancha 1"
+        },
+        {
+            "partido_id": "m02-02",
+            "jornada": 1,
+            "p1_id": "p02-05",
+            "p2_id": "p02-04",
+            "res1": 3,
+            "res2": 1,
+            "fecha": "2025-09-27",
+            "jugado_en": "Cancha 2"
+        },
+        {
+            "partido_id": "m02-03",
+            "jornada": 1,
+            "p1_id": "p02-02",
+            "p2_id": "p02-01",
+            "res1": 3,
+            "res2": 2,
+            "fecha": "2025-09-27",
+            "jugado_en": "Cancha 1"
+        },
+        {
+            "partido_id": "m02-04",
+            "jornada": 2,
+            "p1_id": "p02-03",
+            "p2_id": "p02-05",
+            "res1": 3,
+            "res2": 1,
+            "fecha": "2025-09-28",
+            "jugado_en": "Cancha 1"
+        },
+        {
+            "partido_id": "m02-05",
+            "jornada": 2,
+            "p1_id": "p02-01",
+            "p2_id": "p02-06",
+            "res1": 3,
+            "res2": 0,
+            "fecha": "2025-09-28",
+            "jugado_en": "Cancha 2"
+        },
+        {
+            "partido_id": "m02-06",
+            "jornada": 2,
+            "p1_id": "p02-02",
+            "p2_id": "p02-04",
+            "res1": 3,
+            "res2": 0,
+            "fecha": "2025-09-28",
+            "jugado_en": "Cancha 1"
+        },
+        {
+            "partido_id": "m02-07",
+            "jornada": 3,
+            "p1_id": "p02-03",
+            "p2_id": "p02-02",
+            "res1": 3,
+            "res2": 2,
+            "fecha": "2025-09-29",
+            "jugado_en": "Cancha 1"
+        },
+        {
+            "partido_id": "m02-08",
+            "jornada": 3,
+            "p1_id": "p02-05",
+            "p2_id": "p02-01",
+            "res1": 3,
+            "res2": 1,
+            "fecha": "2025-09-29",
+            "jugado_en": "Cancha 2"
+        },
+        {
+            "partido_id": "m02-09",
+            "jornada": 3,
+            "p1_id": "p02-04",
+            "p2_id": "p02-06",
+            "res1": 3,
+            "res2": 0,
+            "fecha": "2025-09-29",
+            "jugado_en": "Cancha 1"
+        }
+    ]
+}

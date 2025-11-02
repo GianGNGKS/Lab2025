@@ -1,0 +1,252 @@
+/** Torneos */
+.main_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-fondo-1);
+    gap: 4rem;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 90vw;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px var(--color-sombra-1);
+}
+
+/** Caja "énfasis torneos" */
+.torneos_box {
+    background-color: var(--color-secundario-2);
+    box-shadow: 0 5px 15px var(--color-sombra-1);
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    max-width: 30rem;
+    font-size: small;
+    letter-spacing: 0.2rem;
+    text-align: center;
+}
+
+.torneos_box_titulo {
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--color-secundario-4);
+}
+
+.torneos_box_subtitulo {
+    font-weight: bold;
+    font-size: larger;
+    color: var(--color-secundario-3);
+}
+
+
+/** Tabla de torneos */
+.torneos_lista {
+    width: 85vw;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-weight: 600;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px var(--color-sombra-1);
+}
+
+.tabla_torneos {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    color: white;
+    min-width: 600px;
+    text-align: center;
+}
+
+.tabla_torneos th,
+td {
+    padding: 1rem;
+    text-align: center;
+    vertical-align: middle;
+    width: 5rem;
+}
+
+
+.tabla_torneos th {
+    padding: 2rem;
+    position: sticky;
+    top: 0;
+    border-bottom: 2px solid var(--color-primario-1);
+    color: var(--color-primario-2);
+    background-color: var(--color-fondo-3);
+}
+
+.tabla_torneos tr {
+    transition: all 0.5s ease;
+}
+
+.tabla_torneos tr:hover {
+    background-color: var(--color-primario-3);
+}
+
+.tabla_portada {
+    width: 120px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: fill;
+    box-shadow: 0 3px 5px var(--color-sombra-1);
+}
+
+.tabla_texto {
+    display: inline-block;
+    font-size: 1.05rem;
+}
+
+/* Estilos para los tags */
+.tabla_tags_lista {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style-type: none;
+    max-width: 250px;
+}
+
+.tabla_tag {
+    background: var(--color-fondo-4);
+    padding: 0.3rem 0.6rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.tabla_estado {
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+.estado-sin-comenzar {
+    background: rgba(212, 172, 13, 0.2);
+    color: #d4ac0d;
+}
+
+.estado-en-curso {
+    background: rgba(29, 131, 72, 0.2);
+    color: #1d8348;
+}
+
+.estado-finalizado {
+    background: rgba(192, 57, 43, 0.2);
+    color: #c0392b;
+}
+
+.tabla_btn_explorar {
+    background-color: var(--color-secundario-1);
+    border: none;
+    color: var(--color-secundario-3);
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.tabla_btn_explorar:hover {
+    background-color: var(--color-secundario-3);
+    color: var(--color-secundario-1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.torneos_explorar_box {
+    text-align: center;
+    margin: 1rem 0 auto 0;
+}
+
+.torneos_btn_explorar {
+    font-size: large;
+}
+
+/** Catálogo de torneos*/
+
+#catalogo_container{
+    gap: 1rem;
+}
+
+.form_filtro_search {
+    display: grid;
+    grid-template-columns: minmax(150px, 1fr) 1fr 1fr minmax(100px, auto);
+    gap: 1.5rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    background-color: var(--color-fondo-4);
+    box-shadow: 0 4px 12px var(--color-sombra-1);
+    align-items: end;
+    width: 85vw;
+}
+
+@media (max-width: 700px) {
+    .form_filtro_search {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+.filtro_grupo {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.filtro_etiqueta {
+    color: white;
+    font-size: 0.9rem;
+    font-family: var(--fuente-secundaria);
+    font-weight: 500;
+    margin: 0 1em;
+}
+
+.filtro_input,
+.filtro_select {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--color-borde-2);
+    border-radius: 8px;
+    background-color: var(--color-fondo-3);
+    color: white;
+    font-family: var(--fuente-secundaria);
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.filtro_input:focus,
+.filtro_select:focus {
+    outline: none;
+    border-color: var(--color-primario-2);
+}
+
+.filtro_input::placeholder {
+    color: var(--color-borde-2);
+}
+
+.filtro_btn {
+    border: none;
+    border-radius: 6px;
+    height: 80%;
+    padding: 0.5rem;
+    cursor: pointer;
+    font-family: var(--fuente-secundaria);
+    font-weight: 600;
+    transition: background-color 0.2s, opacity 0.2s;
+    white-space: nowrap;
+}
+
+.form_btn_secundario {
+    background-color: var(--color-secundario-1);
+    color: var(--color-secundario-4);
+}
+
+.form_btn_secundario:hover {
+    background-color: var(--color-secundario-2);
+    color: var(--color-secundario-3)
+}

@@ -1,0 +1,57 @@
+[
+  {
+    "torneo_id": "00",
+    "nombre": "Federal A 2025",
+    "portadaURL": "/data/00/football.jpg",
+    "disciplina": "futbol",
+    "formato": "Liga",
+    "estado": 2,
+    "nro_participantes": 10,
+    "organizador": "Consejo Federal",
+    "premio": "$$$",
+    "fecha_inicio": "2025-03-14",
+    "fecha_fin": "2025-07-13",
+    "tags": [
+      "Masculino",
+      "Profesional"
+    ],
+    "descripcion": "El Torneo Federal A es un campeonato de la tercera categoría del fútbol argentino, organizado por el Consejo Federal, órgano interno de la AFA, que busca coronar al mejor equipo de la última división profesional del fútbol argentino."
+  },
+  {
+    "torneo_id": "01",
+    "nombre": "Torneo FAI de CS2",
+    "portadaURL": "/data/01/Counter_Strike_2_Logo.png",
+    "disciplina": "counter_strike_2",
+    "formato": "Liga",
+    "estado": 0,
+    "nro_participantes": 7,
+    "organizador": "Centro de estudiantes FAI",
+    "premio": "Indumentaria deportiva",
+    "fecha_inicio": "2025-10-11",
+    "fecha_fin": "2025-10-12",
+    "tags": [
+      "Counter Strike 2",
+      "Competitivo",
+      "Premios"
+    ],
+    "descripcion": "Ven a divertirte juntos a tus compañeros en este torneo recreativo de Counter Strike 2 para estudiantes de la facultad de informática! Tenemos comida, agua, premios y muchas ganas de pasarla bien! A que estas esperando?"
+  },
+  {
+    "torneo_id": "02",
+    "nombre": "Nacional de volley",
+    "portadaURL": "/data/02/volley.jpg",
+    "disciplina": "volley",
+    "formato": "Liga",
+    "estado": 1,
+    "nro_participantes": 6,
+    "organizador": "FMV",
+    "premio": "Copa Milinkovic",
+    "fecha_inicio": "2025-09-27",
+    "fecha_fin": null,
+    "tags": [
+      "Mayores",
+      "Regiones"
+    ],
+    "descripcion": "El Nacional de Voley reúne a los mejores jugadores de la Argentina, uniendolos por regiones, para disputar un torneo único donde se definirá cuál es el mejor semillero del país."
+  }
+]

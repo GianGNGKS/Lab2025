@@ -1,0 +1,129 @@
+/** Torneos */
+.info_torneo {
+    display: grid;
+    background-color: var(--color-fondo-1);
+    gap: 3rem;
+    padding: 4rem 2rem;
+    margin: 2rem auto;
+    max-width: 90vw;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px var(--color-sombra-1);
+}
+
+.info_grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.info_torneo_container {
+    background-color: var(--color-secundario-2);
+    box-shadow: 0 5px 15px var(--color-sombra-1);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    min-height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.info_torneo_container:hover {
+    background-color: var(--color-secundario-1);
+}
+
+.info_torneo_seccion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    color: white;
+    margin: 2rem 0;
+    padding: 1rem 2rem;
+    position: relative;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.info_torneo_seccion::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--color-primario-1), 
+        var(--color-secundario-3), 
+        var(--color-primario-1), 
+        transparent);
+    box-shadow: 0 0 10px var(--color-primario-1);
+}
+
+.info_torneo_titulo {
+    margin: 0 0 5px 0;
+    font-size: larger;
+    color: var(--color-secundario-3);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.info_torneo_detalles {
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--color-secundario-4);
+}
+
+.torneos_relacionados {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6rem;
+}
+
+.banner_torneo_titulo {
+    font-size: 2rem;
+    font-family: var(--fuente-secundaria);
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 0.5rem;
+    color: white;
+    background: linear-gradient(90deg, var(--color-primario-1), var(--color-secundario-3));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 10px 40px rgba(255, 0, 0, 0.7);
+}
+
+
+/* Estilo para el círculo de color en la lista de participantes */
+.color-participante {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.fila-participante {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.fila-partido.highlight {
+    background-color: var(--color-secundario-1);
+    box-shadow: 0 0 8px var(--color-fondo-4);
+    border-radius: 5px;
+}
+
+.fila-partido {
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}

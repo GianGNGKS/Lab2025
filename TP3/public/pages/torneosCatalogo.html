@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thorneos</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <script type="module" src="../scripts/catalogo.js" defer></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+    <!-- Banner -->
+    <div id="banner-placeholder"></div>
+
+
+    <main>
+        <section class="main_container" id="catalogo_container">
+            <form id="torneo_filtro" class="form_filtro_search">
+                <div class="filtro_grupo">
+                    <label for="filtro_texto" class="filtro_etiqueta">Buscar Torneo:</label>
+                    <input type="search" id="filtro_texto" class="filtro_input"
+                        placeholder="Buscar por Nombre, Organizador o Tags...">
+                </div>
+                <div class="filtro_grupo">
+                    <label for="filtro_disciplina" class="filtro_etiqueta">Filtrar por Disciplina:</label>
+                    <select id="filtro_disciplina" class="filtro_select">
+                        <option value="">Todas las Disciplinas</option>
+                        <option value="counter_strike_2">Counter Strike 2</option>
+                        <option value="league_of_legends">League Of Legends</option>
+                        <option value="futbol">Fútbol</option>
+                        <option value="volley">Volley</option>
+                        <option value="basket">Basket</option>
+                    </select>
+                </div>
+                <div class="filtro_grupo">
+                    <label for="filtro_estado" class="filtro_etiqueta">Filtrar por Estado:</label>
+                    <select id="filtro_estado" class="filtro_select">
+                        <option value="">Seleccione un estado</option>
+                        <option value="0">Sin comenzar</option>
+                        <option value="1">En curso</option>
+                        <option value="2">Finalizado</option>
+                    </select>
+                </div>
+                <div class="filtro_grupo">
+                    <button type="reset" class="filtro_btn form_btn_secundario">X</button>
+                </div>
+            </form>
+            <div id="tabla-torneos-placeholder"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+</body>
+
+</html>
