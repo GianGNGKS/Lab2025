@@ -40,7 +40,7 @@ export const DISCIPLINAS = Object.freeze({
  * @param {string} valorJSON - El valor obtenido del JSON a buscar.
  * @returns {{key: string, valorJSON: string, nombreDisplay: string}|undefined} El objeto de la disciplina si se encuentra, o undefined si no.
  */
-export function encontrarDisciplinaJSON(valorJSON) {
+function encontrarDisciplinaJSON(valorJSON) {
     return Object.values(DISCIPLINAS).find(d => d.valorJSON === valorJSON);
 }
 
@@ -72,8 +72,20 @@ export const ESTADO_TORNEO = Object.freeze({
  * @param {number} valorJSON - El valor obtenido del JSON a buscar.
  * @returns {{valorJSON: number, nombreDisplay: string, className: string}|undefined} El objeto del estado si se encuentra, o undefined si no.
  */
-export function encontrarEstadoJSON(valorJSON) {
+function encontrarEstadoJSON(valorJSON) {
     return Object.values(ESTADO_TORNEO).find(s => s.valorJSON === valorJSON);
+}
+
+export function getDisplayInfo(tipo, valorJSON) {
+    const desconocido = { text: 'Desconocido', className: '' };
+    if (tipo === 'disciplina') {
+        const disciplina = encontrarDisciplinaJSON(valorJSON);
+        return disciplina ? disciplina : desconocido;
+    } else if (tipo === 'estado') {
+        const estado = encontrarEstadoJSON(valorJSON);
+        return estado ? estado : desconocido;
+    }
+    return desconocido;
 }
 
 /**

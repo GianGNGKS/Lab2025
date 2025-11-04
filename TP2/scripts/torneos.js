@@ -118,6 +118,7 @@ export async function renderizarTablaTorneos(idContainer, dataTorneos) {
         const { nombreDisciplina, datosEstado } = procesarInfoTorneo(torneo);
 
         const row = document.createElement('tr');
+        row.className = 'tabla_fila';
         row.innerHTML =
             `
             <td><img src="${torneo.portadaURL}" alt="'Portada miniatura del torneo.'" class="tabla_portada"></td>

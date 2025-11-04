@@ -7,6 +7,7 @@ import { formatearFecha, generarColorAleatorio } from './utilities.js';
  */
 
 let listaParticipantes = [];
+let listaPartidos = [];
 
 /**
  * Función principal que se ejecuta al cargar la página de la vista de un torneo.
@@ -18,36 +19,52 @@ async function main() {
 
     const params = new URLSearchParams(window.location.search);
     const idURL = params.get('id');
+
+    if (!idURL) {
+        console.error('No se proporcionó ningún ID de torneo en la URL.');
+        return;
+    }
     const listaTorneos = await getTorneos();
 
     if (!listaTorneos) {
+        console.error('No se pudieron obtener los torneos');
         return;
     }
 
     const torneoEncontrado = listaTorneos.find(torneo => torneo.torneo_id == idURL);
-
     if (!torneoEncontrado) {
         console.error('Err: No se encontró ningún torneo.');
         return;
     }
 
-    await renderizarTorneo('info-torneo-placeholder', torneoEncontrado);
-    await editarBanner(torneoEncontrado);
-    
-    const dataParticipantes = await getParticipantes(torneoEncontrado.torneo_id);
-    const participantesParaRenderizar = dataParticipantes && dataParticipantes.participantes ? dataParticipantes.participantes : [];
-    if (participantesParaRenderizar) {
-        listaParticipantes = participantesParaRenderizar.map(p => ({
-            ...p, color: generarColorAleatorio()
-        }));
+    listaParticipantes = await getParticipantes(torneoEncontrado.torneo_id) || [];
+    listaPartidos = await getPartidos(torneoEncontrado.torneo_id) || [];
+
+    if (!listaParticipantes) {
+        console.error('No se pudieron obtener los participantes del torneo.');
+        return;
     }
-    renderizarParticipantes('id-participantes-placeholder', listaParticipantes);
-    
-    const dataPartidos = await getPartidos(torneoEncontrado.torneo_id);
-    const partidosParaRenderizar = dataPartidos && dataPartidos.partidos ? dataPartidos.partidos : [];
-    renderizarPartidos('info-partidos-placeholder', partidosParaRenderizar);
-    
+
+    if (!listaPartidos) {
+        console.error('No se pudieron obtener los partidos del torneo.');
+        return;
+    }
+
+    listaParticipantes = listaParticipantes.participantes;
+    listaParticipantes = listaParticipantes.map(p => ({
+        ...p, color: generarColorAleatorio()
+    }));
+
+    listaPartidos = listaPartidos.partidos;
+
+
+    renderizarTorneo('info-torneo-placeholder', torneoEncontrado);
+    renderizarParticipantes('info-participantes-placeholder', listaParticipantes);
+    renderizarPartidos('info-partidos-placeholder', listaPartidos);
+
+    await editarBanner(torneoEncontrado);
     document.querySelector('main').classList.add('fade-in');
+
     activarInteraccionTablas();
 }
 
@@ -57,12 +74,16 @@ async function main() {
  * @param {Array<Object>} dataParticipantes - Un array de objetos, donde cada objeto representa un participante.
  */
 async function renderizarParticipantes(idContainer, dataParticipantes) {
-    const container = document.getElementById(`info-participantes-placeholder`);
+    const container = document.getElementById(idContainer);
+    console.log(dataParticipantes);
+
+
 
     if (!container) {
-        console.error(`Contenedor con id '${idContainer}' no encontrado.`);
+        console.error(`No se encontró el contenedor: ${idContainer}`);
         return;
     }
+
     const displayParticipantes = document.createElement('div');
 
     displayParticipantes.innerHTML =

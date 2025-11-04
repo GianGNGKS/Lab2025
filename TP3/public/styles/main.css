@@ -57,6 +57,10 @@
     text-align: center;
 }
 
+.tabla_fila:hover {
+    cursor: pointer;
+}
+
 .tabla_torneos th,
 td {
     padding: 1rem;

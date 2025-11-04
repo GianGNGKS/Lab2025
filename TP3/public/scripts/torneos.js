@@ -1,67 +1,67 @@
-import { encontrarDisciplinaJSON, encontrarEstadoJSON, formatearFecha } from "./utilities.js";
-
 /**
  * @file Archivo encargado de manejar la obtención y renderización de datos relacionados a torneos.
  */
 
+import { getDisplayInfo, formatearFecha } from './utilities.js';
+
 /**
- * Obtiene la lista completa de torneos.
- * Primero intenta recuperar los datos desde localStorage para mejorar el rendimiento.
- * Si no están en caché, los obtiene desde el archivo JSON y los guarda en localStorage.
- * @returns {Promise} Una promesa que se resuelve con un array de objetos de torneos, o null si ocurre un error.
+ * Obtiene la lista completa de torneos desde la API del servidor.
+ * @returns {Promise<Array>} Array de objetos de torneos.
  */
 export async function getTorneos() {
     try {
         const response = await fetch('/api/torneos');
+
         if (!response.ok) {
-            throw new Error(`Error al conectar con la API: ${response.statusText}`);
+            throw new Error(`Error HTTP: ${response.status}`);
         }
+
         const data = await response.json();
         return data;
-
     } catch (error) {
-        console.error("No se pudieron obtener los torneos:", error);
+        console.error('Error al obtener torneos:', error);
         return null;
     }
 }
 
 /**
  * Obtiene datos relacionados a un torneo específico (participantes, partidos, etc.).
- * Utiliza un sistema de caché en localStorage para evitar peticiones repetidas.
  * @param {string} recurso - El tipo de recurso a obtener ('participantes', 'partidos', etc.).
  * @param {string} torneo_id - El ID del torneo para el cual se obtendrán los datos.
  * @returns {Promise} Una promesa que se resuelve con el objeto de datos, o null si ocurre un error.
  */
 async function getDatosTorneo(recurso, torneo_id) {
     try {
-        const response = await fetch(`/data/${recurso}-${torneo_id}.json`);
+        const response = await fetch(`/data/${torneo_id}/${recurso}-${torneo_id}.json`);
+
         if (!response.ok) {
-            throw new Error(`Error al cargar el archivo: ${response.statusText}`);
+            throw new Error(`Error HTTP: ${response.status}`);
         }
+
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error(`No se pudieron obtener los ${recurso} del torneo ${torneo_id}:`, error);
+        console.error(`No se pudieron obtener los ${recurso} de ${torneo_id}`, error);
         return null;
     }
 }
 
 /**
- * Obtiene la lista de participantes para un torneo específico.
+ * Obtiene la lista de participantes de un torneo específico.
  * @param {string} torneo_id - El ID del torneo.
- * @returns {Promise} Una promesa que se resuelve con el objeto de participantes, o null si ocurre un error.
+ * @returns {Promise<Array>} Array de participantes.
  */
 export async function getParticipantes(torneo_id) {
-    return getDatosTorneo('participantes', torneo_id);
+    return getDatosTorneo(`participantes`, torneo_id);
 }
 
 /**
- * Obtiene la lista de partidos para un torneo específico.
+ * Obtiene la lista de partidos de un torneo específico.
  * @param {string} torneo_id - El ID del torneo.
- * @returns {Promise} Una promesa que se resuelve con el objeto de partidos, o null si ocurre un error.
+ * @returns {Promise<Array>} Array de partidos.
  */
 export async function getPartidos(torneo_id) {
-    return getDatosTorneo('partidos', torneo_id);
+    return getDatosTorneo(`partidos`, torneo_id);
 }
 
 /**
@@ -72,14 +72,15 @@ export async function getPartidos(torneo_id) {
  */
 export async function renderizarTablaTorneos(idContainer, dataTorneos) {
     const container = document.getElementById(idContainer);
+
     if (!container) {
-        console.error(`Contenedor con id '${idContainer}' no encontrado.`);
+        console.error(`No se encontró el contenedor con ID: ${idContainer}`);
         return;
     }
 
     const respuesta = await fetch('/components/tablaTorneos.html');
     if (!respuesta.ok) {
-        console.error(`No se pudo cargar el componente de la tabla.`);
+        console.error(`Error al cargar el componente de tabla de torneos: ${respuesta.statusText}`);
         return;
     }
 
@@ -88,19 +89,22 @@ export async function renderizarTablaTorneos(idContainer, dataTorneos) {
 
     const tbody = container.querySelector('tbody');
     if (dataTorneos.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8">No hay torneos para mostrar.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7">No hay torneos para mostrar.</td></tr>';
         return;
     }
 
     dataTorneos.forEach(torneo => {
-        const { nombreDisciplina, datosEstado } = procesarInfoTorneo(torneo);
-
         const row = document.createElement('tr');
+        const disciplina = getDisplayInfo('disciplina', torneo.disciplina);
+        const estado = getDisplayInfo('estado', torneo.estado);
+
+        row.dataset.id = torneo.torneo_id;
+        row.className = 'tabla_fila';
         row.innerHTML =
             `
             <td><img src="${torneo.portadaURL}" alt="'Portada miniatura del torneo.'" class="tabla_portada"></td>
             <td><span class="tabla_texto">${torneo.nombre}</span></td>
-            <td><span class="tabla_texto">${nombreDisciplina}</span></td>
+            <td><span class="tabla_texto">${disciplina.nombreDisplay}</span></td>
             <td><span class="tabla_texto">${torneo.nro_participantes}</span></td>
             <td>
                 <ul class="tabla_tags_lista">
@@ -108,16 +112,20 @@ export async function renderizarTablaTorneos(idContainer, dataTorneos) {
                 </ul>
             </td>
             <td><span class="tabla_texto">${torneo.formato}</span></td>
-            <td><span class="tabla_estado ${datosEstado.className}">${datosEstado.text}</span></td>
-            <td><a class="tabla_btn_explorar" href="torneoView.html?id=${torneo.torneo_id}">Ver más</a></td>`
+            <td><span class="tabla_estado ${estado.className}">${estado.nombreDisplay}</span></td>`
+        row.addEventListener('click', () => {
+            window.location.href = `torneoView.html?id=${torneo.torneo_id}`;
+        });
+
         tbody.appendChild(row);
     });
 }
 
+
 /**
- * Renderiza la vista detallada de un único torneo en un contenedor.
- * @param {string} idContainer - El ID del elemento que será reemplazado por la vista de detalles.
- * @param {Object} dataTorneo - El objeto del torneo a renderizar.
+ * Renderiza la información completa de un torneo específico.
+ * @param {string} idContainer - El ID del contenedor donde renderizar.
+ * @param {Object} torneo - Objeto con los datos del torneo.
  */
 export async function renderizarTorneo(idContainer, dataTorneo) {
     const container = document.getElementById(idContainer);
@@ -125,7 +133,8 @@ export async function renderizarTorneo(idContainer, dataTorneo) {
         console.error(`Contenedor con id '${idContainer}' no encontrado.`);
         return;
     } else {
-        const { nombreDisciplina, datosEstado } = procesarInfoTorneo(dataTorneo);
+        const nombreDisciplina = getDisplayInfo('disciplina', dataTorneo.disciplina).nombreDisplay;
+        const datosEstado = getDisplayInfo('estado', dataTorneo.estado);
 
         const displayTorneo = document.createElement('div');
         displayTorneo.classList.add('info_grid');
@@ -173,21 +182,3 @@ export async function renderizarTorneo(idContainer, dataTorneo) {
         container.replaceWith(displayTorneo);
     }
 }
-
-/**
- * Procesa los datos brutos de un torneo para obtener valores listos para mostrar.
- * @param {Object} torneo - El objeto del torneo a procesar.
- * @returns {{nombreDisciplina: string, datosEstado: {text: string, className: string}}} Un objeto con el nombre de la disciplina y los datos del estado listos para ser renderizados.
- */
-function procesarInfoTorneo(torneo) {
-    const infoDisciplina = encontrarDisciplinaJSON(torneo.disciplina);
-    const nombreDisciplina = infoDisciplina ? infoDisciplina.nombreDisplay : torneo.disciplina;
-    const infoEstado = encontrarEstadoJSON(torneo.estado);
-
-    const datosEstado = infoEstado
-        ? { text: infoEstado.nombreDisplay, className: infoEstado.className }
-        : { text: 'Desconocido', className: '' };
-
-    return { nombreDisciplina, datosEstado };
-}
-
