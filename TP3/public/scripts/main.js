@@ -23,8 +23,8 @@ async function cargarComponente(url, elementId) {
  */
 export function cargarComponentesComunes() {
     return Promise.all([
-        cargarComponente("../components/header.html", "header-placeholder"),
-        cargarComponente("../components/banner.html", "banner-placeholder"),
-        cargarComponente("../components/footer.html", "footer-placeholder")
+        cargarComponente("/components/header.html", "header-placeholder"),
+        cargarComponente("/components/banner.html", "banner-placeholder"),
+        cargarComponente("/components/footer.html", "footer-placeholder")
     ]);
 }

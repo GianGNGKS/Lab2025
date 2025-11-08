@@ -32,7 +32,7 @@ export async function getTorneos() {
  */
 async function getDatosTorneo(recurso, torneo_id) {
     try {
-        const response = await fetch(`/data/${torneo_id}/${recurso}-${torneo_id}.json`);
+        const response = await fetch(`/api/torneos/${torneo_id}/${recurso}`);
 
         if (!response.ok) {
             throw new Error(`Error HTTP: ${response.status}`);
@@ -114,7 +114,7 @@ export async function renderizarTablaTorneos(idContainer, dataTorneos) {
             <td><span class="tabla_texto">${torneo.formato}</span></td>
             <td><span class="tabla_estado ${estado.className}">${estado.nombreDisplay}</span></td>`
         row.addEventListener('click', () => {
-            window.location.href = `torneoView.html?id=${torneo.torneo_id}`;
+            window.location.href = `/torneoView/?id=${torneo.torneo_id}`;
         });
 
         tbody.appendChild(row);
@@ -150,7 +150,7 @@ export async function renderizarTorneo(idContainer, dataTorneo) {
                     </div>
             <div class="info_torneo_container">
                 <h2 class="info_torneo_titulo">Estado</h2>
-                <h3 class="info_torneo_detalles"><span class="tabla_estado ${datosEstado.className}">${datosEstado.text}</span></h3>
+                <h3 class="info_torneo_detalles"><span class="tabla_estado ${datosEstado.className}">${datosEstado.nombreDisplay}</span></h3>
             </div>
             <div class="info_torneo_container">
                 <h2 class="info_torneo_titulo">Nro. Participantes</h2>
