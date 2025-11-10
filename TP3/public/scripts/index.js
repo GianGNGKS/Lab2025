@@ -1,5 +1,5 @@
-import { renderizarTablaTorneos, getTorneos } from "./torneos.js";
-import { cargarComponentesComunes } from "./main.js";
+import { renderizarTablaTorneos, getTorneos } from "/scripts/torneos.js";
+import { cargarComponentesComunes } from "/scripts/main.js";
 
 /**
  * @file Archivo principal para las páginas estándar, como index.html.

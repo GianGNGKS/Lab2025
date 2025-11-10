@@ -1,0 +1,100 @@
+<div id="modal-torneo" class="modal" style="display: none;">
+    <div class="modal-overlay"></div>
+    <div class="modal-contenido">
+        <form id="form-torneo" class="modal-formulario">
+            <div class="modal-header">
+                <div class="modal-titulo-container">
+                    <h2 id="modal-titulo" class="modal-titulo">Crear nuevo torneo</h2>
+                    <small class="modal-ayuda">Sólamente podés crear un torneo por día!</small>
+                </div>
+                <div class="modal-acciones">
+                    <button type="submit" class="modal-btn modal-btn-primario">
+                        <span id="btn-texto">Crear Torneo</span>
+                    </button>
+                    <button type="button" class="modal-btn modal-btn-secundario boton_cancel">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-grid">
+                    <!-- Nombre del torneo -->
+                    <div class="modal-campo">
+                        <label for="modal-nombre" class="modal-label">Nombre del torneo</label>
+                        <input type="text" id="modal-nombre" name="nombre" class="modal-input"
+                            placeholder="Ej: Copa Primavera 2025" required>
+                    </div>
+                    <!-- Disciplina -->
+                    <div class="modal-campo">
+                        <label for="modal-disciplina" class="modal-label">Disciplina</label>
+                        <select id="modal-disciplina" name="disciplina" required class="modal-select">
+                        </select>
+                    </div>
+                    <!-- Formato -->
+                    <div class="modal-campo">
+                        <label for="modal-formato" class="modal-label">Formato</label>
+                        <select id="modal-formato" name="formato" required class="modal-select">
+                            <option value="Liga">Liga</option>
+                        </select>
+                    </div>
+                    <!-- Estado -->
+                    <div class="modal-campo">
+                        <label for="modal-estado" class="modal-label">Estado</label>
+                        <select id="modal-estado" name="estado" required class="modal-select">
+                            <option value="0">Sin comenzar</option>
+                            <option value="1">En curso</option>
+                            <option value="2">Finalizado</option>
+                        </select>
+                    </div>
+                    <!-- Número de participantes -->
+                    <div class="modal-campo">
+                        <label for="modal-nro-participantes" class="modal-label">Nro. Participantes</label>
+                        <input type="number" id="modal-nro-participantes" name="nro_participantes" class="modal-input"
+                            min="2" max="64" placeholder="8" required>
+                    </div>
+                    <!-- Organizador -->
+                    <div class="modal-campo">
+                        <label for="modal-organizador" class="modal-label">Organizador</label>
+                        <input type="text" id="modal-organizador" name="organizador" class="modal-input"
+                            placeholder="Tu nombre o institución" required>
+                    </div>
+                    <!-- Fecha de inicio -->
+                    <div class="modal-campo">
+                        <label for="modal-fecha-inicio" class="modal-label">Fecha de inicio</label>
+                        <input type="date" id="modal-fecha-inicio" name="fecha_inicio" class="modal-input">
+                    </div>
+                    <!-- Fecha de fin -->
+                    <div class="modal-campo">
+                        <label for="modal-fecha-fin" class="modal-label">Fecha de fin</label>
+                        <input type="date" id="modal-fecha-fin" name="fecha_fin" class="modal-input">
+                    </div>
+                    <!-- Premio -->
+                    <div class="modal-campo">
+                        <label for="modal-premio" class="modal-label">Premio</label>
+                        <input type="text" id="modal-premio" name="premio" class="modal-input"
+                            placeholder="Ej: $1000, Trofeo, Medallas">
+                    </div>
+                    <!-- Tags (ocupa 2 columnas) -->
+                    <div class="modal-campo modal-campo-completo">
+                        <label for="modal-tags" class="modal-label">Tags</label>
+                        <input type="text" id="modal-tags" name="tags" class="modal-input"
+                            placeholder="ej: amateur, 5vs5, juvenil">
+                        <small class="modal-ayuda">Separa los tags con comas</small>
+                    </div>
+                    <!-- Descripción (ocupa 2 columnas) -->
+                    <div class="modal-campo modal-campo-completo">
+                        <label for="modal-descripcion" class="modal-label">Descripción</label>
+                        <textarea id="modal-descripcion" name="descripcion" class="modal-input"
+                            placeholder="Describe brevemente el torneo..." rows="4"></textarea>
+                    </div>
+                    <!-- Imagen (ocupa 2 columnas) -->
+                    <div class="modal-campo modal-campo-completo">
+                        <label for="modal-imagen" class="modal-label">Imagen del torneo</label>
+                        <input type="file" id="modal-imagen" name="imagen" class="modal-input" accept="image/*">
+                        <small class="modal-ayuda">Formatos aceptados: JPG, PNG, WebP (máx. 5MB)</small>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+</div>

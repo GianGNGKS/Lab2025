@@ -1,71 +1,88 @@
-import { renderizarTorneo, getTorneos, getParticipantes, getPartidos } from './torneos.js';
-import { cargarComponentesComunes } from './main.js';
-import { formatearFecha, generarColorAleatorio } from './utilities.js';
+import { renderizarTorneo, getTorneos, getParticipantes, getPartidos } from '/scripts/torneos.js';
+import { cargarComponentesComunes } from '/scripts/main.js';
+import { formatearFecha, generarColorAleatorio } from '/scripts/utilities.js';
 
 /**
  * @file Archivo dedicado a la carga y renderización de aspectos de un torneo en particular.
  */
 
-let listaParticipantes = [];
-let listaPartidos = [];
+let torneoActual = null;
+let listaParticipantes;
+let listaPartidos;
 
 /**
  * Función principal que se ejecuta al cargar la página de la vista de un torneo.
  * Carga componentes comunes, obtiene el ID del torneo desde la URL, busca el torneo
  * y renderiza su información junto con la lista de participantes y edita el banner.
  */
+/**
+ * Función principal que se ejecuta al cargar la página de la vista de un torneo.
+ */
 async function main() {
-    await Promise.all([cargarComponentesComunes()]);
+    try {
+        await cargarComponentesComunes();
 
-    const params = new URLSearchParams(window.location.search);
-    const idURL = params.get('id');
+        const params = new URLSearchParams(window.location.search);
+        const idURL = params.get('id');
 
-    if (!idURL) {
-        console.error('No se proporcionó ningún ID de torneo en la URL.');
-        return;
+        if (!idURL) {
+            throw new Error('No se proporcionó ningún ID de torneo en la URL.');
+        }
+
+        const listaTorneos = await getTorneos();
+        
+        if (!listaTorneos || listaTorneos.length === 0) {
+            throw new Error('No se pudieron obtener los torneos');
+        }
+
+        torneoActual = listaTorneos.find(torneo => torneo.torneo_id == idURL);
+        
+        if (!torneoActual) {
+            throw new Error(`No se encontró el torneo con ID: ${idURL}`);
+        }
+
+        console.log('Torneo encontrado:', torneoActual);
+
+        renderizarTorneo('info-torneo-placeholder', torneoActual);
+        await editarBanner(torneoActual);
+
+        const [participantesData, partidosData] = await Promise.allSettled([
+            getParticipantes(torneoActual.torneo_id),
+            getPartidos(torneoActual.torneo_id)
+        ]);
+
+        if (participantesData.status === 'fulfilled' && participantesData.value?.participantes) {
+            listaParticipantes = participantesData.value.participantes.map(p => ({
+                ...p,
+                color: generarColorAleatorio()
+            }));
+        } else {
+            console.warn('No se pudieron cargar participantes:', participantesData.reason);
+            listaParticipantes = [];
+        }
+
+        if (partidosData.status === 'fulfilled' && partidosData.value?.partidos) {
+            listaPartidos = partidosData.value.partidos;
+        } else {
+            console.warn('No se pudieron cargar partidos:', partidosData.reason);
+            listaPartidos = [];
+        }
+
+        console.log(`Participantes: ${listaParticipantes.length}`);
+        console.log(`Partidos: ${listaPartidos.length}`);
+
+        renderizarParticipantes('info-participantes-placeholder', listaParticipantes);
+        renderizarPartidos('info-partidos-placeholder', listaPartidos);
+
+        if (listaParticipantes.length > 0) {
+            activarInteraccionTablas();
+        }
+
+        document.querySelector('main')?.classList.add('fade-in');
+
+    } catch (error) {
+        console.error('Error crítico:', error);
     }
-    const listaTorneos = await getTorneos();
-
-    if (!listaTorneos) {
-        console.error('No se pudieron obtener los torneos');
-        return;
-    }
-
-    const torneoEncontrado = listaTorneos.find(torneo => torneo.torneo_id == idURL);
-    if (!torneoEncontrado) {
-        console.error('Err: No se encontró ningún torneo.');
-        return;
-    }
-
-    listaParticipantes = await getParticipantes(torneoEncontrado.torneo_id) || [];
-    listaPartidos = await getPartidos(torneoEncontrado.torneo_id) || [];
-
-    if (!listaParticipantes) {
-        console.error('No se pudieron obtener los participantes del torneo.');
-        return;
-    }
-
-    if (!listaPartidos) {
-        console.error('No se pudieron obtener los partidos del torneo.');
-        return;
-    }
-
-    listaParticipantes = listaParticipantes.participantes;
-    listaParticipantes = listaParticipantes.map(p => ({
-        ...p, color: generarColorAleatorio()
-    }));
-
-    listaPartidos = listaPartidos.partidos;
-
-
-    renderizarTorneo('info-torneo-placeholder', torneoEncontrado);
-    renderizarParticipantes('info-participantes-placeholder', listaParticipantes);
-    renderizarPartidos('info-partidos-placeholder', listaPartidos);
-
-    await editarBanner(torneoEncontrado);
-    document.querySelector('main').classList.add('fade-in');
-
-    activarInteraccionTablas();
 }
 
 /**
@@ -75,9 +92,6 @@ async function main() {
  */
 async function renderizarParticipantes(idContainer, dataParticipantes) {
     const container = document.getElementById(idContainer);
-    console.log(dataParticipantes);
-
-
 
     if (!container) {
         console.error(`No se encontró el contenedor: ${idContainer}`);
@@ -97,16 +111,15 @@ async function renderizarParticipantes(idContainer, dataParticipantes) {
                         <th>Puntos</th>
                     </thead>
                     <tbody class="tabla-liga-body">
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
-            `;
-    const tbody = displayParticipantes.querySelector('tbody');
-    container.replaceWith(displayParticipantes);
+        `;
 
-    if (dataParticipantes.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4">No hay participantes registrados en este torneo.</td></tr>';
+    container.replaceWith(displayParticipantes);
+    const tbody = displayParticipantes.querySelector('tbody');
+    if (!dataParticipantes || dataParticipantes.length === 0) {
+        tbody.innerHTML = '<tr class="fila-vacio"><td colspan="4">No hay participantes registrados en este torneo.</td></tr>';
         return;
     }
 
@@ -123,7 +136,7 @@ async function renderizarParticipantes(idContainer, dataParticipantes) {
                 ${participante.empatados}-
                 ${participante.perdidos}</span></td>
                 <td><span class="tabla_texto">${participante.puntos}</span></td>
-            `
+            `;
         tbody.appendChild(row);
     });
 }
@@ -158,15 +171,16 @@ async function renderizarPartidos(idContainer, dataPartidos) {
                     </thead>
                     <tbody class="tabla-liga-body">
                     </tbody>
-                    </table>
-                </div>
+                </table>
             </div>
-            `;
-    const tbody = displayPartidos.querySelector('tbody');
+        `;
+
     container.replaceWith(displayPartidos);
 
-    if (dataPartidos.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5">No hay partidos registrados para este torneo.</td></tr>';
+    const tbody = displayPartidos.querySelector('tbody');
+
+    if (!dataPartidos || dataPartidos.length === 0) {
+        tbody.innerHTML = '<tr class="fila-vacio"><td colspan="5">No hay partidos registrados para este torneo.</td></tr>';
         return;
     }
 
@@ -180,7 +194,6 @@ async function renderizarPartidos(idContainer, dataPartidos) {
         row.dataset.p1Id = partido.p1_id;
         row.dataset.p2Id = partido.p2_id;
 
-
         row.innerHTML = `
                 <td><span class="tabla_texto">${formatearFecha(partido.fecha)}</span></td>
                 <td><span class="tabla_texto">${partido.jornada}</span></td>
@@ -189,7 +202,7 @@ async function renderizarPartidos(idContainer, dataPartidos) {
                 <td><span class="tabla_texto">${resultado}</span></td>
                 <td><span class="color-participante" style="background-color: ${participante2.color};"></span>
                 <span class="tabla_texto">${participante2.nombre}</span></td>
-            `
+            `;
         tbody.appendChild(row);
     });
 }

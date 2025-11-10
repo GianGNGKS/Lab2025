@@ -1,0 +1,262 @@
+/* MODAL ESTILOS */
+
+/* Contenedor principal del modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Overlay oscuro con blur */
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+}
+
+/* Contenido del modal */
+.modal-contenido {
+    position: relative;
+    background: var(--color-fondo-1);
+    border-radius: 10px;
+    box-shadow: 0 10px 40px var(--color-sombra-1),
+        0 0 0 2px var(--color-primario-3);
+    max-width: 700px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalSlideUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 10000;
+}
+
+@keyframes modalSlideUp {
+    from {
+        transform: translateY(100px) scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* header del modal */
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 2px solid var(--color-primario-1);
+    position: sticky;
+    top: 0;
+    background: var(--color-fondo-2);
+    z-index: 10;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-titulo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.modal-titulo {
+    margin: 0;
+    font-family: var(--fuente-primaria);
+    font-size: 1.3rem;
+    color: var(--color-primario-1);
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+    text-shadow: 1px 1px 3px var(--color-sombra-1);
+}
+
+/* body del modal */
+
+.modal-body {
+    padding: 2rem;
+    background: var(--color-fondo-1);
+}
+
+/* Formulario */
+.modal-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Grid de campos (2 columnas) */
+.modal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+/* Campo individual */
+.modal-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Campo que ocupa 2 columnas (para tags) */
+.modal-campo-completo {
+    grid-column: span 2;
+}
+
+/* Etiquetas de los campos */
+.modal-label {
+    font-family: var(--fuente-secundaria);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-secundario-3);
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+/* Inputs y selects */
+.modal-input,
+.modal-select {
+    padding: 0.85rem 1rem;
+    border: 2px solid var(--color-borde-2);
+    border-radius: 8px;
+    background-color: var(--color-fondo-3);
+    color: white;
+    font-family: var(--fuente-secundaria);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.modal-input:focus,
+.modal-select:focus {
+    outline: none;
+    border-color: var(--color-primario-1);
+    box-shadow: 0 0 0 3px rgba(114, 212, 114, 0.2),
+        inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.modal-input::placeholder {
+    color: var(--color-borde-1);
+    opacity: 0.7;
+}
+
+/* Select con flecha personalizada */
+.modal-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2372d472' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 3rem;
+}
+
+.modal-select:hover {
+    border-color: var(--color-primario-2);
+}
+
+/* Hint text (texto de ayuda) */
+.modal-ayuda {
+    font-size: 0.85rem;
+    color: var(--color-borde-1);
+    font-style: italic;
+    margin-top: -0.25rem;
+}
+
+/* botones de acción */
+
+.modal-acciones {
+    display: flex;
+    gap: 1rem;
+}
+
+.modal-btn {
+    flex: 1;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--fuente-secundaria);
+    font-size: 0.7rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    box-shadow: 0 4px 8px var(--color-sombra-1);
+}
+
+/* Botón primario */
+.modal-btn-primario {
+    background: var(--color-primario-2);
+    color: var(--color-primario-4);
+}
+
+.modal-btn-primario:hover:not(:disabled) {
+    background: var(--color-primario-1);
+}
+
+.modal-btn-primario:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Botón secundario (Cancelar) */
+.modal-btn-secundario {
+    background: var(--color-secundario-1);
+    color: var(--color-secundario-3);
+}
+
+.modal-btn-secundario:hover {
+    background: var(--color-secundario-2);
+}
+
+/* Scrollbar oculto */
+.modal-contenido {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+/* Estados de inputs */
+
+/* Input con error */
+.modal-input.error,
+.modal-select.error {
+    border-color: var(--color-error-2);
+}
+
+.modal-input.error:focus,
+.modal-select.error:focus {
+    box-shadow: 0 0 0 3px rgba(255, 180, 171, 0.3),
+        inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Input válido */
+.modal-input.valid,
+.modal-select.valid {
+    border-color: var(--color-primario-2);
+}

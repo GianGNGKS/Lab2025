@@ -2,7 +2,7 @@
  * @file Archivo encargado de manejar la obtención y renderización de datos relacionados a torneos.
  */
 
-import { getDisplayInfo, formatearFecha } from './utilities.js';
+import { getDisplayInfo, formatearFecha } from '/scripts/utilities.js';
 
 /**
  * Obtiene la lista completa de torneos desde la API del servidor.

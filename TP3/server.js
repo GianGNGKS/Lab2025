@@ -167,6 +167,120 @@ app.get('/api/torneos/:id/:recurso', async (req, res, next) => {
     }
 });
 
+//////////////////
+// CRUD DE TORNEOS
+//////////////////
+// I. Crear nuevo torneo
+app.post('/api/torneos', async (req, res, next) => {
+    try {
+        const nuevoTorneo = req.body;
+
+        // Validación basica
+        if (!nuevoTorneo || typeof nuevoTorneo !== 'object') {
+            return res.status(400).json({ error: 'Datos de torneo inválidos' });
+        }
+
+        const filePath = path.join(dataPath, 'torneos.json');
+        const data = await fsPromises.readFile(filePath, 'utf8');
+        const torneos = JSON.parse(data);
+
+        //generar ID simple único no usado (para simplicidad)
+        let nuevoId;
+        do {
+            nuevoId = `${Math.floor(Math.random() * 10000)}`;
+        } while (torneos.some(t => t.torneo_id === nuevoId));
+
+        nuevoTorneo.torneo_id = nuevoId;
+        torneos.push(nuevoTorneo);
+        await fsPromises.writeFile(filePath, JSON.stringify(torneos, null, 2), 'utf8');
+
+        res.status(201).json({ message: 'Torneo creado', torneo_id: nuevoId });
+    } catch (error) {
+        next(error);
+    }
+});
+
+// II. Actualizar torneo existente
+app.put('/api/torneos', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const datosActualizados = req.body;
+
+        if (!datosActualizados || typeof datosActualizados !== 'object') {
+            return res.status(400).json({ error: 'Datos de torneo inválidos' });
+        }
+
+        const filePath = path.join(dataPath, 'torneos.json');
+        const data = await fsPromises.readFile(filePath, 'utf8');
+        const torneos = JSON.parse(data);
+        const indice = torneos.findIndex(t => t.torneo_id === id);
+
+        if (indice === -1) {
+            return res.status(404).json({ error: 'Torneo no encontrado', torneo_id: id });
+        }
+
+        torneos[indice] = { ...torneos[indice], ...datosActualizados, torneo_id: id };
+        await fsPromises.writeFile(filePath, JSON.stringify(torneos, null, 2), 'utf8');
+
+        res.json({ message: 'Torneo actualizado', torneo_id: id });
+    } catch (error) {
+        next(error);
+    }
+});
+
+// III. Eliminar torneo
+app.delete('/api/torneos/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        //Leer archivo de torneos
+        const torneosPath = path.join(dataPath, 'torneos.json');
+
+        if (!fs.existsSync(torneosPath)) {
+            return res.status(404).json({
+                error: 'Archivo de torneos no encontrado'
+            });
+        }
+
+        const data = await fsPromises.readFile(torneosPath, 'utf8');
+        const torneos = JSON.parse(data);
+
+        //Buscar el torneo
+        const indice = torneos.findIndex(t => t.torneo_id === id);
+
+        if (indice === -1) {
+            return res.status(404).json({
+                error: 'Torneo no encontrado',
+                torneo_id: id
+            });
+        }
+
+        //liminar el torneo del array
+        const torneoEliminado = torneos.splice(indice, 1)[0];
+
+        //Guardar archivo actualizado
+        await fsPromises.writeFile(
+            torneosPath,
+            JSON.stringify(torneos, null, 2),
+            'utf8'
+        );
+
+        //Responder con éxito
+        res.json({
+            message: 'Torneo eliminado exitosamente',
+            torneo_id: id,
+            nombre: torneoEliminado.nombre
+        });
+
+    } catch (error) {
+        next(error);
+    }
+});
+
+// CRUD de participantes y partidos podría implementarse de manera similar,
+// primero, pero se omite por motivos de testing y simplicidad.
+
+
 //5.2 Rutas para servir imágenes
 
 // 5.2.1 Imágenes comunes (banner, logos generales, etc.)
@@ -218,6 +332,10 @@ app.get('/torneosCatalogo', (req, res) => {
 //5.3.2 Vista de torneo individual
 app.get('/torneoView', (req, res) => {
     res.sendFile(path.join(pagesPath, 'torneoView.html'));
+});
+
+app.get('/torneoEdit', (req, res) => {
+    res.sendFile(path.join(pagesPath, 'torneoEdit.html'));
 });
 
 //5.3.3 Página de contacto

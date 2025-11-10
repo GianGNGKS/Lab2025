@@ -1,5 +1,7 @@
-import { cargarComponentesComunes } from "./main.js";
-import { getTorneos, renderizarTablaTorneos } from "./torneos.js";
+import { cargarComponentesComunes } from "/scripts/main.js";
+import { getTorneos, renderizarTablaTorneos } from "/scripts/torneos.js";
+import { cargarModal, abrirModalCrear } from "/scripts/modalTorneo.js";
+
 
 /**
  * @file Archivo dedicado a la sección catálogo de torneos. 
@@ -20,6 +22,14 @@ let listaTorneos = []
  */
 async function main() {
     await Promise.all([cargarComponentesComunes()]);
+
+    await cargarModal();
+    const btnCrear = document.getElementById('btn-crear-torneo');
+    if (btnCrear) {
+        btnCrear.addEventListener('click', () => {
+            abrirModalCrear();
+        });
+    }
 
     listaTorneos = await getTorneos() || [];
 
