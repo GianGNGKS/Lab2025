@@ -47,6 +47,7 @@
     padding: 1rem 2rem;
     position: relative;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: slideInRight 0.3s ease;
 }
 
 .info_torneo_seccion::before {
@@ -135,3 +136,22 @@
     font-style: italic;
 }
 
+/* Opciones header para torneos */
+.navbar_opciones_primario {
+    background-color: var(--color-primario-3);
+    color: var(--color-primario-1);
+}
+
+.navbar_opciones_primario:hover {
+    background: var(--color-primario-2);
+    color: white;
+}
+
+.navbar_opciones_secundario {
+    color: var(--color-error-2);
+}
+
+.navbar_opciones_secundario:hover {
+    background-color: var(--color-secundario-1);
+    color: white;
+}

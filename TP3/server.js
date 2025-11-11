@@ -201,7 +201,7 @@ app.post('/api/torneos', async (req, res, next) => {
 });
 
 // II. Actualizar torneo existente
-app.put('/api/torneos', async (req, res, next) => {
+app.put('/api/torneos/:id', async (req, res, next) => {
     try {
         const { id } = req.params;
         const datosActualizados = req.body;
@@ -219,7 +219,12 @@ app.put('/api/torneos', async (req, res, next) => {
             return res.status(404).json({ error: 'Torneo no encontrado', torneo_id: id });
         }
 
-        torneos[indice] = { ...torneos[indice], ...datosActualizados, torneo_id: id };
+        torneos[indice] = {
+            ...torneos[indice],
+            ...datosActualizados,
+            torneo_id: id
+        };
+
         await fsPromises.writeFile(filePath, JSON.stringify(torneos, null, 2), 'utf8');
 
         res.json({ message: 'Torneo actualizado', torneo_id: id });

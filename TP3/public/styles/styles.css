@@ -76,6 +76,7 @@ body {
     letter-spacing: 0.2rem;
     text-transform: uppercase;
     margin: 0;
+    animation: slideInRight 0.3s ease;
 }
 
 /** Lista de links */
@@ -88,6 +89,19 @@ body {
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: center;
+    animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 /** Links de la lista */
@@ -135,19 +149,6 @@ body {
     align-items: center;
 }
 
-/** Título del banner */
-.banner_titulo {
-    font-family: var(--fuente-primaria);
-    font-size: 2rem;
-    text-transform: uppercase;
-    color: var(--color-primario-1);
-    text-shadow: 2px 2px 4px var(--color-borde-2);
-    letter-spacing: 0.2rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-bottom: 8rem;
-}
-
 /** Descripción del banner */
 #banner_desc {
     max-width: 600px;
@@ -158,6 +159,7 @@ body {
     text-shadow: 1px 1px 4px var(--color-primario-1);
     margin: 0 auto;
     text-align: center;
+    animation: slideInRight 0.3s ease;
 }
 
 /* Animación fade-in para el main.*/

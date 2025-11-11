@@ -147,7 +147,7 @@ export function abrirModalCrear() {
  * Abre el modal en modo EDITAR con datos precargados.
  * @param {Object} datosTorneo - Datos del torneo a editar
  */
-export function abrirModalEditar(datosTorneo) {
+export async function abrirModalEditar(datosTorneo) {
     modoActual = 'editar';
     torneoActualId = datosTorneo.torneo_id;
 
