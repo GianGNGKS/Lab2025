@@ -1,19 +1,22 @@
 // ! FALTA ARREGLAR ALGUNOS ERRORES JIJOOOOO
 // ! Lo básico funciona, pero hay detalles que mejorar
 
-
 // 1. IMPORTS
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 import { promises as fsPromises } from 'fs';
-//import helmet from 'helmet';
-//import rateLimit from 'express-rate-limit';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 // 2. CONFIGURACIÓN BÁSICA 
 const app = express();
-const PORT = 4000;
+const JWT_SECRET = process.env.JWT_SECRET || 'clave_por_defecto_para_testing';
+const PORT = process.env.PORT || 4000;
 
 // 3. PATHS
 const __filename = fileURLToPath(import.meta.url);
@@ -187,18 +190,49 @@ app.post('/api/torneos', async (req, res, next) => {
         //generar ID simple único no usado (para simplicidad)
         let nuevoId;
         do {
-            nuevoId = `${Math.floor(Math.random() * 10000)}`;
+            nuevoId = String(Math.floor(Math.random() * 10000)).padStart(4, '0');
         } while (torneos.some(t => t.torneo_id === nuevoId));
-
         nuevoTorneo.torneo_id = nuevoId;
+
+        // Generar clave admin simple
+        const admin_key = generarClaveAdmin();
+
+        //Hashear clave admin
+        const admin_key_hashed = await bcrypt.hash(admin_key, 10);
+        nuevoTorneo.admin_key_hashed = admin_key_hashed;
+        nuevoTorneo.creado_en = new Date().toISOString();
+
         torneos.push(nuevoTorneo);
         await fsPromises.writeFile(filePath, JSON.stringify(torneos, null, 2), 'utf8');
+
+        console.log(`Torneo ${nuevoId} creado con clave: ${admin_key.substring(0, 8)}...`);
+
 
         res.status(201).json({ message: 'Torneo creado', torneo_id: nuevoId });
     } catch (error) {
         next(error);
     }
 });
+
+
+/**
+ * Función para generar una clave admin única y relativamente segura.
+ * Forma una clave combinando entre dos palabras aleatorias y un número aleatorio.
+ *      Ejemplo: "anaxagoras-lycurgus-4821"
+ * @returns {string} Clave admin generada para el torneo
+ */
+function generarClaveAdmin() {
+    const palabrasClave = [
+        "anaxagoras", "mydeimos", "tribios", "helektra", "cifera",
+        "castorice", "aglaea", "khaslana", "hyacinthia", "oronyx",
+        "polyxia", "cyrene", "demiurge", "lycurgus", "terravox"];
+
+    const palabra1 = palabrasClave[Math.floor(Math.random() * palabrasClave.length)];
+    const palabra2 = palabrasClave[Math.floor(Math.random() * palabrasClave.length)];
+    const numero = Math.floor(1000 + Math.random() * 9000);
+
+    return `${palabra1}-${palabra2}-${numero}`;
+}
 
 // II. Actualizar torneo existente
 app.put('/api/torneos/:id', async (req, res, next) => {

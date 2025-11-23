@@ -7,11 +7,18 @@
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["Express", "Node.js", "Torneos"],
+  "keywords": [
+    "Express",
+    "Node.js",
+    "Torneos"
+  ],
   "author": "Giafranco Nicolás Gallucci & Donato Trobbiani Perales",
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "express": "^5.1.0"
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2"
   }
 }

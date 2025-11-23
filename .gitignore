@@ -26,3 +26,4 @@ replay_pid*
 
 # Ignore node_modules for TP3 workspace
 TP3/node_modules/
+.env

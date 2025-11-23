@@ -327,7 +327,7 @@ async function activarInteracciónHeader() {
     let idIngresada = null;
     botonIngresoId.addEventListener('click', (event) => {
         event.preventDefault();
-        idIngresada = prompt("Ingrese su ID para ver opciones del torneo:");
+        idIngresada = prompt("Ingrese su ID para ver las opciones disponibles del torneo:");
 
         if (!idIngresada || idIngresada.trim() === '') {
             console.log('Operación cancelada o ID vacía');
