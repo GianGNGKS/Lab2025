@@ -2,7 +2,7 @@
   {
     "torneo_id": "00",
     "nombre": "Federal A 2025",
-    "portadaURL": "/imagenes/torneos/00/football.jpg",
+    "portadaURL": "/api/imagenes/torneos/00/football.jpg",
     "disciplina": "futbol",
     "formato": "Liga",
     "estado": 2,
@@ -20,7 +20,7 @@
   {
     "torneo_id": "01",
     "nombre": "Torneo FAI de CS2",
-    "portadaURL": "/imagenes/torneos/01/Counter_Strike_2_Logo.png",
+    "portadaURL": "/api/imagenes/torneos/01/Counter_Strike_2_Logo.png",
     "disciplina": "counter_strike_2",
     "formato": "Liga",
     "estado": 0,
@@ -39,7 +39,7 @@
   {
     "torneo_id": "02",
     "nombre": "Nacional de volley",
-    "portadaURL": "/imagenes/torneos/02/volley.jpg",
+    "portadaURL": "/api/imagenes/torneos/02/volley.jpg",
     "disciplina": "volley",
     "formato": "Liga",
     "estado": 1,

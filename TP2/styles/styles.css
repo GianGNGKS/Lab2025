@@ -111,7 +111,7 @@ body {
 /** Banner */
 #banner {
     grid-row: 2;
-    background: linear-gradient(to left, rgb(0 0 0/0.6), rgb(0 0 0 / 0.95)), url(../images/Banner-fondo.png);
+    background: linear-gradient(to left, rgb(0 0 0/0.6), rgb(0 0 0 / 0.95)), url(/api/imagenes/Banner-fondo.png);
     background-size: cover;
     background-position: center;
     border-bottom: 2px solid var(--color-primario-1);
