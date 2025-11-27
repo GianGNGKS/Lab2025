@@ -244,8 +244,7 @@ async function manejarEnvio(event) {
             descripcion: formData.get('descripcion') || '',
             tags: formData.get('tags')
                 ? formData.get('tags').split(',').map(tag => tag.trim()).filter(tag => tag)
-                : [],
-            portadaURL: null // Empiezan sin portada
+                : []
         };
 
         let response;

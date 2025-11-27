@@ -36,11 +36,7 @@ app.use((req, res, next) => {
 //4.2 Middleware para parsear JSON en el cuerpo de las peticiones
 app.use(express.json());
 
-//4.3 Middleware para servir archivos estáticos
-//EJ: /styles/main.css → public/styles/main.css
-app.use(express.static(publicPath));
-
-//4.4 Middleware para manejo de subida de archivos
+//4.3 Middleware para manejo de subida de archivos
 app.use(fileUpload({
     limits: { fileSize: 5 * 1024 * 1024 }, // Límite de 5MB
     abortOnLimit: true,
@@ -126,7 +122,57 @@ function validarEstructuraRecurso(data, recurso) {
     return { valido: true };
 }
 
-// 5.1.4 Ruta para obtener recursos específicos de un torneo
+// 5.1.4 ruta para obtener los torneos paginados
+app.get('/api/torneos-limitados', async (req, res, next) => {
+
+    try {
+        const indice = parseInt(req.query.index) - 1 || 0;
+        const limite = parseInt(req.query.limite) || 5;
+
+        // 1. Validar parámetros
+        if (indice < 0 || limite <= 0) {
+            return res.status(400).json({ error: 'Parámetros inválidos. "index" debe ser >= 0 y "limite" debe ser > 0.' });
+        }
+
+        // 2. Leer archivo de torneos
+        const filePath = path.join(dataPath, 'torneos.json');
+        if (!fs.existsSync(filePath)) {
+            return res.status(404).json({
+                error: 'Archivo de torneos no encontrado'
+            });
+        }
+        const data = await fsPromises.readFile(filePath, 'utf8');
+        const torneos = JSON.parse(data);
+        const totalTorneos = torneos.length;
+
+        //3. Validar que el índice no exceda la cantidad de torneos
+        if (indice >= totalTorneos && totalTorneos > 0) {
+            return res.status(400).json({
+                error: 'Índice fuera de rango',
+                index_solicitado: indice + 1,
+                total_torneos: totalTorneos
+            });
+        }
+
+        //4. Calcular torneos paginados
+        const torneosPaginados = torneos.slice(indice, indice + limite);
+
+        //5. Responder con los torneos paginados y metadatos
+        res.json({
+            data: torneosPaginados,
+            paginacion: {
+                total_torneos: totalTorneos,
+                indice_solicitado: indice + 1,
+                limite: limite
+            }
+        });
+
+    } catch (error) {
+        next(error);
+    }
+});
+
+// 5.1.5 Ruta para obtener recursos específicos de un torneo
 app.get('/api/torneos/:id/:recurso', async (req, res, next) => {
     try {
         const { id, recurso } = req.params;
@@ -163,7 +209,7 @@ app.get('/api/torneos/:id/:recurso', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-});                                                           
+});
 
 //////////////////
 // CRUD DE TORNEOS
@@ -233,6 +279,12 @@ function generarClave() {
     return `${palabra1}-${palabra2}-${numero}`;
 }
 
+/** 
+* Función para validar los datos de un torneo.
+* @param { object } torneo - Objeto con los datos del torneo a validar.
+* @param { boolean } esActualizacion - Indica si es una actualización(true) o creación(false).
+* @returns { object } Objeto con propiedad 'valido'(boolean) y 'errores'(array de strings).
+*/
 function validarDatosTorneo(torneo, esActualizacion) {
     const errores = [];
 
@@ -359,7 +411,7 @@ app.post('/api/torneos/:id/verificar-key-participante', async (req, res, next) =
 });
 
 
-// III. Middleware para verificar token JWT en rutas protegidas
+// IV. Middleware para verificar token JWT en rutas protegidas
 function verificarTokenAdmin(req, res, next) {
     try {
         //1. Obtener token del encabezado Authorization
@@ -419,7 +471,7 @@ function verificarTokenAdmin(req, res, next) {
     }
 }
 
-// II. Actualizar torneo existente
+// V. Actualizar torneo existente
 app.put('/api/torneos/:id', verificarTokenAdmin, async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -454,7 +506,7 @@ app.put('/api/torneos/:id', verificarTokenAdmin, async (req, res, next) => {
     }
 });
 
-// III. Eliminar torneo
+// VI. Eliminar torneo
 app.delete('/api/torneos/:id', verificarTokenAdmin, async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -507,7 +559,7 @@ app.delete('/api/torneos/:id', verificarTokenAdmin, async (req, res, next) => {
 // CRUD de participantes
 ////////////////////////
 
-// IV. Agregar participante a un torneo
+// VII. Agregar participante a un torneo
 app.post('/api/torneos/:id/participantes', async (req, res, next) => {
     try {
         // 1. Obtener ID del torneo y cuerpo del participante
@@ -623,7 +675,7 @@ app.post('/api/torneos/:id/participantes', async (req, res, next) => {
     }
 });
 
-// V. Eliminar participante de un torneo
+// VIII. Eliminar participante de un torneo
 app.delete('/api/torneos/:id/participantes/:participanteId', async (req, res, next) => {
     try {
         const { id, participanteId } = req.params;
@@ -689,13 +741,6 @@ app.delete('/api/torneos/:id/participantes/:participanteId', async (req, res, ne
         next(error);
     }
 });
-
-
-
-
-
-// VI. Actualizar datos de un participante (nombre, partidas, ganadas, perdidas, empatadas, puntos)
-
 
 //5.2 Rutas para servir imágenes
 // 5.2.1 Imágenes específicas de torneos
@@ -817,48 +862,37 @@ function validarImagenTorneo(imagen) {
     return { valido: true };
 }
 
+// 5.3. ARCHIVOS ESTÁTICOS (después de las rutas API)
+app.use(express.static(path.join(__dirname, 'public')));
 
-//5.3 Rutas para servir páginas HTML específicas
-// (No necesario, pero recomendado para claridad y posterior control).
+//5.4 Rutas para servir páginas HTML específicas
 
-//5.3.1 Página principal
+//5.4.1 Página principal
 app.get('/', (req, res) => {
     res.sendFile(path.join(pagesPath, 'index.html'));
 });
 
-//5.3.2 Catálogo de torneos
+//5.4.2 Catálogo de torneos
 app.get('/torneosCatalogo', (req, res) => {
     res.sendFile(path.join(pagesPath, 'torneosCatalogo.html'));
 });
 
-//5.3.2 Vista de torneo individual
+//5.4.3 Vista de torneo individual
 app.get('/torneoView', (req, res) => {
     res.sendFile(path.join(pagesPath, 'torneoView.html'));
 });
 
-//5.3.3 Página de contacto
+//5.4.4 Página de contacto
 app.get('/contacto', (req, res) => {
     res.sendFile(path.join(pagesPath, 'contacto.html'));
 });
 
-//5.4 Ruta comodín (fallback SPA) para otras páginas HTML
-app.use((req, res, next) => {
-    if (req.method !== 'GET') {
-        return next();
-    }
+// 5.5 MANEJADOR DE ERRORES
 
-    if (req.accepts('html')) {
-        return res.sendFile(path.join(pagesPath, 'index.html'));
-    }
-
-    res.status(404).json({ error: 'Recurso no encontrado' });
-});
-
-//5.5 Manejador de errores genérico
+//5.5.1 Manejador de errores genérico
 app.use((err, req, res, next) => {
     console.error(err.stack);
 
-    // Determinar código de estado y mensaje
     const statusCode = err.status || 500;
     const response = {
         error: err.message || 'Error interno del servidor',
@@ -868,6 +902,17 @@ app.use((err, req, res, next) => {
     res.status(statusCode).json(response);
 });
 
+// 5.6 CATCH-ALL
+// Funciona como manejador para rutas no definidas.
+app.use((req, res) => {
+    // Si la ruta es de la API, responder con JSON 404
+    if (req.path.startsWith('/api')) {
+        return res.status(404).json({ error: 'Recurso no encontrado' });
+    }
+
+    // Para resto de rutas (SPA / páginas), reenviar al index.html
+    return res.sendFile(path.join(pagesPath, 'index.html'));
+});
 
 // 6. INICIAR SERVIDOR
 app.listen(PORT, () => {
