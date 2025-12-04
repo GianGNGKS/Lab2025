@@ -1,4 +1,4 @@
-import { renderizarTablaTorneos, getTorneos } from "/scripts/torneos.js";
+import { renderizarTablaTorneos } from "/scripts/torneos.js";
 import { cargarComponentesComunes } from "/scripts/main.js";
 
 /**
@@ -14,7 +14,7 @@ import { cargarComponentesComunes } from "/scripts/main.js";
 async function main() {
     await cargarComponentesComunes();
     document.querySelector('main').classList.add('fade-in');
-    const listaTorneos = await getTorneos();
+    const listaTorneos = await fetch('/api/torneos').then(res => res.json());
 
     if(listaTorneos){
         await renderizarTablaTorneos('tabla-torneos-placeholder', listaTorneos.slice(0, 3));

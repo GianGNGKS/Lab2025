@@ -1,11 +1,11 @@
-import { renderizarTorneo, getTorneos, getParticipantes, getPartidos } from './torneos.js';
+import { renderizarTorneo, getParticipantes, getPartidos } from './torneos.js';
 import { cargarComponentesComunes } from './main.js';
 import { formatearFecha, generarColorAleatorio } from './utilities.js';
-
 /**
  * @file Archivo dedicado a la carga y renderización de aspectos de un torneo en particular.
  */
 
+// Almacena la lista de participantes del torneo actual.
 let listaParticipantes = [];
 
 /**
@@ -18,7 +18,7 @@ async function main() {
 
     const params = new URLSearchParams(window.location.search);
     const idURL = params.get('id');
-    const listaTorneos = await getTorneos();
+    const listaTorneos = await fetch('/api/torneos').then(res => res.json());
 
     if (!listaTorneos) {
         return;

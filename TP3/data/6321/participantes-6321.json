@@ -1,0 +1,71 @@
+{
+  "torneo_id": "6321",
+  "participantes": [
+    {
+      "id": "0001",
+      "nombre": "Comunicaciones",
+      "participante_key_hashed": "$2b$10$eai2.NonGOu0Zz3tsv3ewOCPIusQIirq9HRvauNLOdi7z6.m.GUW2",
+      "creado_en": "2025-12-03T20:43:59.691Z",
+      "partidos_jugados": 2,
+      "ganados": 2,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 6
+    },
+    {
+      "id": "0002",
+      "nombre": "Deportivo Merlo",
+      "participante_key_hashed": "$2b$10$ufPVKECnu7m8IUslRzmh1ONCJEBBCXEuv.kS9SP9C2zrQYYFkd3B2",
+      "creado_en": "2025-12-03T20:47:09.120Z",
+      "partidos_jugados": 2,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 2,
+      "puntos": 0
+    },
+    {
+      "id": "0003",
+      "nombre": "Colegiales",
+      "participante_key_hashed": "$2b$10$vTf5U/oWRNihavoXI64kK.eZIDZwNPHiXb6t/Lf5Kb1I3IYoU3Ghe",
+      "creado_en": "2025-12-03T21:03:21.040Z",
+      "partidos_jugados": 2,
+      "ganados": 0,
+      "empatados": 2,
+      "perdidos": 0,
+      "puntos": 2
+    },
+    {
+      "id": "0004",
+      "nombre": "Ituzaingó",
+      "participante_key_hashed": "$2b$10$4yiz8vfUbGGstdyCpN3/m.U9.dSah1AgEwMYhHDJ3vA04qYqnXBp2",
+      "creado_en": "2025-12-03T21:03:43.812Z",
+      "partidos_jugados": 1,
+      "ganados": 0,
+      "empatados": 1,
+      "perdidos": 0,
+      "puntos": 1
+    },
+    {
+      "id": "0005",
+      "nombre": "San Miguel",
+      "participante_key_hashed": "$2b$10$eA2ZanSJOvEd4zUQ2qGS2Osc6CzACPumh/AzdXAUsk24zmhTZwbvK",
+      "creado_en": "2025-12-03T21:03:59.379Z",
+      "partidos_jugados": 2,
+      "ganados": 0,
+      "empatados": 1,
+      "perdidos": 1,
+      "puntos": 1
+    },
+    {
+      "id": "0006",
+      "nombre": "Midland",
+      "participante_key_hashed": "$2b$10$VIn8qT8dhkcJbCWzbxtKau2Ge1cEhsMPTPbgbKkHbaMUMVDLp0fiW",
+      "creado_en": "2025-12-03T21:04:15.422Z",
+      "partidos_jugados": 1,
+      "ganados": 1,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 3
+    }
+  ]
+}

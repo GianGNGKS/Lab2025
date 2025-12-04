@@ -1,0 +1,38 @@
+{
+  "torneo_id": "2816",
+  "participantes": [
+    {
+      "id": "0001",
+      "nombre": "Los Reyes del Asfalto",
+      "participante_key_hashed": "$2b$10$zUPFWYjFUtEcmShEb3tC6eapNc2rCeApgfhRfHrAfA9rSGZBfsgqm",
+      "creado_en": "2025-12-03T21:21:27.050Z",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "0002",
+      "nombre": "Triple Amenaza",
+      "participante_key_hashed": "$2b$10$OOiH8h8zIuAmvM1sZEbT3uA3pNIZoPcf8TBsNHC9MpSn9yo.wI3UW",
+      "creado_en": "2025-12-03T21:21:44.559Z",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "0003",
+      "nombre": "Dunkers",
+      "participante_key_hashed": "$2b$10$quna5og29yHVBIPPavOkn.VLsDjWxTpVh9EAQtZficMsH3xWbSp/6",
+      "creado_en": "2025-12-03T21:21:59.291Z",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    }
+  ]
+}

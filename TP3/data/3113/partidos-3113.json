@@ -1,0 +1,14 @@
+{
+  "torneo_id": "3113",
+  "partidos": [
+    {
+      "partido_id": "0001",
+      "participante1_id": "0002",
+      "participante2_id": "0001",
+      "fecha": "2025-12-04",
+      "jugado_en": "Aula i7",
+      "resultado1": 1,
+      "resultado2": 1
+    }
+  ]
+}

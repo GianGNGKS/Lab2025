@@ -178,7 +178,7 @@
     border-color: var(--color-primario-2);
 }
 
-/* Hint text (texto de ayuda) */
+/* Texto de ayuda*/
 .modal-ayuda {
     font-size: 0.85rem;
     color: var(--color-borde-1);
@@ -186,7 +186,7 @@
     margin-top: -0.25rem;
 }
 
-/* botones de acción */
+/* Botones de acción */
 
 .modal-acciones {
     display: flex;
@@ -225,7 +225,7 @@
     transform: none;
 }
 
-/* Botón secundario (Cancelar) */
+/* Botón secundario */
 .modal-btn-secundario {
     background: var(--color-secundario-1);
     color: var(--color-secundario-3);
@@ -241,22 +241,33 @@
     -ms-overflow-style: none;
 }
 
-/* Estados de inputs */
-
-/* Input con error */
-.modal-input.error,
-.modal-select.error {
-    border-color: var(--color-error-2);
+/* Botón editar */
+.btn-editar-partido {
+    padding: 0.4rem 0.8rem;
+    background: var(--color-primario-3);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.2s;
 }
 
-.modal-input.error:focus,
-.modal-select.error:focus {
-    box-shadow: 0 0 0 3px rgba(255, 180, 171, 0.3),
-        inset 0 2px 4px rgba(0, 0, 0, 0.2);
+.btn-editar-partido:hover {
+    background: var(--color-primario-1);
 }
 
-/* Input válido */
-.modal-input.valid,
-.modal-select.valid {
-    border-color: var(--color-primario-2);
+.btn-eliminar-partido {
+    padding: 0.4rem 0.8rem;
+    background: var(--color-secundario-2);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+}
+
+.btn-eliminar-partido:hover {
+    background: var(--color-secundario-3);
 }

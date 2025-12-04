@@ -108,3 +108,254 @@ export function formatearFecha(fechaStr) {
 export function generarColorAleatorio() {
     return `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`;
 }
+
+
+///////////////////////////
+// MODALES DE SWEETALERT2
+///////////////////////////
+
+/**
+ * Muestra un modal con la clave de administrador después de crear un torneo.
+ * @param {string} nombreTorneo - Nombre del torneo creado
+ * @param {string} adminKey - Clave de administrador
+ * @returns {Promise<void>}
+ */
+export async function mostrarClaveAdministrador(nombreTorneo, adminKey) {
+    await Swal.fire({
+        title: `🎉 Torneo "${nombreTorneo}" creado`,
+        html: mostrarClaveHTML(adminKey, 'Administrador'),
+        icon: 'success',
+        confirmButtonText: '✅ Ya guardé mi clave',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        width: '650px',
+        customClass: {
+            popup: 'modal-contenido',
+            title: 'modal-titulo',
+            htmlContainer: 'modal-body',
+            confirmButton: 'modal-btn modal-btn-primario',
+            actions: 'modal-acciones'
+        }
+    });
+}
+
+/**
+ * Muestra un modal con la clave de participante después de inscribirse.
+ * @param {string} nombreParticipante - Nombre del participante
+ * @param {string} participanteKey - Clave de participante
+ * @returns {Promise<void>}
+ */
+export async function mostrarClaveParticipante(nombreParticipante, participanteKey) {
+    await Swal.fire({
+        title: `🎉 ¡Bienvenido, ${nombreParticipante}!`,
+        html: mostrarClaveHTML(participanteKey, 'Participante'),
+        icon: 'success',
+        confirmButtonText: '✅ Ya guardé mi clave',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        width: '650px',
+        customClass: {
+            popup: 'modal-contenido',
+            title: 'modal-titulo',
+            htmlContainer: 'modal-body',
+            confirmButton: 'modal-btn modal-btn-primario',
+            actions: 'modal-acciones'
+        }
+    });
+}
+
+/**
+ * Genera el HTML para mostrar una clave con botón de copiar.
+ * @param {string} clave - La clave a mostrar
+ * @param {string} tipoClave - Tipo de clave ('Administrador' o 'Participante')
+ * @returns {string} HTML formateado
+ */
+function mostrarClaveHTML(clave, tipoClave) {
+    return `
+        <div class="modal-campo">
+            <label class="modal-label">🔑 Clave de ${tipoClave}</label>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <input 
+                    type="text" 
+                    class="modal-input" 
+                    value="${clave}" 
+                    readonly 
+                    style="flex: 1; user-select: all; font-family: 'Courier New', monospace; font-weight: bold;">
+                <button 
+                    type="button"
+                    class="modal-btn modal-btn-primario"
+                    onclick="copiarClave('${clave}', this)"
+                    style="flex: 0 0 auto; padding: 0.85rem 1.5rem;">
+                    📋 Copiar
+                </button>
+            </div>
+            <p class="modal-ayuda" style="color: #fbbf24; margin-top: 1rem; font-style: normal;">
+                <strong>⚠️ IMPORTANTE:</strong> Ésta clave se muestra <strong>UNA SOLA VEZ</strong>.<br>
+                Guardala en un lugar seguro antes de continuar.
+            </p>
+        </div>
+    `;
+}
+
+/**
+ * Función global para copiar clave al portapapeles.
+ * Se llama desde el botón en el HTML generado.
+ * @param {string} clave - Clave a copiar
+ * @param {HTMLElement} boton - Elemento del botón
+ */
+window.copiarClave = async function (clave, boton) {
+    try {
+        await navigator.clipboard.writeText(clave);
+        const textoOriginal = boton.innerHTML;
+        boton.innerHTML = '✅ Copiado';
+        setTimeout(() => {
+            boton.innerHTML = textoOriginal;
+        }, 2000);
+    } catch (error) {
+        console.error('Error al copiar:', error);
+        boton.innerHTML = '❌ Error';
+
+        setTimeout(() => {
+            boton.innerHTML = '📋 Copiar';
+        }, 2000);
+    }
+};
+
+/**
+ * Muestra un modal de confirmación para acciones destructivas.
+ * @param {Object} options - Opciones de configuración
+ * @param {string} options.title - Título del modal
+ * @param {string} options.text - Texto descriptivo
+ * @param {string} options.confirmText - Texto del botón de confirmar, por defecto 'Confirmar'
+ * @param {string} options.cancelText - Texto del botón de cancelar, por defecto 'Cancelar'
+ * @returns {Promise<boolean>} true si confirmó, false si canceló
+ */
+export async function confirmarAccion({ title, text, confirmText = 'Confirmar', cancelText = 'Cancelar' }) {
+    const result = await Swal.fire({
+        title: title,
+        text: text,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: confirmText,
+        cancelButtonText: cancelText,
+        reverseButtons: true,
+        customClass: {
+            popup: 'modal-contenido',
+            title: 'modal-titulo',
+            htmlContainer: 'modal-body',
+            confirmButton: 'modal-btn modal-btn-primario',
+            cancelButton: 'modal-btn modal-btn-secundario',
+            actions: 'modal-acciones'
+        }
+    });
+
+    return result.isConfirmed;
+}
+
+/**
+ * Muestra un prompt para ingresar texto con validación.
+ * @param {Object} options - Opciones de configuración
+ * @param {string} options.title - Título del prompt
+ * @param {string} options.text - Texto descriptivo
+ * @param {string} options.inputPlaceholder - Placeholder del input
+ * @param {string} options.valorEsperado - Valor que debe coincidir (opcional)
+ * @returns {Promise<string|null>} Valor ingresado o null si canceló
+ */
+export async function solicitarTexto({ title, text, inputPlaceholder, valorEsperado = null }) {
+    const result = await Swal.fire({
+        title: title,
+        html: text,
+        input: 'text',
+        inputPlaceholder: inputPlaceholder,
+        showCancelButton: true,
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar',
+        customClass: {
+            popup: 'modal-contenido',
+            title: 'modal-titulo',
+            htmlContainer: 'modal-body',
+            input: 'modal-input',
+            confirmButton: 'modal-btn modal-btn-primario',
+            cancelButton: 'modal-btn modal-btn-secundario',
+            actions: 'modal-acciones'
+        },
+        inputValidator: (value) => {
+            if (!value) {
+                return 'Este campo es obligatorio';
+            }
+            if (valorEsperado && value !== valorEsperado) {
+                return 'El valor ingresado no coincide';
+            }
+        }
+    });
+
+    return result.isConfirmed ? result.value : null;
+}
+
+/**
+ * Muestra una notificación toast en la esquina de la página.
+ * @param {Object} options - Opciones de configuración
+ * @param {string} options.icon - 'success' | 'error' | 'warning' | 'info'
+ * @param {string} options.title - Título del toast
+ * @param {number} options.timer - Duración en ms (por defecto 3000)
+ */
+export function mostrarToast({ icon, title, timer = 3000 }) {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: timer,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+    });
+
+    Toast.fire({
+        icon: icon,
+        title: title
+    });
+}
+
+/**
+ * Muestra un mensaje de error formateado.
+ * @param {string} mensaje - Mensaje de error
+ */
+export async function mostrarError(mensaje) {
+    await Swal.fire({
+        title: '❌ Error',
+        text: mensaje,
+        icon: 'error',
+        confirmButtonText: 'Entendido',
+        customClass: {
+            popup: 'modal-contenido',
+            title: 'modal-titulo',
+            htmlContainer: 'modal-body',
+            confirmButton: 'modal-btn modal-btn-secundario',
+            actions: 'modal-acciones'
+        }
+    });
+}
+
+/**
+ * Muestra un mensaje de éxito simple.
+ * @param {string} mensaje - Mensaje de éxito
+ */
+export async function mostrarExito(mensaje) {
+    await Swal.fire({
+        title: '✅ Éxito',
+        text: mensaje,
+        icon: 'success',
+        confirmButtonText: 'Continuar',
+        timer: 2000,
+        timerProgressBar: true,
+        customClass: {
+            popup: 'modal-contenido',
+            title: 'modal-titulo',
+            htmlContainer: 'modal-body',
+            confirmButton: 'modal-btn modal-btn-primario',
+            actions: 'modal-acciones'
+        }
+    });
+}

@@ -1,0 +1,41 @@
+{
+  "torneo_id": "0700",
+  "partidos": [
+    {
+      "partido_id": "0001",
+      "participante1_id": "0001",
+      "participante2_id": "0002",
+      "fecha": "2025-12-01",
+      "jugado_en": "El galpón",
+      "resultado1": 4,
+      "resultado2": 2
+    },
+    {
+      "partido_id": "0002",
+      "participante1_id": "0003",
+      "participante2_id": "0004",
+      "fecha": "2025-11-30",
+      "jugado_en": "El galpón",
+      "resultado1": 3,
+      "resultado2": 5
+    },
+    {
+      "partido_id": "0003",
+      "participante1_id": "0001",
+      "participante2_id": "0002",
+      "fecha": "2025-12-02",
+      "jugado_en": "El galpón",
+      "resultado1": 2,
+      "resultado2": 2
+    },
+    {
+      "partido_id": "0004",
+      "participante1_id": "0004",
+      "participante2_id": "0003",
+      "fecha": "2025-12-03",
+      "jugado_en": "El galpón",
+      "resultado1": 0,
+      "resultado2": 6
+    }
+  ]
+}

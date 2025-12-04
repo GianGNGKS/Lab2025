@@ -13,7 +13,6 @@
     box-shadow: 0 5px 15px var(--color-sombra-1);
 }
 
-/** Caja "énfasis torneos" */
 .torneos_box {
     background-color: var(--color-secundario-2);
     box-shadow: 0 5px 15px var(--color-sombra-1);

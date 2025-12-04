@@ -1,0 +1,65 @@
+<div id="modal-partido" class="modal" style="display: none;">
+    <div class="modal-overlay"></div>
+    <div class="modal-contenido">
+        <form id="form-partido" class="modal-formulario">
+            <!-- Header -->
+            <div class="modal-header">
+                <div class="modal-titulo-container">
+                    <h2 id="modal-partido-titulo" class="modal-titulo">Crear nuevo partido</h2>
+                    <small class="modal-ayuda">Elegí entre dos participantes y cargá el resultado!</small>
+                </div>
+                <div class="modal-acciones">
+                    <button type="submit" class="modal-btn modal-btn-primario">
+                        <span id="btn-partido-texto">Crear Partido</span>
+                    </button>
+                    <button type="button" class="modal-btn modal-btn-secundario boton_cancel">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+            <!-- Body -->
+            <div class="modal-body">
+                <div class="modal-grid">
+                    <!-- Participantes -->
+                    <div class="modal-campo">
+                        <label for="modal-participante1" class="modal-label">Participante 1</label>
+                        <select id="modal-participante1" name="participante1" required class="modal-select">
+                            <option value="">Seleccionar participante 1...</option>
+                        </select>
+                    </div>
+                    <div class="modal-campo">
+                        <label for="modal-participante2" class="modal-label">Participante 2</label>
+                        <select id="modal-participante2" name="participante2" required class="modal-select">
+                            <option value="">Seleccionar participante 2...</option>
+                        </select>
+                    </div>
+                    <!-- Resultado 1-->
+                    <div class="modal-campo">
+                        <label for="modal-resultado1" class="modal-label">Resultado Participante 1</label>
+                        <input type="number" id="modal-resultado1" name="resultado1" class="modal-input"
+                            min="0" placeholder="0">
+                        <small class="modal-ayuda">Opcional: dejá en blanco para 0-0</small>
+                    </div>
+                    <!-- Resultado 2-->
+                    <div class="modal-campo">
+                        <label for="modal-resultado2" class="modal-label">Resultado Participante 2</label>
+                        <input type="number" id="modal-resultado2" name="resultado2" class="modal-input"
+                            min="0" placeholder="0">
+                        <small class="modal-ayuda">Opcional: dejá en blanco para 0-0</small>
+                    </div>
+                    <!-- Lugar -->
+                    <div class="modal-campo">
+                        <label for="modal-jugado_en" class="modal-label">Lugar</label>
+                        <input type="text" id="modal-jugado_en" name="jugado_en" class="modal-input"
+                            placeholder="Ej: Estadio Municipal">
+                    </div>
+                    <!-- Fecha -->
+                    <div class="modal-campo">
+                        <label for="modal-fecha" class="modal-label">Fecha del partido</label>
+                        <input type="date" id="modal-fecha" name="fecha" class="modal-input" required>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

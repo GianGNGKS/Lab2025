@@ -1,0 +1,49 @@
+{
+  "torneo_id": "0700",
+  "participantes": [
+    {
+      "id": "0001",
+      "nombre": "Los Matafuego",
+      "participante_key_hashed": "$2b$10$1oUuwplbAMvScoR82uQiNuSsurKmxLAFJrsKqYWGGVKjrTtPi6Qjq",
+      "creado_en": "2025-12-03T21:34:33.019Z",
+      "partidos_jugados": 2,
+      "ganados": 1,
+      "empatados": 1,
+      "perdidos": 0,
+      "puntos": 4
+    },
+    {
+      "id": "0002",
+      "nombre": "El Tridente",
+      "participante_key_hashed": "$2b$10$F1mm2NVWMkjgQS3yqK4bFuuPHAN2whPNrcjLJ.wENEQn8aQc3GQwy",
+      "creado_en": "2025-12-03T21:34:45.628Z",
+      "partidos_jugados": 2,
+      "ganados": 0,
+      "empatados": 1,
+      "perdidos": 1,
+      "puntos": 1
+    },
+    {
+      "id": "0003",
+      "nombre": "La Furia",
+      "participante_key_hashed": "$2b$10$Hc9bprGacBDJn7RJUFguA.dEz1cPXo/NimT1Jt9KSmR5ZLGmVXpda",
+      "creado_en": "2025-12-03T21:34:57.423Z",
+      "partidos_jugados": 2,
+      "ganados": 1,
+      "empatados": 0,
+      "perdidos": 1,
+      "puntos": 3
+    },
+    {
+      "id": "0004",
+      "nombre": "Suplentes FC",
+      "participante_key_hashed": "$2b$10$b1XSu9vClWwTcXYrtztbXujFBDDb0H9fdhE2sm7sed5B8AmDhyOu2",
+      "creado_en": "2025-12-03T21:35:11.508Z",
+      "partidos_jugados": 2,
+      "ganados": 1,
+      "empatados": 0,
+      "perdidos": 1,
+      "puntos": 3
+    }
+  ]
+}

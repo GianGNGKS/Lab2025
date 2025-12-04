@@ -81,14 +81,6 @@
     color: var(--color-secundario-4);
 }
 
-.torneos_relacionados {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 6rem;
-}
-
 .banner_torneo_titulo {
     font-size: 2rem;
     font-family: var(--fuente-secundaria);
@@ -148,10 +140,23 @@
 }
 
 .navbar_opciones_secundario {
-    color: var(--color-error-2);
+    color: var(--color-error-1);
 }
 
 .navbar_opciones_secundario:hover {
     background-color: var(--color-secundario-1);
     color: white;
+}
+
+/* Estilos para los partidos en vista de admin*/
+/* Ocultar columna de acciones por defecto */
+.col-acciones {
+    display: none;
+}
+
+/* Mostrar columna de acciones solo en vista admin */
+body.admin-view .col-acciones {
+    display: table-cell;
+    width: 100px;
+    text-align: center;
 }

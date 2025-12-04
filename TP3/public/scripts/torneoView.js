@@ -1,16 +1,16 @@
-import { renderizarTorneo, getTorneos, getParticipantes, getPartidos } from '/scripts/torneos.js';
+import { renderizarTorneo, getParticipantes, getPartidos } from '/scripts/torneos.js';
 import { cargarComponentesComunes } from '/scripts/main.js';
-import { formatearFecha, generarColorAleatorio } from '/scripts/utilities.js';
+import {
+    formatearFecha, generarColorAleatorio, mostrarClaveParticipante,
+    confirmarAccion, solicitarTexto, mostrarError, mostrarExito
+} from '/scripts/utilities.js';
 import { cargarModal, abrirModalEditar } from '/scripts/modalTorneo.js';
+import { cargarModalPartido, abrirModalEditarPartido, abrirModalCrearPartido } from '/scripts/modalPartido.js';
 
 /**
  * @file Archivo dedicado a la carga y renderización de aspectos de un torneo en particular.
- */
+*/
 
-
-/** * Almacena el torneo actualmente visualizado en la página.
- * @type {Object|null}
- */
 let torneoActual = null;
 let listaParticipantes;
 let listaPartidos;
@@ -20,13 +20,11 @@ let listaPartidos;
  * Carga componentes comunes, obtiene el ID del torneo desde la URL, busca el torneo
  * y renderiza su información junto con la lista de participantes y edita el banner.
  */
-/**
- * Función principal que se ejecuta al cargar la página de la vista de un torneo.
- */
 async function main() {
     try {
         await cargarComponentesComunes();
         await cargarModal();
+        await cargarModalPartido();
 
         const params = new URLSearchParams(window.location.search);
         const idURL = params.get('id');
@@ -36,56 +34,49 @@ async function main() {
         }
 
         //1. Obtiene la lista completa de torneos
-        const listaTorneos = await getTorneos();
+        const response = await fetch(`/api/torneos/${idURL}`);
 
-        if (!listaTorneos || listaTorneos.length === 0) {
-            throw new Error('No se pudieron obtener los torneos');
+        if (!response.ok) {
+            throw new Error(`Error al obtener el torneo: ${response.status}`);
         }
 
-        //2. Busca el torneo con el ID proporcionado
-        torneoActual = listaTorneos.find(torneo => torneo.torneo_id == idURL);
+        torneoActual = await response.json();
 
-        if (!torneoActual) {
-            throw new Error(`No se encontró el torneo con ID: ${idURL}`);
-        }
-
-        //3. Renderiza la información del torneo
-        renderizarTorneo('info-torneo-placeholder', torneoActual);
+        //2. Renderiza la información del torneo
         await editarBanner(torneoActual);
+        renderizarTorneo('info-torneo-placeholder', torneoActual);
 
-        //4. Obtiene participantes y partidos
+        //3. Obtiene participantes y partidos
         const [participantesData, partidosData] = await Promise.allSettled([
             getParticipantes(torneoActual.torneo_id),
             getPartidos(torneoActual.torneo_id)
         ]);
 
-        //5. Procesa y renderiza los datos obtenidos, si existen
+        //4. Procesa y renderiza los datos obtenidos, si existen
         if (participantesData.status === 'fulfilled' && participantesData.value?.participantes) {
             listaParticipantes = participantesData.value.participantes.map(p => ({
                 ...p,
                 color: generarColorAleatorio()
             }));
         } else {
-            console.warn('No se pudieron cargar participantes:', participantesData.reason);
             listaParticipantes = [];
         }
 
         if (partidosData.status === 'fulfilled' && partidosData.value?.partidos) {
             listaPartidos = partidosData.value.partidos;
         } else {
-            console.warn('No se pudieron cargar partidos:', partidosData.reason);
             listaPartidos = [];
         }
 
         renderizarParticipantes('info-participantes-placeholder', listaParticipantes);
         renderizarPartidos('info-partidos-placeholder', listaPartidos);
 
-        //5.1 Activa interacciones si hay participantes
+        //5.1 Activa la interacción si hay participantes
         if (listaParticipantes.length > 0) {
             activarInteraccionTablas();
         }
 
-        //6. Activa interacción en el header, como editar o eliminar torneo
+        //6. Activa la interacción en el header
         activarInteracciónHeader();
         document.querySelector('main')?.classList.add('fade-in');
     } catch (error) {
@@ -101,10 +92,7 @@ async function main() {
 async function renderizarParticipantes(idContainer, dataParticipantes) {
     const container = document.getElementById(idContainer);
 
-    if (!container) {
-        console.error(`No se encontró el contenedor: ${idContainer}`);
-        return;
-    }
+    if (!container) return;
 
     const displayParticipantes = document.createElement('div');
 
@@ -133,7 +121,10 @@ async function renderizarParticipantes(idContainer, dataParticipantes) {
         return;
     }
 
-    // 3. Llena la tabla con los datos de los participantes
+    //3. Ordena por puntos con orden descendente
+    dataParticipantes.sort((a, b) => b.puntos - a.puntos);
+
+    // 4. Llena la tabla con los datos de los participantes
     dataParticipantes.forEach(participante => {
         const row = document.createElement('tr');
         row.classList.add('fila-participante');
@@ -165,13 +156,12 @@ async function renderizarParticipantes(idContainer, dataParticipantes) {
 async function renderizarPartidos(idContainer, dataPartidos) {
     const container = document.getElementById(`info-partidos-placeholder`);
 
-    if (!container) {
-        console.error(`Contenedor con id '${idContainer}' no encontrado.`);
-        return;
-    }
+    if (!container) return;
 
     const displayPartidos = document.createElement('div');
     displayPartidos.id = "info-partidos";
+
+    const esAdmin = document.body.classList.contains('admin-view');
 
     // 1. Define el HTML de la tabla de partidos
     displayPartidos.innerHTML =
@@ -180,10 +170,11 @@ async function renderizarPartidos(idContainer, dataPartidos) {
                 <table class="tabla_torneos">
                     <thead class="tabla-liga-head">
                         <th>Fecha</th>
-                        <th>Jornada</th>
-                        <th>Equipo 1</th>
+                        <th>Jugado en</th>
+                        <th>Participante 1</th>
                         <th>Resultado</th>
-                        <th>Equipo 2</th>
+                        <th>Participante 2</th>
+                        <th class="col-acciones">Acciones</th>
                     </thead>
                     <tbody class="tabla-liga-body">
                     </tbody>
@@ -196,29 +187,46 @@ async function renderizarPartidos(idContainer, dataPartidos) {
     const tbody = displayPartidos.querySelector('tbody');
 
     if (!dataPartidos || dataPartidos.length === 0) {
-        tbody.innerHTML = '<tr class="fila-vacio"><td colspan="5">No hay partidos registrados para este torneo.</td></tr>';
+        const colspan = esAdmin ? 6 : 5;
+        tbody.innerHTML = `<tr class="fila-vacio"><td colspan="${colspan}">No hay partidos registrados para este torneo.</td></tr>`;
         return;
     }
 
     // 2. Llena la tabla con los datos de los partidos
     dataPartidos.forEach(partido => {
-        const participante1 = procesarParticipante(partido.p1_id);
-        const participante2 = procesarParticipante(partido.p2_id);
-        const resultado = (partido.res1 !== null && partido.res2 !== null) ? `${partido.res1} - ${partido.res2}` : 'vs';
+        const participante1 = procesarParticipante(partido.participante1_id);
+        const participante2 = procesarParticipante(partido.participante2_id);
+
+        const res1 = partido.resultado1 || 0;
+        const res2 = partido.resultado2 || 0;
+        const resultado = `${res1} - ${res2}`;
 
         const row = document.createElement('tr');
         row.classList.add('fila-partido');
-        row.dataset.p1Id = partido.p1_id;
-        row.dataset.p2Id = partido.p2_id;
+        row.dataset.partidoId = partido.partido_id;
+        row.dataset.p1Id = partido.participante1_id;
+        row.dataset.p2Id = partido.participante2_id;
 
         row.innerHTML = `
                 <td><span class="tabla_texto">${formatearFecha(partido.fecha)}</span></td>
-                <td><span class="tabla_texto">${partido.jornada}</span></td>
-                <td><span class="color-participante" style="background-color: ${participante1.color};"></span>
-                <span class="tabla_texto">${participante1.nombre}</span></td>
-                <td><span class="tabla_texto">${resultado}</span></td>
-                <td><span class="color-participante" style="background-color: ${participante2.color};"></span>
-                <span class="tabla_texto">${participante2.nombre}</span></td>
+                <td><span class="tabla_texto">${partido.jugado_en || 'N/A'}</span></td>
+                <td>
+                    <span class="color-participante" style="background-color: ${participante1.color};"></span>
+                    <span class="tabla_texto">${participante1.nombre}</span>
+                </td>
+                <td><span class="tabla_texto resultado-partido">${resultado}</span></td>
+                <td>
+                    <span class="color-participante" style="background-color: ${participante2.color};"></span>
+                    <span class="tabla_texto">${participante2.nombre}</span>
+                </td>
+                <td class="acciones-partido col-acciones">
+                    <button class="btn-editar-partido" data-partido-id="${partido.partido_id}" style="display: none;">
+                        ✏️
+                    </button>
+                    <button class="btn-eliminar-partido" data-partido-id="${partido.partido_id}" style="display: none;">
+                        ❌
+                    </button>
+                </td>
             `;
         tbody.appendChild(row);
     });
@@ -255,6 +263,7 @@ async function editarBanner(torneo) {
     const bannerFondo = document.getElementById(`banner`);
     const imageUrl = torneo.portadaURL;
     bannerFondo.style.backgroundImage = `linear-gradient(to left, rgba(0,0,0,0.6), rgba(0,0,0,0.95)), url('${imageUrl}')`;
+    bannerFondo.classList.add('cargado');
 }
 
 /**
@@ -266,15 +275,9 @@ function activarInteraccionTablas() {
     const filasParticipantes = document.querySelectorAll('.fila-participante');
     const seccionPartidos = document.getElementById('info-partidos');
 
-    if (filasParticipantes.length === 0) {
-        console.error("No se encontraron filas de participantes ('.fila-participante').");
-        return;
-    }
+    if (filasParticipantes.length === 0) return;
 
-    if (!seccionPartidos) {
-        console.error("No se encontró la sección de partidos (id='info-partidos').");
-        return;
-    }
+    if (!seccionPartidos) return;
 
     // 1. Agrega el evento click a cada fila de participante
     filasParticipantes.forEach(fila => {
@@ -317,19 +320,13 @@ document.addEventListener('click', () => {
 
 /**
  * Función que activa la interacción en el header del torneo.
- * Obtiene la id del header y actiiva un botón con 2 futuras opciones.
- * Si se ingresa una id de administrador, se muestran las opciones de editar y eliminar torneo. Además
- * de la edición de partidos y participantes (pendiente de implementar).
+ * Si se ingresa una id de administrador válida, se muestran las opciones de edición del torneo.
  * Si se ingresa una id de usuario normal, se muestra la opción de darse de baja del torneo.
- * @returns 
  */
 async function activarInteracciónHeader() {
     //1. Selecciona el contenedor de opciones del header
     const headerOpciones = document.getElementById('header_torneo_opciones');
-    if (!headerOpciones) {
-        console.error("No se encontró el contenedor de opciones del header.");
-        return;
-    }
+    if (!headerOpciones) return;
 
     //2. Crea el botón de ingreso de id y el botón de inscripción a torneo.
     const botonInscripcion = document.createElement('li');
@@ -349,42 +346,33 @@ async function activarInteracciónHeader() {
     const tokenExistente = sessionStorage.getItem(`torneo_${torneoId}_token`);
 
     if (tokenExistente) {
-        console.log('Token encontrado en sessionStorage. Verificando validez...');
-
         const esValido = await verificarValidezToken(tokenExistente, torneoId);
 
         if (esValido) {
-            console.log('Auto-login: Token válido. Mostrando opciones de admin...');
             mostrarOpcionesAdmin(headerOpciones, tokenExistente);
             return;
         } else {
-            console.log('Token expirado o inválido. Eliminando de sessionStorage...');
             sessionStorage.removeItem(`torneo_${torneoId}_token`);
         }
     }
 
-    //3. Agrega el evento click al botón (solo si no hay auto-login)
+    //3. Agrega el evento click al botón, si no hay auto-login
     botonIngresoId.addEventListener('click', async (event) => {
         event.preventDefault();
 
         // 3.1 Pide la clave de administrador
-        const adminKey = prompt(
-            `🔐 AUTENTICACIÓN\n\n` +
-            `Torneo: ${torneoActual.nombre}\n\n` +
-            `Ingresa tu clave de administrador:`
-        );
+        const adminKey = await solicitarTexto({
+            title: '🔐 AUTENTICACIÓN',
+            text: `Torneo: ${torneoActual.nombre}\n\nIngresa tu clave de administrador:`
+        });
 
-        if (!adminKey || adminKey.trim() === '') {
-            console.log('Autenticación cancelada');
-            return;
-        }
+        if (!adminKey || adminKey.trim() === '') return;
 
         // 3.2 Verifica la clave con el servidor
         try {
             const torneoId = torneoActual.torneo_id;
-            console.log(`Verificando clave para torneo ${torneoId}...`);
 
-            const response = await fetch(`/api/torneos/${torneoId}/verificar-key-admin`, {
+            const response = await fetch(`/api/torneos/${torneoId}/auth/admin`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ admin_key: adminKey })
@@ -392,23 +380,18 @@ async function activarInteracciónHeader() {
 
             const resultado = await response.json();
 
-            // 3.3 Determina tipo de usuario según la respuesta
+            // 3.3 Determina el tipo de usuario según la respuesta
             if (response.ok && resultado.valid) {
-                console.log('Usuario autenticado como ADMIN');
-
                 sessionStorage.setItem(`torneo_${torneoId}_token`, resultado.token);
-
-                alert(`✅ Autenticación exitosa\n\nAhora podés editar tu torneo.`);
-
+                await mostrarExito(`✅ Autenticación exitosa.\n\nAhora podés editar "${torneoActual.nombre}".`);
                 mostrarOpcionesAdmin(headerOpciones, resultado.token);
             }
         } catch (error) {
-            console.error('Error al verificar credenciales:', error);
-            alert(`❌ Error de conexión\n\n${error.message}`);
+            await mostrarError('❌ Error al verificar credenciales. Por favor, intentá más tarde.');
         }
     });
 
-    // 4. Inicializa botón de inscripción al torneo
+    // 4. Inicializa el botón de inscripción al torneo
     botonInscripcion.addEventListener('click', (event) => {
         //4.1. Carga el prompt para ingresar datos de inscripción
         event.preventDefault();
@@ -416,8 +399,9 @@ async function activarInteracciónHeader() {
     }
     );
 
+    // 5. Inicializa el botón de baja del torneo
     botonBajaTorneo.addEventListener('click', async (event) => {
-        //5. Carga el prompt para ingresar clave de participante
+        //5.1 Carga el prompt para ingresar clave de participante
         event.preventDefault();
         const respuesta = await validarClaveParticipante();
         if (respuesta) {
@@ -427,40 +411,32 @@ async function activarInteracciónHeader() {
 }
 
 async function validarClaveParticipante() {
-    // 1. Pedi la clave del participante
-    const participanteKey = prompt(
-        `🔐 BAJA DE TORNEO\n\n` +
-        `Torneo: ${torneoActual.nombre}\n\n` +
-        `Ingresá tu clave de participante:`
-    );
+    // 1. Pide la clave del participante
+    const participanteKey = await solicitarTexto({
+        title: `🔐 BAJA DE TORNEO`,
+        text: `Torneo: ${torneoActual.nombre}. Por favor, ingresá la clave de participante:`
+    });
 
-    if (!participanteKey || participanteKey.trim() === '') {
-        console.log('Baja cancelada');
-        return;
-    }
+    if (!participanteKey || participanteKey.trim() === '') return;
 
-    //2. Validar la clave con el servidor
-    const respuesta = await fetch(`/api/torneos/${torneoActual.torneo_id}/verificar-key-participante`, {
+    //2. Valida la clave con el servidor
+    const respuesta = await fetch(`/api/torneos/${torneoActual.torneo_id}/auth/participante`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ participante_key: participanteKey })
     });
 
     if (!respuesta.ok) {
-        console.log('Error en la verificación de la clave de participante');
-        alert(`❌ Error en la verificación de la clave de participante.`);
+        await mostrarError('❌ Error en la verificación de la clave de participante. Por favor, intentá más tarde.');
         return false;
     }
 
     const resultado = await respuesta.json();
-    console.log('Resultado de la verificación de clave de participante:', resultado);
 
     if (resultado.valid) {
-        console.log(`Clave de participante válida: ${resultado.participante_id}`);
         return resultado.participante_id;
     } else {
-        console.log('Clave de participante inválida');
-        alert(`❌ Clave de participante inválida. No se puede procesar la baja.`);
+        mostrarError(`❌ Clave de participante inválida. No se puede procesar la baja.`);
         return false;
     }
 }
@@ -474,27 +450,21 @@ async function validarClaveParticipante() {
  */
 async function verificarValidezToken(token, torneoId) {
     try {
-        // Decodificar el token para verificar expiración (sin validar firma)
+        // 1. Decodifica el token para verificar la expiración
         const payload = JSON.parse(atob(token.split('.')[1]));
 
-        // Verificar si el token expiró
+        // 2. Verifica si el token expiró
         const ahora = Math.floor(Date.now() / 1000);
         if (payload.exp && payload.exp < ahora) {
-            console.log('Token expirado');
             return false;
         }
 
-        // Verificar que el token corresponda a este torneo
+        // 3. Verifica que el token corresponda a este torneo
         if (payload.torneo_id !== torneoId) {
-            console.log('Token no corresponde a este torneo');
             return false;
         }
-
-        console.log('Token válido (verificación local)');
         return true;
-
     } catch (error) {
-        console.error('Error al verificar token:', error);
         return false;
     }
 }
@@ -505,16 +475,15 @@ async function verificarValidezToken(token, torneoId) {
  * @param {string} token - Token JWT ya validado
  */
 function mostrarOpcionesAdmin(id_contenedor, token) {
-    // Verificar que tenemos el token
-    if (!token) {
-        console.error('No se proporcionó token. No se pueden mostrar opciones de admin.');
-        return;
-    }
+    // 1. Verifica que haya un token
+    if (!token) return;
 
-    // Limpiar contenedor
+    document.body.classList.add('admin-view');
+
+    // 2. Limpia contenedor
     id_contenedor.innerHTML = '';
 
-    // Crear opciones de admin
+    // 3. Crea opciones de admin
     const opcionesAdmin = document.createElement('ul');
     opcionesAdmin.classList.add('navbar_links');
     opcionesAdmin.innerHTML = `
@@ -529,8 +498,8 @@ function mostrarOpcionesAdmin(id_contenedor, token) {
             </a>
         </li>
         <li>
-            <a href="#" id="btn-header-editar-partidos" class="navbar_link navbar_opciones_primario">
-                ⚽ Editar Partidos
+            <a href="#" id="btn-header-crear-partido" class="navbar_link navbar_opciones_primario">
+                ⚽ Crear Partido
             </a>
         </li>
         <li>
@@ -547,12 +516,12 @@ function mostrarOpcionesAdmin(id_contenedor, token) {
 
     id_contenedor.replaceWith(opcionesAdmin);
 
-    // Vincular eventos después de un tick
+    // 4. Vincula eventos a los botones
     setTimeout(() => {
         const btnEditar = document.getElementById('btn-header-editar');
         const btnAddParticipante = document.getElementById('btn-header-agregar-participante');
-        //const btnEditarPartidos = document.getElementById('btn-header-editar-partidos');
-        const btnEliminar = document.getElementById('btn-header-eliminar');
+        const btnCrearPartido = document.getElementById('btn-header-crear-partido');
+        const btnEliminarTorneo = document.getElementById('btn-header-eliminar');
         const btnCerrarSesion = document.getElementById('btn-header-cerrar-sesion');
 
         if (btnEditar) {
@@ -569,8 +538,15 @@ function mostrarOpcionesAdmin(id_contenedor, token) {
             });
         }
 
-        if (btnEliminar) {
-            btnEliminar.addEventListener('click', (e) => {
+        if (btnCrearPartido) {
+            btnCrearPartido.addEventListener('click', (e) => {
+                e.preventDefault();
+                abrirModalCrearPartido(torneoActual.torneo_id, listaParticipantes);
+            });
+        }
+
+        if (btnEliminarTorneo) {
+            btnEliminarTorneo.addEventListener('click', (e) => {
                 e.preventDefault();
                 eliminarTorneo();
             });
@@ -583,73 +559,135 @@ function mostrarOpcionesAdmin(id_contenedor, token) {
             });
         }
 
-        // Activar todos los botones de eliminación de participantes
+        activarBotonesEditarPartido();
+
+        // 5. Activa todos los botones de eliminación de participantes
         const btnsElimParticipante = document.querySelectorAll('.btn-elim-participante');
         btnsElimParticipante.forEach(btn => {
-            // Mostrar botón
+            // 5.1 Muestra botón
             btn.style.display = 'inline-block';
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
 
-                // Obtener la fila padre (tr)
+                // 5.2 Obtiene la fila padre (tr)
                 const fila = btn.closest('tr.fila-participante');
 
-                if (!fila) {
-                    console.error('No se encontró la fila padre del botón');
-                    return;
-                }
-                // Obtener el ID del dataset
+                if (!fila) return; 
+                // 5.3 Obtiene el ID del dataset
                 const participanteId = fila.dataset.participanteId;
 
-                if (!participanteId) {
-                    console.error('No se encontró el ID del participante en la fila');
-                    return;
-                }
+                if (!participanteId) return;
 
-                console.log(`ID del participante a eliminar: ${participanteId}`);
-
-                // Llamar a la función de eliminación
+                // 5.4 Llama a la función de eliminación
                 eliminarParticipante(participanteId);
             });
         });
-        console.log('Opciones de admin activadas');
     }, 50);
+}
+
+/**
+ * Activa los botones de editar partido en la tabla (solo para admins).
+ */
+function activarBotonesEditarPartido() {
+    const btnsEditar = document.querySelectorAll('.btn-editar-partido');
+    const btnsEliminar = document.querySelectorAll('.btn-eliminar-partido');
+
+    btnsEditar.forEach(btn => {
+        // 1. Muestra botón
+        btn.style.display = 'inline-block';
+
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const partidoId = btn.dataset.partidoId;
+            const partido = listaPartidos.find(p => p.partido_id === partidoId);
+
+            if (!partido) {
+                mostrarError('❌ Error: Partido no encontrado');
+                return;
+            }
+            abrirModalEditarPartido(torneoActual.torneo_id, partido, listaParticipantes);
+        });
+    });
+
+    btnsEliminar.forEach(btn => {
+        // 2. MUestra botón
+        btn.style.display = 'inline-block';
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const partidoId = btn.dataset.partidoId;
+
+            const confirmar = await confirmarAccion({
+                title: `❌ ¿Eliminar este partido?`,
+                text: `⚠️ Esta acción es irreversible.`
+            });
+
+            if (!confirmar) {
+                return;
+            }
+
+            try {
+                const token = sessionStorage.getItem(`torneo_${torneoActual.torneo_id}_token`);
+                const response = await fetch(
+                    `/api/torneos/${torneoActual.torneo_id}/partidos/${partidoId}`,
+                    {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }
+                );
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Error al eliminar partido');
+                }
+
+                await mostrarExito('✅ Partido eliminado correctamente. Recargando la página...');
+                location.reload();
+            } catch (error) {
+                await mostrarError(`❌ Error al eliminar partido: ${error.message}`);
+                return;
+            }
+        });
+    });
 }
 
 // Agrega a un participante a un torneo.
 async function agregarParticipante() {
-    // Verificar que haya un torneo cargado
+    // 1. Verifica que haya un torneo cargado
     if (!torneoActual) {
-        console.log('No hay torneo cargado');
-        alert('❌ No hay torneo cargado');
+        await mostrarError('❌ No hay torneo cargado');
         return;
     }
-    // Verificar si hay plazas disponibles
+    // 2. Verifica si hay plazas disponibles
     if (listaParticipantes.length >= torneoActual.nro_participantes) {
-        console.log('No hay plazas disponibles para nuevos participantes en este torneo.');
-        alert('❌ No hay plazas disponibles para nuevos participantes en este torneo.');
+        await mostrarError('❌ No hay plazas disponibles para nuevos participantes en este torneo.');
         return;
     }
 
-    //1. Pedir nombre del participante
-    const nombreParticipante = prompt(
-        `➕ AGREGAR NUEVO PARTICIPANTE\n\n` +
-        `Ingresá el nombre del participante:`
-    ).trim();
+    // 3. Pide el nombre del participante
+    const nombreParticipante = await solicitarTexto(
+        {
+            title: '➕ Inscribir participante',
+            text: `Torneo: ${torneoActual.nombre}. Por favor, ingresá el nombre del participante:`,
+            inputPlaceholder: 'Nombre del participante...'
+        }
+    );
 
     if (!nombreParticipante || nombreParticipante === '') {
-        console.log('Agregar participante cancelado');
-        alert('❌ Operación cancelada. No se agregó ningún participante.');
         return;
     }
 
-    //2. Llamar a ruta '/api/torneos/:id/participantes' (POST) para implementar participante.
+    // 4. Invoca el endpoint para agregar participante
     try {
         const torneoId = torneoActual.torneo_id;
-        console.log(`Agregando participante "${nombreParticipante}" al torneo ${torneoId}...`);
         const bodyData = JSON.stringify({ nombre: nombreParticipante });
-        console.log('Datos enviados:', bodyData);
 
         const response = await fetch(
             `/api/torneos/${torneoId}/participantes`,
@@ -666,41 +704,15 @@ async function agregarParticipante() {
         }
 
         const resultado = await response.json();
-        console.log('Respuesta:', resultado);
 
-        //3. Mostrar clave y mensaje de éxtio
-        alert(
-            `🎉 ¡Inscripción exitosa!\n\n` +
-            `Participante: ${resultado.nombre}\n` +
-            `ID: ${resultado.participante_id}\n\n` +
-            `🔑 TU CLAVE DE PARTICIPANTE:\n\n` +
-            `${resultado.participante_key}\n\n` +
-            `⚠️ IMPORTANTE:\n` +
-            `• Ésta clave se muestra UNA SOLA VEZ\n` +
-            `• Copiala AHORA (Ctrl+C), sin ella NO podrás editar tu participación\n` +
-            `• Guardala en un lugar seguro`
-        );
+        // 5. Muestra la clave
+        await mostrarClaveParticipante(resultado.nombre, resultado.participante_key);
 
-        const copiado = confirm(
-            `¿Copiaste tu clave?\n\n` +
-            `${resultado.participante_key}\n\n` +
-            `Click OK si ya la guardaste\n` +
-            `Click CANCELAR para verla de nuevo`
-        );
-
-        if (!copiado) {
-            prompt(
-                `Por favor, copiá tu clave de participante:`,
-                resultado.participante_key
-            );
-        }
-
-        alert(`✅ Ya estás inscrito en el torneo.\n\nLa página se recargará.`);
+        await mostrarExito('✅ Participante agregado con éxito. Recargando la página...');
         location.reload();
 
     } catch (error) {
-        console.error('Error al agregar participante:', error);
-        alert(`❌ Error: ${error.message}`);
+        await mostrarError(`❌ Error: ${error.message}`);
     }
 
 }
@@ -709,17 +721,17 @@ async function agregarParticipante() {
 /**
  * Cierra la sesión de administrador.
  */
-function cerrarSesionAdmin() {
-    const confirmar = confirm(
-        '¿Cerrar sesión de administrador?\n\n' +
-        'Tendrás que volver a ingresar tu clave para editar el torneo.'
-    );
+async function cerrarSesionAdmin() {
+    const confirmar = await confirmarAccion({
+        title: '¿Cerrar sesión de administrador?\n\n',
+        text: 'Tendrás que volver a ingresar tu clave para editar el torneo.'
+    });
 
     if (confirmar) {
         const torneoId = torneoActual.torneo_id;
         sessionStorage.removeItem(`torneo_${torneoId}_token`);
-        console.log('Sesión de admin cerrada.');
-        alert('✅ Sesión cerrada. Recargando la página.');
+        document.body.classList.remove('admin-view');
+        await mostrarExito('✅ Sesión de administrador cerrada. Recargando la página...');
         location.reload();
     }
 }
@@ -729,29 +741,26 @@ function cerrarSesionAdmin() {
  * @param {string} participanteId - ID del participante a eliminar
  */
 async function eliminarParticipante(participanteId) {
-    // 1. Buscar el participante en la lista
-    console.log(`Eliminando participante con ID: ${participanteId}`);
+    // 1. Busca el participante en la lista
     const participante = listaParticipantes.find(p => p.id === participanteId);
 
     if (!participante) {
-        alert('❌ Participante no encontrado.');
+        mostrarError('❌ Participante no encontrado.');
         return;
     }
-    console.log("Participante encontrado:", participante);
 
     // 2. Confirmación
-    const confirmar = confirm(
-        `❌ ¿Eliminar al participante "${participante.nombre}"?\n\n` +
-        `⚠️ Esta acción es irreversible.`
-    );
+    const confirmar = await confirmarAccion({
+        title: '⚠️ ¿Eliminar participante?',
+        text: `Estás a punto de eliminar a "${participante.nombre}" del torneo.`
+    });
 
     if (!confirmar) {
-        console.log('Eliminación cancelada.');
         return;
     }
 
     try {
-        // 3. Llamar al endpoint DELETE     
+        // 3. Llama al endpoint DELETE     
         const response = await fetch(
             `/api/torneos/${torneoActual.torneo_id}/participantes/${participanteId}`,
             {
@@ -766,17 +775,13 @@ async function eliminarParticipante(participanteId) {
             const error = await response.json();
             throw new Error(error.error || 'Error al eliminar participante');
         }
-
-        const resultado = await response.json();
-        console.log('Respuesta:', resultado);
-
-        // 5. Mostrar mensaje de éxito
-        alert(`✅ Participante "${participante.nombre}" eliminado con éxito.`);
+        
+        // 4. Muestra mensaje de éxito
+        await mostrarExito(`✅ Participante "${participante.nombre}" eliminado con éxito.`);
         location.reload();
 
     } catch (error) {
-        console.error('Error al eliminar participante:', error);
-        alert(`❌ Error: ${error.message}`);
+        mostrarError(`❌ Error: ${error.message}`);
     }
 }
 
@@ -784,36 +789,32 @@ async function eliminarParticipante(participanteId) {
  * Elimina el torneo actual después de confirmar con el administrador.
  */
 async function eliminarTorneo() {
+    // 1. Verifica que haya un torneo cargado
     if (!torneoActual) {
-        alert('❌ No hay torneo cargado');
+        mostrarError('❌ No hay torneo cargado');
         return;
     }
 
-    // Confirmación 1
-    const confirmacion1 = confirm(
-        `❌ ¿Eliminar el torneo "${torneoActual.nombre}"?\n\n` +
-        `⚠️ ADVERTENCIA: Esta acción es IRREVERSIBLE.\n` +
-        `Se eliminarán todos los datos del torneo.`
-    );
+    // 2. Confirmación 1
+    const confirmacion1 = await confirmarAccion({
+        title: `❌ ¿Eliminar el torneo "${torneoActual.nombre}"?`,
+        text: `⚠️ ADVERTENCIA: Esta acción es IRREVERSIBLE.`
+    });
 
-    if (!confirmacion1) {
-        console.log('Eliminación cancelada');
-        return;
-    }
+    if (!confirmacion1) return;
 
-    // Confirmación 2: escribir el nombre
-    const confirmacion2 = prompt(
-        `Para confirmar, escribe el nombre exacto del torneo:\n\n` +
-        `"${torneoActual.nombre}"`
-    );
+    // 3. Confirmación 2: escribir el nombre
+    const confirmacion2 = await solicitarTexto({
+        title: `Confirmar eliminación`,
+        text: `Escribí el nombre del torneo para confirmar su eliminación:`
+    });
 
     if (confirmacion2 !== torneoActual.nombre) {
-        alert('❌ Nombre no coincide. Eliminación cancelada.');
+        await mostrarError('❌ Nombre no coincide. Eliminación cancelada.');
         return;
     }
 
     try {
-        console.log(`Eliminando torneo ID: ${torneoActual.torneo_id}`);
         const token = sessionStorage.getItem(`torneo_${torneoActual.torneo_id}_token`);
 
         if (!token) {
@@ -834,10 +835,9 @@ async function eliminarTorneo() {
         }
 
         const resultado = await response.json();
-        console.log('Respuesta:', resultado);
         sessionStorage.removeItem(`torneo_${torneoActual.torneo_id}_token`);
 
-        alert(
+        await mostrarExito(
             `✅ ${resultado.message}\n\n` +
             `Redirigiendo al catálogo.`
         );
@@ -847,8 +847,7 @@ async function eliminarTorneo() {
         }, 1000);
 
     } catch (error) {
-        console.error('Error al eliminar torneo:', error);
-        alert(`❌ Error: ${error.message}`);
+        mostrarError(`❌ Error: ${error.message}`);
     }
 }
 

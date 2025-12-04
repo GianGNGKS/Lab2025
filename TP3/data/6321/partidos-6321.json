@@ -1,0 +1,50 @@
+{
+  "torneo_id": "6321",
+  "partidos": [
+    {
+      "partido_id": "0001",
+      "participante1_id": "0001",
+      "participante2_id": "0002",
+      "fecha": "2025-03-21",
+      "jugado_en": "Estadio Alfredo Ramos",
+      "resultado1": 2,
+      "resultado2": 1
+    },
+    {
+      "partido_id": "0002",
+      "participante1_id": "0003",
+      "participante2_id": "0004",
+      "fecha": "2025-04-11",
+      "jugado_en": "BS AS",
+      "resultado1": 0,
+      "resultado2": 0
+    },
+    {
+      "partido_id": "0003",
+      "participante1_id": "0005",
+      "participante2_id": "0006",
+      "fecha": "2025-06-30",
+      "jugado_en": "Tucumán",
+      "resultado1": 0,
+      "resultado2": 3
+    },
+    {
+      "partido_id": "0004",
+      "participante1_id": "0001",
+      "participante2_id": "0002",
+      "fecha": "2025-07-19",
+      "jugado_en": "Estadio Alfredo Ramos",
+      "resultado1": 1,
+      "resultado2": 0
+    },
+    {
+      "partido_id": "0005",
+      "participante1_id": "0005",
+      "participante2_id": "0003",
+      "fecha": "2025-08-16",
+      "jugado_en": "Tucumán",
+      "resultado1": 2,
+      "resultado2": 2
+    }
+  ]
+}

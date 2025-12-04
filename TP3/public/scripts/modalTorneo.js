@@ -1,4 +1,7 @@
-import { DISCIPLINAS, ESTADO_TORNEO } from '/scripts/utilities.js';
+import {
+    DISCIPLINAS, ESTADO_TORNEO, mostrarClaveAdministrador, mostrarError, mostrarExito,
+    mostrarToast
+} from '/scripts/utilities.js';
 
 /**
  * @file Módulo para gestionar el modal de creación/edición de torneos
@@ -12,10 +15,7 @@ let modalCargado = false;
  */
 export async function cargarModal() {
     // 1. Verifica si ya se cargó el modal
-    if (modalCargado) {
-        console.log('Modal ya cargado, saltando...');
-        return;
-    }
+    if (modalCargado) return;
 
     // 2. Carga el HTML del modal
     try {
@@ -34,10 +34,12 @@ export async function cargarModal() {
 
             inicializarEventListeners();
             modalCargado = true;
-            console.log('Modal cargado correctamente');
         }
     } catch (error) {
-        console.error('Error al cargar el modal de torneos:', error);
+        await mostrarToast({
+            icon: 'error',
+            message: `Error al cargar el modal de torneos: ${error.message}`
+        });
     }
 }
 
@@ -48,10 +50,7 @@ function poblarSelectDisciplinas() {
     const select = document.getElementById('modal-disciplina');
 
     // 1. Verifica si el select existe
-    if (!select) {
-        console.error('Select de disciplina no encontrado');
-        return;
-    }
+    if (!select) return;
 
     // 2. Limpia opciones existentes
     select.innerHTML = '';
@@ -59,9 +58,9 @@ function poblarSelectDisciplinas() {
     // 3. Agrega opciones dinámicamente
     Object.values(DISCIPLINAS).forEach((disciplina, index) => {
         const option = document.createElement('option');
-        option.value = index; // El índice será el valor (0, 1, 2, 3, 4)
+        option.value = index;
         option.textContent = disciplina.nombreDisplay;
-        option.dataset.valorJson = disciplina.valorJSON; // Para referencia
+        option.dataset.valorJson = disciplina.valorJSON;
         select.appendChild(option);
     });
 }
@@ -73,10 +72,7 @@ function poblarSelectEstados() {
     const select = document.getElementById('modal-estado');
 
     // 1. Verifica si el select existe
-    if (!select) {
-        console.error('Select de estado no encontrado');
-        return;
-    }
+    if (!select) return;
 
     // 2. Limpia opciones existentes
     select.innerHTML = '';
@@ -86,7 +82,7 @@ function poblarSelectEstados() {
         const option = document.createElement('option');
         option.value = estado.valorJSON;
         option.textContent = estado.nombreDisplay;
-        option.dataset.className = estado.className; // Para referencia
+        option.dataset.className = estado.className;
         select.appendChild(option);
     });
 }
@@ -102,8 +98,7 @@ function inicializarEventListeners() {
     const form = document.getElementById('form-torneo');
 
     if (!form) {
-        console.error('Formulario no encontrado!');
-        return;
+        throw new Error('Formulario no encontrado.');
     }
 
     // 2. Añade los event listeners
@@ -118,7 +113,6 @@ function inicializarEventListeners() {
 
     // 3. Maneja el envío del formulario
     form.addEventListener('submit', async (e) => {
-        console.log('Submit event capturado!');
         e.preventDefault();
         await manejarEnvio(e);
     });
@@ -142,9 +136,12 @@ export function abrirModalCrear() {
     form.reset();
 
     // 2. Establece los valores por defecto
-    document.getElementById('modal-disciplina').value = '0'; // Primera disciplina
-    document.getElementById('modal-estado').value = '0'; // Sin comenzar
+    document.getElementById('modal-disciplina').value = '0';
+    document.getElementById('modal-estado').value = '0';
     document.getElementById('modal-nro-participantes').value = '8';
+    const hoy = new Date().toISOString().split('T')[0];
+    document.getElementById('modal-fecha-inicio').value = hoy;
+    document.getElementById('modal-fecha-fin').value = hoy;
 
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
@@ -172,7 +169,6 @@ export async function abrirModalEditar(datosTorneo) {
         d => d.valorJSON === datosTorneo.disciplina
     );
     document.getElementById('modal-disciplina').value = disciplinaIndex >= 0 ? disciplinaIndex : 0;
-
     document.getElementById('modal-formato').value = datosTorneo.formato || 'Liga';
     document.getElementById('modal-estado').value = datosTorneo.estado ?? 0;
     document.getElementById('modal-nro-participantes').value = datosTorneo.nro_participantes || 8;
@@ -183,6 +179,7 @@ export async function abrirModalEditar(datosTorneo) {
     document.getElementById('modal-tags').value = datosTorneo.tags?.join(', ') || '';
     document.getElementById('modal-descripcion').value = datosTorneo.descripcion || '';
 
+    //3. Muestra el modal
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
@@ -207,6 +204,7 @@ export function cerrarModal() {
 async function manejarEnvio(event) {
     // 1. Previene el comportamiento por defecto
     event.preventDefault();
+
     // 2. Obtiene los datos del formulario
     const form = event.target;
     const formData = new FormData(form);
@@ -223,14 +221,14 @@ async function manejarEnvio(event) {
 
         // 3. Valida la disciplina seleccionada
         if (!disciplinaSeleccionada) {
-            throw new Error('Disciplina no válida');
+            throw new Error('Disciplina no válida.');
         }
 
-        //4. Extraer imagen de portada
+        // 4. Extrae imagen de portada
         const archivoImagen = formData.get('imagen');
         const existeImagen = archivoImagen && archivoImagen.size > 0;
 
-        // 4. Prepara los datos para enviar
+        // 5. Prepara los datos para enviar
         const datos = {
             nombre: formData.get('nombre'),
             disciplina: disciplinaSeleccionada.valorJSON,
@@ -249,11 +247,9 @@ async function manejarEnvio(event) {
 
         let response;
 
-        // 5. Realiza la solicitud según el modo
+        // 6. Realiza la solicitud según el modo
         if (modoActual === 'crear') {
-            /////////////////////////////////////////
-            // 5.1 CREAR torneo
-            /////////////////////////////////////////
+            // 6.1 CREAR torneo
             response = await fetch('/api/torneos', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -262,72 +258,47 @@ async function manejarEnvio(event) {
 
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.error || 'Error al crear el torneo');
+                throw new Error(error.error || 'Error al crear el torneo.');
             }
 
             const resultado = await response.json();
             const torneoId = resultado.torneo_id;
 
-            console.log(`Torneo ${torneoId} creado con éxito`);
-
-            // 5.1.2. Si hay imagen, subirla
+            // 5.1.2. Si hay imagen, la sube
             if (existeImagen) {
                 try {
                     const imagenFormData = new FormData();
                     imagenFormData.append('imagen', archivoImagen);
 
-                    const responseImagen = await fetch(`/api/imagenes/torneos/${torneoId}`, {
+                    const responseImagen = await fetch(`/api/torneos/${torneoId}/portada`, {
                         method: 'POST',
                         body: imagenFormData
                     });
 
                     if (!responseImagen.ok) {
                         const errorImagen = await responseImagen.json();
-                        console.warn('Torneo creado pero falló al subir imagen:', errorImagen.error);
+                        await mostrarToast({
+                            icon: 'warning',
+                            message: `Torneo creado pero falló al subir imagen: ${errorImagen.error}.`
+                        });
                     }
                 } catch (error) {
-                    console.warn('Error al subir imagen:', error);
+                    console.warn('Error al subir imagen:', error,'.');
                 }
             }
 
             // 6.1 Mostrar clave y redirigir
             cerrarModal();
-
-            alert(
-                `🎉 ¡Torneo "${datos.nombre}" creado con éxito!\n\n` +
-                `🔑 CLAVE DE ADMINISTRADOR:\n\n` +
-                `${resultado.admin_key}\n\n` +
-                `⚠️ IMPORTANTE:\n` +
-                `• Ésta clave se muestra UNA SOLA VEZ\n` +
-                `• Copiala AHORA (Ctrl+C), sin ella NO podrás editar el torneo\n` +
-                `• Guárdala en un lugar seguro`
-            );
-
-            const copiado = confirm(
-                `¿Copiaste tu clave?\n\n` +
-                `${resultado.admin_key}\n\n` +
-                `Click OK si ya la guardaste\n` +
-                `Click CANCELAR para verla de nuevo`
-            );
-
-            if (!copiado) {
-                prompt(
-                    `Por favor, copiá tu clave de administrador:`,
-                    resultado.admin_key
-                );
-            }
-
+            await mostrarClaveAdministrador(datos.nombre, resultado.admin_key);
             window.location.href = `/torneoView?id=${torneoId}`;
 
         } else {
-            /////////////////////////////////////////
             // 5.2 EDITAR torneo
-            /////////////////////////////////////////
             const token = sessionStorage.getItem(`torneo_${torneoActualId}_token`);
 
             if (!token) {
                 throw new Error(
-                    'No tenés autorización para editar este torneo.\n\n' +
+                    'No tenés autorización para editar este torneo.' +
                     'Tenés que autenticarte primero haciendo click en "🔐 Opciones Torneo".'
                 );
             }
@@ -343,16 +314,16 @@ async function manejarEnvio(event) {
 
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.error || 'Error al editar el torneo');
+                throw new Error(error.error || 'Error al editar el torneo.');
             }
 
-            // 5.2.5. Si hay imagen, subirla
+            // 5.2.5. Si hay imagen, la sube
             if (existeImagen) {
                 try {
                     const imagenFormData = new FormData();
                     imagenFormData.append('imagen', archivoImagen);
 
-                    const responseImagen = await fetch(`/api/imagenes/torneos/${torneoActualId}`, {
+                    const responseImagen = await fetch(`/api/torneos/${torneoActualId}/portada`, {
                         method: 'POST',
                         headers: { 'Authorization': `Bearer ${token}` },
                         body: imagenFormData
@@ -360,21 +331,25 @@ async function manejarEnvio(event) {
 
                     if (!responseImagen.ok) {
                         const errorImagen = await responseImagen.json();
-                        console.warn('Torneo editado pero falló al subir imagen:', errorImagen.error);
+                        await mostrarToast({
+                            icon: 'warning',
+                            message: `Torneo editado pero falló al subir imagen: ${errorImagen.error}.`
+                        });
                     }
                 } catch (error) {
-                    console.warn('Error al subir imagen:', error);
+                    console.warn('Error al subir imagen:', error,'.');
                 }
             }
 
-            alert(`✅ Torneo actualizado con éxito`);
+            await mostrarExito(`✅ Torneo actualizado con éxito.`);
             cerrarModal();
             window.location.reload();
         }
 
     } catch (error) {
+        cerrarModal();
         console.error('Error:', error);
-        alert(`❌ Error: ${error.message}`);
+        await mostrarError(`❌ Error: ${error.message}`);
 
         btnSubmit.disabled = false;
         btnTexto.textContent = textoOriginal;

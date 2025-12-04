@@ -1,0 +1,27 @@
+{
+  "torneo_id": "3771",
+  "participantes": [
+    {
+      "id": "0001",
+      "nombre": "Dona",
+      "participante_key_hashed": "$2b$10$Mu90F1OpwN2mcHeXCtHWPO/tVkp9M8vKddDHdCopGS1EWkeKf7pLK",
+      "creado_en": "2025-12-04T02:04:46.827Z",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "0002",
+      "nombre": "Ricardo",
+      "participante_key_hashed": "$2b$10$S4ITMc//4ZfkZB.77/523OhJFnTOV3wwT4wl06FcLntN8bQ7CXT7q",
+      "creado_en": "2025-12-04T02:04:51.856Z",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    }
+  ]
+}

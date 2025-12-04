@@ -1,0 +1,71 @@
+{
+  "torneo_id": "5120",
+  "participantes": [
+    {
+      "id": "0001",
+      "nombre": "Rush B Tactics",
+      "participante_key_hashed": "$2b$10$OXp8x1r6NMEhhNuoeeMUCe6WIPwGGSJ4orC4CLseY4Q8VERXNNcO2",
+      "creado_en": "2025-12-03T21:59:05.199Z",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "0002",
+      "nombre": "AWPs",
+      "participante_key_hashed": "$2b$10$n6LPIrOKRSpYUnfnYgYRhO1Y.QhZPrDfaNuF0pciOaCW.FnCIa2Q6",
+      "creado_en": "2025-12-03T21:59:18.328Z",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "0003",
+      "nombre": "Clutch Kings",
+      "participante_key_hashed": "$2b$10$7vjr51/I1AnH93aYSOAsM.OwsWkuhv9FRfPMzQnfT9wrn6wyRepuq",
+      "creado_en": "2025-12-03T22:00:23.858Z",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "0004",
+      "nombre": "Smoke Criminals",
+      "participante_key_hashed": "$2b$10$HON8OZ3uJaCJz7CiwE72iuKhFIaWET2Dgyop9NUPT.n0sGNi690gu",
+      "creado_en": "2025-12-03T22:00:40.448Z",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "0005",
+      "nombre": "Gian",
+      "participante_key_hashed": "$2b$10$SsLx8StyWcHsFhQc2KrjPOOpiQ8MyHEGvWCfbsuCAgkcgsU.JqIoe",
+      "creado_en": "2025-12-03T22:10:37.411Z",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "0006",
+      "nombre": "tribios-demiurge-1822",
+      "participante_key_hashed": "$2b$10$TrPWOHpXFywjq9nowpm5kuxkMwnLtydP4z.Yytr1i53cSeoPMIYtO",
+      "creado_en": "2025-12-03T22:13:38.367Z",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    }
+  ]
+}

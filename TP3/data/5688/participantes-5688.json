@@ -1,0 +1,38 @@
+{
+  "torneo_id": "5688",
+  "participantes": [
+    {
+      "id": "0001",
+      "nombre": "Rainbow7",
+      "participante_key_hashed": "$2b$10$j525qNEvvBO640Fd5CLrLOik1SDWiLexGyuQpRXOyuZTQs2gPHpxK",
+      "creado_en": "2025-12-03T21:43:13.135Z",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "0002",
+      "nombre": "Isarus Gaming",
+      "participante_key_hashed": "$2b$10$.Pe/URUVZjB3c6UJqNYomua9DtUo0aQKdUhbKp9ZiupWYyXGEJcNi",
+      "creado_en": "2025-12-03T21:43:32.802Z",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "0003",
+      "nombre": "Astral Esports",
+      "participante_key_hashed": "$2b$10$FoLOfaR8U0/cskya8OZkA.Iahajuxd0RrCJuQn043Cwmm0Py8X/GS",
+      "creado_en": "2025-12-03T21:43:49.906Z",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    }
+  ]
+}

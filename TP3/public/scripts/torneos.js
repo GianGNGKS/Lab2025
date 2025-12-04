@@ -5,26 +5,6 @@
 import { getDisplayInfo, formatearFecha } from '/scripts/utilities.js';
 
 /**
- * Obtiene la lista completa de torneos desde la API del servidor.
- * @returns {Promise<Array>} Array de objetos de torneos.
- */
-export async function getTorneos() {
-    try {
-        const response = await fetch('/api/torneos');
-
-        if (!response.ok) {
-            throw new Error(`Error HTTP: ${response.status}`);
-        }
-
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error al obtener torneos:', error);
-        return null;
-    }
-}
-
-/**
  * Obtiene datos relacionados a un torneo específico (participantes, partidos, etc.).
  * @param {string} recurso - El tipo de recurso a obtener ('participantes', 'partidos', etc.).
  * @param {string} torneo_id - El ID del torneo para el cual se obtendrán los datos.
@@ -132,14 +112,14 @@ export async function renderizarTorneo(idContainer, dataTorneo) {
     if (!container) {
         console.error(`Contenedor con id '${idContainer}' no encontrado.`);
         return;
-    } else {
-        const nombreDisciplina = getDisplayInfo('disciplina', dataTorneo.disciplina).nombreDisplay;
-        const datosEstado = getDisplayInfo('estado', dataTorneo.estado);
+    }
+    const nombreDisciplina = getDisplayInfo('disciplina', dataTorneo.disciplina).nombreDisplay;
+    const datosEstado = getDisplayInfo('estado', dataTorneo.estado);
 
-        const displayTorneo = document.createElement('div');
-        displayTorneo.classList.add('info_grid');
-        displayTorneo.innerHTML =
-            `
+    const displayTorneo = document.createElement('div');
+    displayTorneo.classList.add('info_grid');
+    displayTorneo.innerHTML =
+        `
             <div class="info_torneo_container">
                 <h2 class="info_torneo_titulo">Disciplina</h2>
                 <h3 class="info_torneo_detalles">${nombreDisciplina}</h3>
@@ -179,6 +159,5 @@ export async function renderizarTorneo(idContainer, dataTorneo) {
                 </ul>
             </div>
         `;
-        container.replaceWith(displayTorneo);
-    }
+    container.replaceWith(displayTorneo);
 }

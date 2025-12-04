@@ -1,0 +1,27 @@
+{
+  "torneo_id": "3113",
+  "participantes": [
+    {
+      "id": "0001",
+      "nombre": "Doan",
+      "participante_key_hashed": "$2b$10$ZLN1lE9.i2i9GsHm59VkPezuAkgdhfscmpxMuPGx1eA/j404/cJAi",
+      "creado_en": "2025-12-04T02:41:18.671Z",
+      "partidos_jugados": 1,
+      "ganados": 0,
+      "empatados": 1,
+      "perdidos": 0,
+      "puntos": 1
+    },
+    {
+      "id": "0002",
+      "nombre": "Dona",
+      "participante_key_hashed": "$2b$10$zzpEN64UcIsQkPZ5b3.P4.c1EuriN8JbrH0n9PcF0eXoM.JCAkGLy",
+      "creado_en": "2025-12-04T02:41:24.661Z",
+      "partidos_jugados": 1,
+      "ganados": 0,
+      "empatados": 1,
+      "perdidos": 0,
+      "puntos": 1
+    }
+  ]
+}

@@ -18,7 +18,7 @@ export async function getTorneos() {
         if (cachedData) {
             return JSON.parse(cachedData);
         }
-        const response = await fetch('../data/torneos.json');
+        const response = await fetch('/api/torneos');
 
         if (!response.ok) {
             throw new Error(`Error al cargar el archivo: ${response.statusText}`);

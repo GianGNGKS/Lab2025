@@ -1,0 +1,71 @@
+{
+  "torneo_id": "9344",
+  "participantes": [
+    {
+      "id": "0001",
+      "nombre": "Ciudad Voley",
+      "participante_key_hashed": "$2b$10$74uHLgWjfG/MS3ACv/mXVeRkyiXsPjBX0hSAb2V7be.dFP2R2LOme",
+      "creado_en": "2025-12-03T22:06:25.976Z",
+      "partidos_jugados": 1,
+      "ganados": 1,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 3
+    },
+    {
+      "id": "0002",
+      "nombre": "UPCN San Juan",
+      "participante_key_hashed": "$2b$10$77NVFJL9ZwTcCU94Fu4ka.S0t6rtgqZ6Xf8PE2SXoTAoeBjbDc/Fi",
+      "creado_en": "2025-12-03T22:06:42.638Z",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "0003",
+      "nombre": "Policial de Formosa",
+      "participante_key_hashed": "$2b$10$5GDy9lr43Paw4U.BOL.k3OELNKsaXIDXzmKMxtV08tQaMQS4AC6AW",
+      "creado_en": "2025-12-03T22:06:59.406Z",
+      "partidos_jugados": 0,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 0
+    },
+    {
+      "id": "0004",
+      "nombre": "Boca Juniors",
+      "participante_key_hashed": "$2b$10$VCAPfN4Z6p.9XjgfB4UYXeePNlOKeVG2VTAkjLVgz6/GG76y8U/Gu",
+      "creado_en": "2025-12-03T22:07:29.256Z",
+      "partidos_jugados": 1,
+      "ganados": 1,
+      "empatados": 0,
+      "perdidos": 0,
+      "puntos": 3
+    },
+    {
+      "id": "0005",
+      "nombre": "River Plate",
+      "participante_key_hashed": "$2b$10$pFCc9tsvWLv5NCe/GqoVzuc4C4OP5Zl7GVU4yda0BGL3CXqqPxRhK",
+      "creado_en": "2025-12-03T22:07:41.771Z",
+      "partidos_jugados": 1,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 1,
+      "puntos": 0
+    },
+    {
+      "id": "0006",
+      "nombre": "Ferro",
+      "participante_key_hashed": "$2b$10$muZe0BzwH1bz8kFpWSvF4eWlkxUhdBpQc2rjXPmGG9NUoqNJPBAhq",
+      "creado_en": "2025-12-03T22:07:55.777Z",
+      "partidos_jugados": 1,
+      "ganados": 0,
+      "empatados": 0,
+      "perdidos": 1,
+      "puntos": 0
+    }
+  ]
+}

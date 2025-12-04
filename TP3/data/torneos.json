@@ -1,57 +1,123 @@
 [
   {
-    "torneo_id": "00",
-    "nombre": "Federal A 2025",
-    "portadaURL": "/api/imagenes/torneos/00/football.jpg",
+    "nombre": "Torneo Metropolitano B",
     "disciplina": "futbol",
     "formato": "Liga",
     "estado": 2,
-    "nro_participantes": 10,
-    "organizador": "Consejo Federal",
+    "nro_participantes": 6,
+    "organizador": "AFA",
     "premio": "$$$",
-    "fecha_inicio": "2025-03-14",
-    "fecha_fin": "2025-07-13",
+    "fecha_inicio": "2025-03-05",
+    "fecha_fin": "2025-08-20",
+    "descripcion": "Campeonato regional de la cuarta categoría del fútbol argentino, organizado por la AFA, donde equipos metropolitanos compiten por ascender a la Primera B Nacional.",
     "tags": [
       "Masculino",
       "Profesional"
     ],
-    "descripcion": "El Torneo Federal A es un campeonato de la tercera categoría del fútbol argentino, organizado por el Consejo Federal, órgano interno de la AFA, que busca coronar al mejor equipo de la última división profesional del fútbol argentino."
+    "portadaURL": "/api/torneos/6321/portada",
+    "torneo_id": "6321",
+    "admin_key_hashed": "$2b$10$ziWnPcElCJ5I4g7byM4l/e0zkiNmYEnppd0QyFVTrLNqLwCtolvDS",
+    "creado_en": "2025-12-03T20:43:11.642Z"
   },
   {
-    "torneo_id": "01",
-    "nombre": "Torneo FAI de CS2",
-    "portadaURL": "/api/imagenes/torneos/01/Counter_Strike_2_Logo.png",
+    "nombre": "Copa 3x3",
+    "disciplina": "basket",
+    "formato": "Liga",
+    "estado": 0,
+    "nro_participantes": 8,
+    "organizador": "Asociación Urbana",
+    "premio": "Pelota + Remeras",
+    "fecha_inicio": "2025-12-06",
+    "fecha_fin": "2025-12-07",
+    "descripcion": "La competencia más intensa de la ciudad. Equipos de 3 jugadores, media cancha y reglas FIBA 3x3.",
+    "tags": [
+      "Amateur",
+      "Masculino",
+      "Urbano"
+    ],
+    "portadaURL": "/api/torneos/2816/portada",
+    "torneo_id": "2816",
+    "admin_key_hashed": "$2b$10$6yiyUOfgVb0l9.cA4vPc8eTZA5VH05432hpyBGilenL0Sz/smmAli",
+    "creado_en": "2025-12-03T21:18:16.594Z"
+  },
+  {
+    "nombre": "Copa Amigos",
+    "disciplina": "futbol",
+    "formato": "Liga",
+    "estado": 1,
+    "nro_participantes": 4,
+    "organizador": "Birrete",
+    "premio": "Costillar de 1kg",
+    "fecha_inicio": "2025-12-01",
+    "fecha_fin": "2025-12-05",
+    "descripcion": "Una semana llena de garra, pasión y amistad. Disfrutemos de jugar a la pelota y tomar birra!",
+    "tags": [
+      "Amateur",
+      "Amigos"
+    ],
+    "portadaURL": "/api/torneos/0700/portada",
+    "torneo_id": "0700",
+    "admin_key_hashed": "$2b$10$DvInnJWH3Xlb6vZct3U4LOUwXiPUUF/8TvIRFQyummfWVVotT29.i",
+    "creado_en": "2025-12-03T21:30:09.799Z"
+  },
+  {
+    "nombre": "Clausura del Invocador",
+    "disciplina": "league_of_legends",
+    "formato": "Liga",
+    "estado": 0,
+    "nro_participantes": 10,
+    "organizador": "Riot Games Latam",
+    "premio": "Cupo al mundial",
+    "fecha_inicio": "2025-12-16",
+    "fecha_fin": "2025-12-21",
+    "descripcion": "El torneo más importante de la región. Los mejores equipos compiten por la gloria en la Grieta.",
+    "tags": [
+      "5v5",
+      "Estrategia"
+    ],
+    "portadaURL": "/api/torneos/5688/portada",
+    "torneo_id": "5688",
+    "admin_key_hashed": "$2b$10$DdTnoS1cRPQmh6SoV/m0vO.Txkbu.CAw2WDS7xblhDnAahA7uPZU6",
+    "creado_en": "2025-12-03T21:41:07.457Z"
+  },
+  {
+    "nombre": "CS2 Regional",
     "disciplina": "counter_strike_2",
     "formato": "Liga",
     "estado": 0,
-    "nro_participantes": 7,
-    "organizador": "Centro de estudiantes FAI",
-    "premio": "Indumentaria deportiva",
-    "fecha_inicio": "2025-10-11",
-    "fecha_fin": "2025-10-12",
+    "nro_participantes": 16,
+    "organizador": "Gaming del Sur",
+    "premio": "Dinero para Cajas",
+    "fecha_inicio": "2026-01-15",
+    "fecha_fin": "2026-01-18",
+    "descripcion": "Torneo online de Counter-Strike 2. Formato 5v5 competitivo, mapas activos de la pool oficial. Final presencial (LAN).",
     "tags": [
-      "Counter Strike 2",
-      "Competitivo",
-      "Premios"
+      "Tactical Shooter",
+      "Competitivo"
     ],
-    "descripcion": "Ven a divertirte juntos a tus compañeros en este torneo recreativo de Counter Strike 2 para estudiantes de la facultad de informática! Tenemos comida, agua, premios y muchas ganas de pasarla bien! A que estas esperando?"
+    "portadaURL": "/api/torneos/5120/portada",
+    "torneo_id": "5120",
+    "admin_key_hashed": "$2b$10$vOEDcdSuwW9oUl.TRA55jeycBI2zMW5UiTAdWNSJSMYI.1TcCJTZi",
+    "creado_en": "2025-12-03T21:46:56.163Z"
   },
   {
-    "torneo_id": "02",
-    "nombre": "Nacional de volley",
-    "portadaURL": "/api/imagenes/torneos/02/volley.jpg",
+    "nombre": "Superliga de Voley",
     "disciplina": "volley",
     "formato": "Liga",
-    "estado": 1,
+    "estado": 2,
     "nro_participantes": 6,
-    "organizador": "FMV",
-    "premio": "Copa Milinkovic",
-    "fecha_inicio": "2025-09-27",
-    "fecha_fin": null,
+    "organizador": "FeVA",
+    "premio": "Trofeo Nacional",
+    "fecha_inicio": "2025-10-17",
+    "fecha_fin": "2025-11-24",
+    "descripcion": "Primera división del volleyball nacional femenino.",
     "tags": [
-      "Mayores",
-      "Regiones"
+      "Indoor",
+      "Femenino"
     ],
-    "descripcion": "El Nacional de Voley reúne a los mejores jugadores de la Argentina, uniendolos por regiones, para disputar un torneo único donde se definirá cuál es el mejor semillero del país."
+    "portadaURL": "/api/torneos/9344/portada",
+    "torneo_id": "9344",
+    "admin_key_hashed": "$2b$10$AZ0vrsx02oOGe0MTtqAReel52R.wFpNLXV2z8RcNHA18y8pTAC7JS",
+    "creado_en": "2025-12-03T22:03:34.627Z"
   }
 ]
